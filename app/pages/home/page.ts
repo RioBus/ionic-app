@@ -7,8 +7,8 @@ import { Page, Platform } from 'ionic-angular';
 })
 export class HomePage {
     
-    private static canvas: any;
-    private static map: any;
+    private canvas: Element;
+    private map: any;
     private platform: Platform;
     
     constructor(platform: Platform) {
@@ -18,11 +18,15 @@ export class HomePage {
     
     private initializePage(): void {
         this.platform.ready().then(() => {
-            let div: Element = document.getElementById("map_canvas");
-            let map: Element = plugin.google.maps.Map.getMap(div);
-            map.addEventListener(plugin.google.maps.event.MAP_READY, () => {
+            this.canvas = document.getElementById("map_canvas");
+            this.map = plugin.google.maps.Map.getMap(this.canvas);
+            this.map.addEventListener(plugin.google.maps.event.MAP_READY, () => {
                 console.log("Map ready");
             });
         });
+    }
+    
+    public openSearch(): void {
+        console.log("Ready to open the search view");
     }
 }
