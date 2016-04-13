@@ -8,7 +8,7 @@ import { HomePage }                from './pages/home/page';
   templateUrl: 'build/app.html',
   config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
 })
-export class ClickerApp {
+export class Application {
 
   private rootPage: Type;
   private pages: Array<{title: string, component: Type}>;
