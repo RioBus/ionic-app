@@ -1,6 +1,6 @@
 {
-  "name": "ionic2-blank",
-  "version": "0.0.1",
+  "name": "riobus",
+  "version": "3.0.0",
   "description": "An Ionic project",
   "scripts": {
     "build": "gulp --gulpfile test/gulpfile.ts --cwd ./ ionic.build",
