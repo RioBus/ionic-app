@@ -1,6 +1,7 @@
 'use strict';
 declare var plugin: any;
-import { Page, Platform } from 'ionic-angular';
+import { Page, Platform, NavController } from 'ionic-angular';
+import { SearchPage } from '../search/page';
 
 @Page({
   templateUrl: 'build/pages/home/template.html',
@@ -10,9 +11,11 @@ export class HomePage {
     private canvas: Element;
     private map: any;
     private platform: Platform;
+    private nav: NavController;
     
-    constructor(platform: Platform) {
+    constructor(platform: Platform, nav: NavController) {
         this.platform = platform;
+        this.nav = nav;
         this.initializePage();
     }
     
@@ -27,6 +30,6 @@ export class HomePage {
     }
     
     public openSearch(): void {
-        console.log("Ready to open the search view");
+        this.nav.push(SearchPage);
     }
 }
