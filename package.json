@@ -76,7 +76,14 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    {
+      "variables": {
+        "API_KEY_FOR_ANDROID": "AIzaSyCOOHUdi4xszdxQZPmb3TEwXnTWp9GHurk"
+      },
+      "locator": "cordova-plugin-googlemaps",
+      "id": "plugin.google.maps"
+    }
   ],
   "cordovaPlatforms": [
     "android"
