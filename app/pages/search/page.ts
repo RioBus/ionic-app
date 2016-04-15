@@ -1,5 +1,5 @@
 'use strict';
-import { Page, Platform, NavController, Alert } from 'ionic-angular';
+import { Page, Platform, NavController } from 'ionic-angular';
 import { Line } from '../../models/itinerary';
 import { ItineraryManager } from '../../managers/itinerary';
 import { ItineraryService } from '../../services/itinerary';
