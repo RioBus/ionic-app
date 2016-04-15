@@ -1,4 +1,5 @@
 'use strict';
+declare var navigator: any;
 
 import { Type }                    from 'angular2/core';
 import { App, IonicApp, Platform } from 'ionic-angular';
@@ -19,6 +20,7 @@ export class Application {
   private pages: Array<{title: string, component: Type}>;
   private app: IonicApp;
   private platform: Platform;
+  private backPressed: boolean;
 
   constructor(app: IonicApp, platform: Platform) {
     this.app = app;
@@ -39,9 +41,25 @@ export class Application {
     // navigate to the new page if it is not the current page
     this.app.getComponent('nav').setRoot(page.component);
   }
+  
+  private registerBackButton(): void {
+      document.addEventListener('backbutton', () => {
+        if (this.app.getComponent('nav').canGoBack()) {
+          this.app.getComponent('nav').pop();
+          return;
+        }
+        if(!this.backPressed) {
+          this.backPressed = true;
+          setTimeout(() => this.backPressed = false, 2000);
+          return;
+        }
+        navigator.app.exitApp();
+      }, false);
+  }
 
   private initializeApp(): void {
     this.platform.ready().then(() => {
+      this.registerBackButton();
       // The platform is now ready. Note: if this callback fails to fire, follow
       // the Troubleshooting guide for a number of possible solutions:
       //
