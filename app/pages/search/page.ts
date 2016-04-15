@@ -26,16 +26,17 @@ export class SearchPage {
         this.platform = platform;
         this.nav = nav;
         this.itineraryService = itineraryService;
-        this.initialize();
     }
     
-    private initialize(): void {
-        console.log("Trying to retrieve itinerary headers...");
+    public onPageLoaded(): void {
         this.itineraryService.getItineraries().then((lines: Line[]) => {
             this.lines = lines;
             this.items = lines;
-            console.log(`Found ${lines.length} headers.`);
         });
+    }
+    
+    public onPageWillLeave(): void {
+        console.log("Gonna leave.");
     }
     
     public find(line: Line): void {
