@@ -2,11 +2,16 @@
 
 import { Type }                    from 'angular2/core';
 import { App, IonicApp, Platform } from 'ionic-angular';
-import { HomePage }                from './pages/home/page';
+import { MapPage }                 from './pages/map/page';
+import { SearchPage }              from './pages/search/page';
+import { MapManager }              from './managers/map';
+import { ItineraryService }        from './services/itinerary';
+import { SearchService }           from './services/search';
 
 @App({
   templateUrl: 'build/app.html',
   config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
+  providers: [MapManager, ItineraryService, SearchService]
 })
 export class Application {
 
@@ -16,17 +21,23 @@ export class Application {
   private platform: Platform;
 
   constructor(app: IonicApp, platform: Platform) {
-
     this.app = app;
     this.platform = platform;
-
-    this.rootPage = HomePage;
+    this.rootPage = SearchPage; //HomePage;
     this.initializeApp();
 
     // set our app's pages
     this.pages = [
-      { title: 'Home', component: HomePage }
+      { title: 'Buscar', component: SearchPage },
+      { title: 'Mapa', component: MapPage }
     ];
+  }
+
+  public openPage(page: any): void {
+    // close the menu when clicking a link from the menu
+    this.app.getComponent('leftMenu').close();
+    // navigate to the new page if it is not the current page
+    this.app.getComponent('nav').setRoot(page.component);
   }
 
   private initializeApp(): void {
@@ -47,11 +58,4 @@ export class Application {
       // StatusBar.setStyle(StatusBar.LIGHT_CONTENT)
     });
   }
-
-  public openPage(page: any): void {
-    // close the menu when clicking a link from the menu
-    this.app.getComponent('leftMenu').close();
-    // navigate to the new page if it is not the current page
-    this.app.getComponent('nav').setRoot(page.component);
-  };
 }
