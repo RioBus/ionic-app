@@ -18,6 +18,8 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <preference name="StatusBarBackgroundColor" value="#2b7ed8" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
