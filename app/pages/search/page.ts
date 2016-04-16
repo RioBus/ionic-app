@@ -31,21 +31,17 @@ export class SearchPage {
     public onPageLoaded(): void {
         this.itineraryService.getItineraries().then((lines: Line[]) => {
             this.lines = lines;
-            this.items = lines;
+            this.items = this.sort(lines);
         });
     }
     
-    public onPageWillLeave(): void {
-        console.log("Gonna leave.");
-    }
+    public onPageWillLeave(): void {}
     
     public find(line: Line): void {
-        console.log(`Decided to search for '${line.Line}'.`);
         this.nav.push(MapPage, { query: line.Line });
     }
     
     public findText(): void {
-        console.log(`Decided to search for '${this.queryText}'.`);
         this.nav.push(MapPage, { query: this.queryText });
     }
     
@@ -54,8 +50,21 @@ export class SearchPage {
             this.items = this.lines.filter((value: Line, index: number, lines: Line[]): boolean => {
                 return value.Line.toLowerCase().indexOf(this.queryText.toLowerCase())>-1 || value.Description.toLowerCase().indexOf(this.queryText.toLowerCase())>-1;
             });
+            this.items = this.sort(this.items);
         } else {
-            this.items = this.lines;
+            this.items = this.sort(this.items);
         }
+    }
+    
+    private sort(items: Line[]): Line[] {
+        return items.sort((a: Line, b: Line) => {
+            // if(a.Line > b.Line) return 1;
+            // else if(a.Line < b.Line) return -1;
+            // else return 0;
+            if(!isNaN(parseInt(a.Line)) && !isNaN(parseInt(b.Line))) return (parseInt(a.Line) - parseInt(b.Line));
+            else if(!isNaN(parseInt(a.Line)) && isNaN(parseInt(b.Line))) return -1;
+            else if(isNaN(parseInt(a.Line)) && isNaN(parseInt(b.Line))) return 0;
+            else return 1; 
+        });
     }
 }
