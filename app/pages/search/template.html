@@ -9,10 +9,13 @@
         <ion-list-header>
             Linhas disponíveis
         </ion-list-header>
+        <ion-item *ngIf="Items.length===0 && queryText.length===0">
+            Carregando linhas ...
+        </ion-item>
         <ion-item *ngFor="#item of Items" (click)="find(item)">
             <h2>{{ item.Line }}</h2>
             <p>{{ item.Description }}</p>
         </ion-item>
-        <ion-item *ngIf="Items.length===0 && queryText.length>0" (click)="findText()">Buscar por '{{ queryText }}'...</ion-item>
+        <ion-item *ngIf="Items.length===0 && queryText.length>0" (click)="findText()">Buscar por <b>{{ queryText }}</b> ...</ion-item>
     </ion-list>
 </ion-content>
