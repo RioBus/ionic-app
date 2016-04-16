@@ -52,15 +52,12 @@ export class SearchPage {
             });
             this.items = this.sort(this.items);
         } else {
-            this.items = this.sort(this.items);
+            this.items = this.sort(this.lines);
         }
     }
     
     private sort(items: Line[]): Line[] {
         return items.sort((a: Line, b: Line) => {
-            // if(a.Line > b.Line) return 1;
-            // else if(a.Line < b.Line) return -1;
-            // else return 0;
             if(!isNaN(parseInt(a.Line)) && !isNaN(parseInt(b.Line))) return (parseInt(a.Line) - parseInt(b.Line));
             else if(!isNaN(parseInt(a.Line)) && isNaN(parseInt(b.Line))) return -1;
             else if(isNaN(parseInt(a.Line)) && isNaN(parseInt(b.Line))) return 0;
