@@ -3,7 +3,6 @@ declare var plugin: any, google: any;
 
 import { Modal, NavController, Platform } from 'ionic-angular';
 import { Component } from 'angular2/core';
-import { MapManager } from './manager';
 
 @Component({
     selector: 'google-maps',
@@ -18,12 +17,10 @@ export class GoogleMaps {
     private platform: Platform;
     private canvas: HTMLElement;
     private map: any;
-    private manager: MapManager;
     
     constructor(platform: Platform, nav: NavController) {
         this.platform = platform;
         this.nav = nav;
-        this.manager = MapManager.getInstance();
     }
     
     private ngOnInit(): void {
