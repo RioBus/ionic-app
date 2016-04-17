@@ -76,7 +76,7 @@ export class GoogleMaps implements OnChanges {
                 position: location,
                 title: bus.Line,
                 icon: {
-                    url: `${SERVER_ADDR}/images/bus_green.png`,
+                    url: `www/img/bus_green.png`,
                     size: {
                         width: 40,
                         height: 47
