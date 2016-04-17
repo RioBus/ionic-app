@@ -20,7 +20,7 @@ export class GoogleMaps implements OnChanges {
     private map: any;
     private timer: any;
     private markers: Bus[];
-    private markerList: any[] = [];
+    private markerList: any = {};
     
     constructor(platform: Platform, nav: NavController) {
         this.platform = platform;
@@ -41,36 +41,37 @@ export class GoogleMaps implements OnChanges {
         this.removeMarkers();
     }
     
+    public ngOnChanges(changes: any) {
+        if(!changes.markers.previousValue && this.isArray(changes.markers.currentValue)) {
+            // Just loaded the map view
+            if(Object.keys(this.markerList).length>0) this.removeMarkers();
+            this.insertNewMarkers(changes.markers.currentValue);
+        } else if(this.isArray(changes.markers.previousValue) && this.isArray(changes.markers.currentValue)) {
+            // Received new data
+            if(JSON.stringify(changes.markers.previousValue)!==JSON.stringify(changes.markers.currentValue)) {
+                this.UpdateMarkers(changes.markers.currentValue);
+            } else console.log("Still no changes");
+        }
+    }
+    
     private isArray(value: any): boolean {
         return value instanceof Array;
     }
     
-    public ngOnChanges(changes: any) {
-        if(!changes.markers.previousValue && this.isArray(changes.markers.currentValue)) {
-            // Just loaded the map view
-            if(this.markerList.length>0) this.removeMarkers();
-            this.insertNewMarkers(changes.markers.currentValue);
-        } else if(this.isArray(changes.markers.previousValue) && this.isArray(changes.markers.currentValue)) {
-            // Received new data
-                if(JSON.stringify(changes.markers.previousValue)!==JSON.stringify(changes.markers.currentValue)) {
-                    console.log("The data had an update.");
-                } else console.log("Still no changes");
-        }
-    }
-    
     private removeMarkers(): void {
-        this.markerList.forEach((value, index) => {
-            value.remove();
-            delete this.markers[index];
+        Object.keys(this.markerList).forEach((key: string) => {
+            this.markerList[key].remove();
+            delete this.markerList[key];
         });
     }
     
-    private addMarker(marker: any): void {
-        this.markerList.push(marker);
+    private addMarker(key:string, marker: any): void {
+        this.markerList[key] = marker;
     }
     
     private insertNewMarkers(buses: Bus[]): void {
-        buses.forEach((bus: Bus) => {
+        let positions: any = [];
+        buses.forEach((bus: Bus, index: number) => {
             let location = new plugin.google.maps.LatLng(bus.Latitude, bus.Longitude);
             this.map.addMarker({
                 position: location,
@@ -82,16 +83,40 @@ export class GoogleMaps implements OnChanges {
                         height: 47
                     }
                 }
-            }, (marker) => { this.addMarker(marker); });
+            }, (marker) => {
+                this.addMarker(bus.Order, marker);
+                positions.push(location);
+                if(index===buses.length-1) this.fitBounds(positions);
+            });
         }, this);
     }
     
-    private UpdateMarkers(buses: Bus[], previous: Bus[]): void {
-        if(!previous && this.markers.length>0) {
-            for(let i=0; i<this.markers.length; i++) {
-                this.markerList[i].remove();
-                delete this.markers[i];
+    private fitBounds(points: any[]): void {
+        let bounds = new plugin.google.maps.LatLngBounds(points);
+        this.map.animateCamera({ 'target' : bounds });
+    }
+    
+    private UpdateMarkers(current: Bus[]): void {
+        current.forEach((bus: Bus)=> {
+            let marker = this.markerList[bus.Order];
+            if(!marker) {
+                this.map.addMarker({
+                    position: new plugin.google.maps.LatLng(bus.Latitude, bus.Longitude),
+                    title: bus.Line,
+                    icon: {
+                        url: `www/img/bus_green.png`,
+                        size: {
+                            width: 40,
+                            height: 47
+                        }
+                    }
+                }, (marker) => {
+                    this.addMarker(bus.Order, marker);
+                });
+            } else {
+                let newPosition = new plugin.google.maps.LatLng(bus.Latitude, bus.Longitude);
+                marker.setPosition(newPosition);
             }
-        }
+        });
     }
 }
