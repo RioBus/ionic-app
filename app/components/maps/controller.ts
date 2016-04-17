@@ -1,6 +1,7 @@
 'use strict';
 declare var plugin: any, google: any;
 
+import { SERVER_ADDR } from '../../const';
 import { Modal, NavController, Platform } from 'ionic-angular';
 import { Component, OnChanges } from 'angular2/core';
 import { Bus } from '../../models/bus';
@@ -73,7 +74,14 @@ export class GoogleMaps implements OnChanges {
             let location = new plugin.google.maps.LatLng(bus.Latitude, bus.Longitude);
             this.map.addMarker({
                 position: location,
-                title: bus.Line
+                title: bus.Line,
+                icon: {
+                    url: `${SERVER_ADDR}/images/bus_green.png`,
+                    size: {
+                        width: 40,
+                        height: 47
+                    }
+                }
             }, (marker) => { this.addMarker(marker); });
         }, this);
     }
