@@ -24,10 +24,9 @@ export class GoogleMaps {
         this.platform = platform;
         this.nav = nav;
         this.manager = MapManager.getInstance();
-        this.initializePage();
     }
     
-    private initializePage(): void {
+    private ngOnInit(): void {
         this.platform.ready().then(() => { 
             this.canvas = document.getElementById("map_canvas");
             this.map = plugin.google.maps.Map.getMap(this.canvas);
