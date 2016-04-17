@@ -19,9 +19,14 @@ export class MapPage {
     private service: SearchService;
     private title: string = 'Rio Bus';
     private timer: any;
+    private buses: Bus[];
     
     public get Title(): string {
         return this.title;
+    }
+    
+    public get Markers(): Bus[] {
+        return this.buses;
     }
     
     constructor(platform: Platform, nav: NavController, params: NavParams, service: SearchService) {
@@ -42,6 +47,7 @@ export class MapPage {
     private updateMarkers(): void {
         this.service.getBuses(this.title).then((buses: Bus[]) => {
             console.log(`Found ${buses.length} buses for the query '${this.title}'.`);
+            this.buses = buses;
         });
     }
     
