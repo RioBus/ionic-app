@@ -35,7 +35,13 @@ export class SearchPage {
         });
     }
     
-    public onPageWillLeave(): void {}
+    public onPageWillEnter(): void {
+        document.getElementById('search-view').style.display = 'initial';
+    }
+    
+    public onPageWillLeave(): void {
+        document.getElementById('search-view').style.display = 'none';
+    }
     
     public find(line: Line): void {
         this.nav.push(MapPage, { query: line.Line });
