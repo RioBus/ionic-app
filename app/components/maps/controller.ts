@@ -29,7 +29,12 @@ export class GoogleMaps implements OnChanges {
     
     private ngOnInit(): void {
         this.platform.ready().then(() => {
-            this.map = plugin.google.maps.Map.getMap(document.getElementById("map_canvas"));
+            let centerLocation = new plugin.google.maps.LatLng(-22.9083, -43.1964);
+            this.map = plugin.google.maps.Map.getMap(document.getElementById("map_canvas"), {
+                mapType: plugin.google.maps.MapTypeId.ROADMAP,
+                controls: { compass: true, myLocationButton: true, indoorPicker: false, zoom: false },
+                camera: { latLng: centerLocation, zoom: 12 }
+            });
             this.map.addEventListener(plugin.google.maps.event.MAP_READY, () => {
                 console.log("Map ready");
             });
@@ -37,7 +42,6 @@ export class GoogleMaps implements OnChanges {
     }
     
     private ngOnDestroy(): void {
-        console.log("Leaving map.");
         this.removeMarkers();
     }
     
@@ -48,9 +52,8 @@ export class GoogleMaps implements OnChanges {
             this.insertNewMarkers(changes.markers.currentValue);
         } else if(this.isArray(changes.markers.previousValue) && this.isArray(changes.markers.currentValue)) {
             // Received new data
-            if(JSON.stringify(changes.markers.previousValue)!==JSON.stringify(changes.markers.currentValue)) {
+            if(JSON.stringify(changes.markers.previousValue)!==JSON.stringify(changes.markers.currentValue))
                 this.UpdateMarkers(changes.markers.currentValue);
-            } else console.log("Still no changes");
         }
     }
     
@@ -78,10 +81,7 @@ export class GoogleMaps implements OnChanges {
                 title: bus.Line,
                 icon: {
                     url: `www/img/bus_green.png`,
-                    size: {
-                        width: 40,
-                        height: 47
-                    }
+                    size: { width: 40, height: 47 }
                 }
             }, (marker) => {
                 this.addMarker(bus.Order, marker);
@@ -105,10 +105,7 @@ export class GoogleMaps implements OnChanges {
                     title: bus.Line,
                     icon: {
                         url: `www/img/bus_green.png`,
-                        size: {
-                            width: 40,
-                            height: 47
-                        }
+                        size: { width: 40, height: 47 }
                     }
                 }, (marker) => {
                     this.addMarker(bus.Order, marker);
