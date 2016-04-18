@@ -1,10 +1,10 @@
-# Ionic 2 Seed Project: Karma + Protractor + Travis
+# Rio Bus Ionic app
 
 ## Install & Start
 
 ```bash
-git clone https://github.com/fmsouza/ionic2-blank.git
-cd ionic2-blank
+git clone https://github.com/fmsouza/riobus-ionic.git
+cd riobus-ionic
 npm install       # or `npm run reinstall` if you get an error
 npm start         # start the application (ionic serve)
 ```
