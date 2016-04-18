@@ -11,8 +11,7 @@
     </div>
     <div class="map-col-20 right button-centered">
         <button clear medium (click)="toggleStar()">
-            <img src="img/ic_favorite.png" *ngIf="IsFavorite">
-            <img src="img/ic_not_favorite.png" *ngIf="!IsFavorite">
+            <img src="img/{{ IsFavorite? 'ic_favorite':'ic_not_favorite'}}.png">
         </button>
     </div>
 </div>
