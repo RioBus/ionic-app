@@ -6,13 +6,18 @@ import { Modal, NavController, Platform, Button, Icon } from 'ionic-angular';
 import { Component, OnChanges } from 'angular2/core';
 import { Bus } from '../../models/bus';
 
+let markerIcons: any = {
+    good: 'www/img/bus_green.png',
+    average: 'www/img/bus_yellow.png',
+    bad: 'www/img/bus_red.png'
+};
+
 @Component({
     selector: 'google-maps',
     templateUrl: 'build/components/maps/template.html',
     inputs: ['markers'],
     directives: [Button, Icon],
 })
-
 export class GoogleMaps implements OnChanges {
     
     private nav: NavController;
@@ -99,7 +104,7 @@ export class GoogleMaps implements OnChanges {
                 position: location,
                 title: this.formatInfowindowContent(bus),
                 icon: {
-                    url: `www/img/bus_green.png`,
+                    url: this.getIconPath(bus.Timestamp),
                     size: { width: 40, height: 47 }
                 }
             }, (marker) => {
@@ -119,7 +124,7 @@ export class GoogleMaps implements OnChanges {
                     title: '',
                     snippet: this.formatInfowindowContent(bus),
                     icon: {
-                        url: `www/img/bus_green.png`,
+                        url: this.getIconPath(bus.Timestamp),
                         size: { width: 40, height: 47 }
                     }
                 }, (marker) => {
@@ -130,6 +135,20 @@ export class GoogleMaps implements OnChanges {
                 marker.setPosition(newPosition);
             }
         });
+    }
+    
+    private getIconPath(datetime: Date): string {
+        let time: number = (new Date()).getTime() - datetime.getTime();
+        time = time/1000/60; // minutes
+        if(time>10) {
+            return markerIcons.bad;
+        }
+        else if(time>=5 && time<10) {
+            return markerIcons.average;
+        }
+        else {
+            return markerIcons.good;
+        }
     }
     
     private prepareTimestamp(datetime: Date): string {
