@@ -40,17 +40,21 @@ export class GoogleMaps implements OnChanges {
     }
     
     private ngOnInit(): void {
-        this.platform.ready().then(() => {
-            let centerLocation = new plugin.google.maps.LatLng(-22.9083, -43.1964);
-            this.map = plugin.google.maps.Map.getMap(document.getElementById("map_canvas"), {
-                mapType: plugin.google.maps.MapTypeId.ROADMAP,
-                controls: { compass: true, myLocationButton: true, indoorPicker: false, zoom: false },
-                camera: { latLng: centerLocation, zoom: 12 }
-            });
-            this.map.addEventListener(plugin.google.maps.event.MAP_READY, () => {
-                console.log("Map ready");
-            });
+        this.platform.ready().then(() => { this.onPlatformRedy(); });
+    }
+    
+    private onPlatformRedy(): void {
+        // Map centered in RJ
+        this.map = plugin.google.maps.Map.getMap(document.getElementById("map_canvas"), {
+            mapType: plugin.google.maps.MapTypeId.ROADMAP,
+            controls: { compass: true, myLocationButton: true, indoorPicker: false, zoom: false },
+            camera: { latLng: new plugin.google.maps.LatLng(-22.9083, -43.1964), zoom: 12 }
         });
+        this.map.addEventListener(plugin.google.maps.event.MAP_READY, () => { this.onMapReady(); });
+    }
+    
+    private onMapReady(): void {
+        console.log("Map ready");
     }
     
     private ngOnDestroy(): void {
