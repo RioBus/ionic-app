@@ -4,7 +4,8 @@ div.map-snackbar {
     height: 90px;
     padding: 5px;
     box-shadow: 0 -3px 6px rgba(0,0,0,0.16);
-    position: fixed;
+    position: absolute;
+    z-index: 999;
     bottom: 0;
 }
 
@@ -23,6 +24,10 @@ div.map-snackbar hr {
 
 div.map-snackbar .button-centered {
     padding-top: 20px;
+}
+
+div.map-snackbar .button-centered button img {
+    height: 100%;
 }
 
 div.map-snackbar .centered {
