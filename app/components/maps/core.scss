@@ -2,3 +2,50 @@ div#map_canvas.google-maps {
     width: 100%;
     height: 100%;
 }
+
+div#map_canvas.google-maps div.map-snackbar {
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 90px;
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    box-shadow: 0 -3px 6px rgba(0,0,0,0.16);
+}
+
+div#map_canvas.google-maps div.map-snackbar p.firstline, div#map_canvas.google-maps div.map-snackbar p.secondline {
+    font-size: 16px;
+    text-align: left;
+    color: #868686;
+    margin-top: 3px !important;
+    margin-bottom: 3px !important;
+}
+
+div#map_canvas.google-maps div.map-snackbar hr {
+    background-color: #b6b6b6;
+    width: 100%;
+}
+
+div#map_canvas.google-maps div.map-snackbar .button-centered {
+    padding-top: 20px;
+}
+
+div#map_canvas.google-maps div.map-snackbar .centered {
+    margin-top: 10px;
+}
+
+div#map_canvas.google-maps div.map-snackbar .map-col-20 {
+    width: 19.99999%;
+}
+
+div#map_canvas.google-maps div.map-snackbar .map-col-60 {
+    width: 59.99999%;
+}
+
+div#map_canvas.google-maps div.map-snackbar .left {
+    float: left;
+}
+
+div#map_canvas.google-maps div.map-snackbar .right {
+    float: right;
+}

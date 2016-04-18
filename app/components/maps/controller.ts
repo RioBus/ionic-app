@@ -2,7 +2,7 @@
 declare var plugin: any, google: any;
 
 import { SERVER_ADDR } from '../../const';
-import { Modal, NavController, Platform } from 'ionic-angular';
+import { Modal, NavController, Platform, Button, Icon } from 'ionic-angular';
 import { Component, OnChanges } from 'angular2/core';
 import { Bus } from '../../models/bus';
 
@@ -10,7 +10,7 @@ import { Bus } from '../../models/bus';
     selector: 'google-maps',
     templateUrl: 'build/components/maps/template.html',
     inputs: ['markers: markers'],
-    directives: [],
+    directives: [Button, Icon],
 })
 
 export class GoogleMaps implements OnChanges {
@@ -21,6 +21,16 @@ export class GoogleMaps implements OnChanges {
     private timer: any;
     private markers: Bus[];
     private markerList: any = {};
+    private coming: string = 'SENTIDO';
+    private going: string = 'DESCONHECIDO';
+    
+    public get Coming(): string {
+        return this.coming;
+    }
+    
+    public get Going(): string {
+        return this.going;
+    }
     
     constructor(platform: Platform, nav: NavController) {
         this.platform = platform;
@@ -55,6 +65,19 @@ export class GoogleMaps implements OnChanges {
             if(JSON.stringify(changes.markers.previousValue)!==JSON.stringify(changes.markers.currentValue))
                 this.UpdateMarkers(changes.markers.currentValue);
         }
+        // let lines: string[] = this.markers.map(function(bus: Bus) { return bus.Line; });
+        // lines = lines.filter(function(v,i) { return lines.indexOf(v) === i; });
+        // if(lines.length===1) {
+        //     let bus: Bus = this.markers[0];
+        //     let direction: string = bus.Direction;
+        //     if(direction!=='desconhecido' || direction!=='indisponivel') {
+        //         let tmp: string[] = direction.split(' X ');
+        //         this.coming =
+        //     } else {
+        //         this.coming = 'SENTIDO';
+        //         this.going = 'DESCONHECIDO';
+        //     }
+        // }
     }
     
     private isArray(value: any): boolean {
