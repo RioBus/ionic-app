@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.tormentaLabs.riobus" version="3.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Rio Bus</name>
-    <description>An Ionic Framework and Cordova project.</description>
+    <description>Find your bus in realtime.</description>
     <author email="fred@riob.us" href="http://riob.us/">RioBus Team</author>
     <content src="index.html" />
     <access origin="*" />
@@ -13,6 +13,11 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <icon src="resources/android/icon/ic_launcher-mdpi.png" density="mdpi"/>
+        <icon src="resources/android/icon/ic_launcher-hdpi.png" density="hdpi"/>
+        <icon src="resources/android/icon/ic_launcher-xhdpi.png" density="xhdpi"/>
+        <icon src="resources/android/icon/ic_launcher-xxhdpi.png" density="xxhdpi"/>
+        <icon src="resources/android/icon/ic_launcher-xxxhdpi.png" density="xxxhdpi"/>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
