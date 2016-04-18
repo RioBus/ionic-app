@@ -3,6 +3,7 @@
 import { NavController, Platform, Button, Icon } from 'ionic-angular';
 import { Component } from 'angular2/core';
 import { Line } from '../../models/itinerary';
+import { FavoritesDAO } from '../../dao/favorites';
 
 @Component({
     selector: 'map-snackbar',
@@ -20,6 +21,7 @@ export class MapSnackbar {
     private going: string = 'DESCONHECIDO';
     private line: Line;
     private favorite: boolean = false;
+    private dao: FavoritesDAO;
     
     public get Coming(): string {
         return this.coming;
@@ -36,6 +38,7 @@ export class MapSnackbar {
     constructor(platform: Platform, nav: NavController) {
         this.platform = platform;
         this.nav = nav;
+        this.dao = new FavoritesDAO();
     }
     
     private ngOnInit(): void {
@@ -43,7 +46,14 @@ export class MapSnackbar {
             let tmp: string[] = this.line.Description.split(' X ');
             this.coming = tmp[0];
             this.going = tmp[1];
+            this.dao.getByLine(this.line.Line).then( (line: Line) => {
+                this.onFavoriteCheck(line);
+            }, error => console.log );
         }
+    }
+    
+    private onFavoriteCheck(line: Line): void {
+        if(line!==null) this.favorite = true;
     }
     
     public toggleDirection(): void {
@@ -54,7 +64,17 @@ export class MapSnackbar {
     }
     
     public toggleStar(): void {
-        console.log("Toggling star...");
-        this.favorite = !this.favorite;
+        if(this.favorite) this.dao.remove(this.line).then( (response: boolean) => this.onUnstar(response) );
+        else this.dao.save(this.line).then( (response: boolean) => this.onStar(response) );
+    }
+    
+    private onStar(response: boolean): void {
+        if(response) this.favorite = true;
+        else console.log(`Failed to star the line '${this.line.Line}'`);
+    }
+    
+    private onUnstar(response: boolean): void {
+        if(response) this.favorite = false;
+        else console.log(`Failed to unstar the line '${this.line.Line}'`);
     }
 }
