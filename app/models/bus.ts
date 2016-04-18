@@ -43,7 +43,7 @@ export class Bus {
         return this.timestamp;
     }
     
-    constructor(line: string, order: string, speed: number, directionDegrees: number, latitude: number, longitude: number, direction: string, timestamp: Date) {
+    constructor(line: string, order: string, speed: number, directionDegrees: number, latitude: number, longitude: number, direction: string, timestamp: string) {
         this.line = line;
         this.order = order;
         this.speed = speed;
@@ -51,6 +51,6 @@ export class Bus {
         this.latitude = latitude;
         this.longitude = longitude;
         this.direction = direction;
-        this.timestamp = timestamp;
+        this.timestamp = new Date(timestamp);
     }
 }

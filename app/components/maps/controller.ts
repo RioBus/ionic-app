@@ -9,7 +9,7 @@ import { Bus } from '../../models/bus';
 @Component({
     selector: 'google-maps',
     templateUrl: 'build/components/maps/template.html',
-    inputs: ['markers: markers'],
+    inputs: ['markers'],
     directives: [Button, Icon],
 })
 
@@ -55,33 +55,33 @@ export class GoogleMaps implements OnChanges {
         this.removeMarkers();
     }
     
-    public ngOnChanges(changes: any) {
-        if(!changes.markers.previousValue && this.isArray(changes.markers.currentValue)) {
+    public ngOnChanges(changes: any): void {
+        this.checkMarkerChanges(changes.markers);
+    }
+    
+    private checkMarkerChanges(markers: any): void {
+        if(!markers.previousValue && this.isArray(markers.currentValue)) {
             // Just loaded the map view
             if(Object.keys(this.markerList).length>0) this.removeMarkers();
-            this.insertNewMarkers(changes.markers.currentValue);
-        } else if(this.isArray(changes.markers.previousValue) && this.isArray(changes.markers.currentValue)) {
+            this.insertNewMarkers(markers.currentValue);
+        } else if(this.isArray(markers.previousValue) && this.isArray(markers.currentValue)) {
             // Received new data
-            if(JSON.stringify(changes.markers.previousValue)!==JSON.stringify(changes.markers.currentValue))
-                this.UpdateMarkers(changes.markers.currentValue);
+            if(JSON.stringify(markers.previousValue)!==JSON.stringify(markers.currentValue))
+                this.UpdateMarkers(markers.currentValue);
         }
-        // let lines: string[] = this.markers.map(function(bus: Bus) { return bus.Line; });
-        // lines = lines.filter(function(v,i) { return lines.indexOf(v) === i; });
-        // if(lines.length===1) {
-        //     let bus: Bus = this.markers[0];
-        //     let direction: string = bus.Direction;
-        //     if(direction!=='desconhecido' || direction!=='indisponivel') {
-        //         let tmp: string[] = direction.split(' X ');
-        //         this.coming =
-        //     } else {
-        //         this.coming = 'SENTIDO';
-        //         this.going = 'DESCONHECIDO';
-        //     }
-        // }
     }
     
     private isArray(value: any): boolean {
         return value instanceof Array;
+    }
+    
+    private addMarker(key:string, marker: any): void {
+        this.markerList[key] = marker;
+    }
+    
+    private fitBounds(points: any[]): void {
+        let bounds = new plugin.google.maps.LatLngBounds(points);
+        this.map.animateCamera({ 'target' : bounds });
     }
     
     private removeMarkers(): void {
@@ -91,17 +91,13 @@ export class GoogleMaps implements OnChanges {
         });
     }
     
-    private addMarker(key:string, marker: any): void {
-        this.markerList[key] = marker;
-    }
-    
     private insertNewMarkers(buses: Bus[]): void {
         let positions: any = [];
         buses.forEach((bus: Bus, index: number) => {
             let location = new plugin.google.maps.LatLng(bus.Latitude, bus.Longitude);
             this.map.addMarker({
                 position: location,
-                title: bus.Line,
+                title: this.formatInfowindowContent(bus),
                 icon: {
                     url: `www/img/bus_green.png`,
                     size: { width: 40, height: 47 }
@@ -109,14 +105,9 @@ export class GoogleMaps implements OnChanges {
             }, (marker) => {
                 this.addMarker(bus.Order, marker);
                 positions.push(location);
-                if(index===buses.length-1) this.fitBounds(positions);
+                this.fitBounds(positions);
             });
         }, this);
-    }
-    
-    private fitBounds(points: any[]): void {
-        let bounds = new plugin.google.maps.LatLngBounds(points);
-        this.map.animateCamera({ 'target' : bounds });
     }
     
     private UpdateMarkers(current: Bus[]): void {
@@ -125,7 +116,8 @@ export class GoogleMaps implements OnChanges {
             if(!marker) {
                 this.map.addMarker({
                     position: new plugin.google.maps.LatLng(bus.Latitude, bus.Longitude),
-                    title: bus.Line,
+                    title: '',
+                    snippet: this.formatInfowindowContent(bus),
                     icon: {
                         url: `www/img/bus_green.png`,
                         size: { width: 40, height: 47 }
@@ -138,5 +130,32 @@ export class GoogleMaps implements OnChanges {
                 marker.setPosition(newPosition);
             }
         });
+    }
+    
+    private prepareTimestamp(datetime: Date): string {
+        let timeSinceUpdate: number = (new Date()).getTime() - datetime.getTime();
+        timeSinceUpdate = timeSinceUpdate/1000; // seconds
+        if(timeSinceUpdate<60) {
+            return `${timeSinceUpdate.toFixed(0)} segundos`;
+        }
+        timeSinceUpdate = timeSinceUpdate/60; // minutes
+        if(timeSinceUpdate<60) {
+            return `${timeSinceUpdate.toFixed(0)} minutos`;
+        }
+        timeSinceUpdate = timeSinceUpdate/60; // hours
+        if(timeSinceUpdate<24) {
+            return `${timeSinceUpdate.toFixed(0)} horas`;
+        }
+        timeSinceUpdate = timeSinceUpdate/24; // days
+        return `${timeSinceUpdate.toFixed(0)} dias`;
+    }
+    
+    private formatInfowindowContent(bus: Bus): string {
+        return `
+            ${bus.Order} (${bus.Line})
+            Velocidade: ${bus.Speed} Km/h
+            Direção: ${bus.Direction}
+            Atualizado há ${this.prepareTimestamp(bus.Timestamp)}
+        `;
     }
 }
