@@ -83,7 +83,8 @@
       },
       "locator": "cordova-plugin-googlemaps",
       "id": "plugin.google.maps"
-    }
+    },
+    "cordova-plugin-geolocation"
   ],
   "cordovaPlatforms": [
     "android"
