@@ -43,7 +43,7 @@ export class SearchPage {
     }
     
     public find(line: Line): void {
-        this.nav.push(MapPage, { query: line.Line });
+        this.nav.push(MapPage, { line: line });
     }
     
     public findText(): void {

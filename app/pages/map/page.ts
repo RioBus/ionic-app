@@ -5,6 +5,7 @@ import { UPDATE_TIMEOUT } from '../../const';
 import { GoogleMaps } from '../../components/maps/controller';
 import { SearchService } from '../../services/search';
 import { Bus } from '../../models/bus';
+import { Line } from '../../models/itinerary';
 
 @Page({
   templateUrl: 'build/pages/map/template.html',
@@ -20,6 +21,7 @@ export class MapPage {
     private title: string = 'Rio Bus';
     private timer: any;
     private buses: Bus[];
+    private line: Line;
     
     public get Title(): string {
         return this.title;
@@ -34,7 +36,14 @@ export class MapPage {
         this.params = params;
         this.nav = nav;
         this.service = service;
-        this.title = this.params.data.query;
+        
+        if(this.params.data.line) {
+            this.line = this.params.data.line;
+            this.title = this.line.Line;
+        }
+        else if(this.params.data.query) {
+            this.title = this.params.data.query;
+        }
     }
     
     private onPageLoaded(): void {
