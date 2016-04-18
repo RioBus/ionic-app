@@ -31,6 +31,10 @@ export class MapPage {
         return this.buses;
     }
     
+    public get Line(): Line {
+        return this.line;
+    }
+    
     constructor(platform: Platform, nav: NavController, params: NavParams, service: SearchService) {
         this.platform = platform;
         this.params = params;

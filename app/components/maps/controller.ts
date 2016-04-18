@@ -3,8 +3,10 @@ declare var plugin: any, google: any;
 
 import { SERVER_ADDR } from '../../const';
 import { Modal, NavController, Platform, Button, Icon } from 'ionic-angular';
+import { MapSnackbar } from '../map-snackbar/controller';
 import { Component, OnChanges } from 'angular2/core';
 import { Bus } from '../../models/bus';
+import { Line } from '../../models/itinerary';
 
 let markerIcons: any = {
     good: 'www/img/bus_green.png',
@@ -15,8 +17,8 @@ let markerIcons: any = {
 @Component({
     selector: 'google-maps',
     templateUrl: 'build/components/maps/template.html',
-    inputs: ['markers'],
-    directives: [Button, Icon],
+    inputs: ['markers', 'line'],
+    directives: [MapSnackbar],
 })
 export class GoogleMaps implements OnChanges {
     
@@ -25,16 +27,11 @@ export class GoogleMaps implements OnChanges {
     private map: any;
     private timer: any;
     private markers: Bus[];
+    private line: Line;
     private markerList: any = {};
-    private coming: string = 'SENTIDO';
-    private going: string = 'DESCONHECIDO';
     
-    public get Coming(): string {
-        return this.coming;
-    }
-    
-    public get Going(): string {
-        return this.going;
+    public get Line(): Line {
+        return this.line;
     }
     
     constructor(platform: Platform, nav: NavController) {
@@ -130,25 +127,15 @@ export class GoogleMaps implements OnChanges {
                 }, (marker) => {
                     this.addMarker(bus.Order, marker);
                 });
-            } else {
-                let newPosition = new plugin.google.maps.LatLng(bus.Latitude, bus.Longitude);
-                marker.setPosition(newPosition);
-            }
+            } else marker.setPosition(new plugin.google.maps.LatLng(bus.Latitude, bus.Longitude));
         });
     }
     
     private getIconPath(datetime: Date): string {
-        let time: number = (new Date()).getTime() - datetime.getTime();
-        time = time/1000/60; // minutes
-        if(time>10) {
-            return markerIcons.bad;
-        }
-        else if(time>=5 && time<10) {
-            return markerIcons.average;
-        }
-        else {
-            return markerIcons.good;
-        }
+        let minutes: number = ((new Date()).getTime() - datetime.getTime())/1000/60;
+        if(minutes > 10) return markerIcons.bad;
+        else if(minutes >= 5 && minutes < 10) return markerIcons.average;
+        else return markerIcons.good;
     }
     
     private prepareTimestamp(datetime: Date): string {

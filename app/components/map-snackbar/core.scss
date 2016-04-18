@@ -1,0 +1,46 @@
+div.map-snackbar {
+    background-color: #FFFFFF;
+    width: 100%;
+    height: 90px;
+    padding: 5px;
+    box-shadow: 0 -3px 6px rgba(0,0,0,0.16);
+    position: fixed;
+    bottom: 0;
+}
+
+div.map-snackbar p.firstline, div.map-snackbar p.secondline {
+    font-size: 16px;
+    text-align: left;
+    color: #868686;
+    margin-top: 3px !important;
+    margin-bottom: 3px !important;
+}
+
+div.map-snackbar hr {
+    background-color: #b6b6b6;
+    width: 100%;
+}
+
+div.map-snackbar .button-centered {
+    padding-top: 20px;
+}
+
+div.map-snackbar .centered {
+    margin-top: 10px;
+}
+
+div.map-snackbar .map-col-20 {
+    width: 19.99999%;
+}
+
+div.map-snackbar .map-col-60 {
+    width: 59.99999%;
+}
+
+div.map-snackbar .left {
+    float: left;
+}
+
+div.map-snackbar .right {
+    float: right;
+}

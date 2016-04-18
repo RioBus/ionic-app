@@ -1,0 +1,18 @@
+<div class="map-snackbar">
+    <div class="map-col-20 left button-centered">
+        <button clear medium (click)="toggleDirection()">
+            <img src="img/ic_swap_calls.png">
+        </button>
+    </div>
+    <div class="map-col-60 left centered">
+        <p class="firstline">{{ Coming }}</p>
+        <hr>
+        <p class="secondline">{{ Going }}</p>
+    </div>
+    <div class="map-col-20 right button-centered">
+        <button clear medium (click)="toggleStar()">
+            <img src="img/ic_favorite.png" *ngIf="IsFavorite">
+            <img src="img/ic_not_favorite.png" *ngIf="!IsFavorite">
+        </button>
+    </div>
+</div>
