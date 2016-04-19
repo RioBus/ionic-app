@@ -17,7 +17,7 @@ export class SearchPage {
     private nav: NavController;
     
     private items: Line[] = [];
-    private lines: Line[] = [];
+    private itemsBkp: Line[] = [];
     private favorites: Line[] = [];
     private histories: History[] = [];
     
@@ -98,10 +98,16 @@ export class SearchPage {
     
     public filter(event: any): void {
         if(this.queryText.length>0) {
-            this.items = this.lines.filter((value: Line, index: number, lines: Line[]): boolean => {
-                return value.Line.toLowerCase().indexOf(this.queryText.toLowerCase())>-1 || value.Description.toLowerCase().indexOf(this.queryText.toLowerCase())>-1;
+            if(this.itemsBkp.length===0) this.itemsBkp = this.items;
+            this.ldao.getAll().then(lines => {
+                this.items = lines.filter((value: Line, index: number, lines: Line[]): boolean => {
+                    return value.Line.toLowerCase().indexOf(this.queryText.toLowerCase())>-1 || value.Description.toLowerCase().indexOf(this.queryText.toLowerCase())>-1;
+                });
             });
-        } else this.items = this.lines;
+        } else {
+            this.items = this.itemsBkp;
+            this.itemsBkp = [];
+        }
     }
     
     private loadRecents(): void {
@@ -127,6 +133,8 @@ export class SearchPage {
     }
     
     private downloadLines(infiniteScroll?: any): void {
+        if(this.queryText.length>0 && infiniteScroll) infiniteScroll.complete();
+        
         this.itineraryService.getItineraries().then((lines: Line[]) => {
             this.ldao.saveAll(lines).then( () => {
                 console.log(`Saved ${lines.length}.`);
