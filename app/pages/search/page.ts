@@ -1,9 +1,11 @@
 'use strict';
 import { Page, Platform, NavController } from 'ionic-angular';
 import { Line } from '../../models/itinerary';
+import { History } from '../../models/history';
 import { ItineraryService } from '../../services/itinerary';
 import { MapPage } from '../map/page';
 import { FavoritesDAO } from '../../dao/favorites';
+import { HistoryDAO } from '../../dao/history';
 
 @Page({
   templateUrl: 'build/pages/search/template.html',
@@ -18,7 +20,8 @@ export class SearchPage {
     private favorites: Line[] = [];
     private queryText: string = '';
     private itineraryService: ItineraryService;
-    private dao: FavoritesDAO;
+    private fdao: FavoritesDAO;
+    private hdao: HistoryDAO;
     
     public get Items(): Line[] {
         return this.items;
@@ -28,7 +31,8 @@ export class SearchPage {
         this.platform = platform;
         this.nav = nav;
         this.itineraryService = itineraryService;
-        this.dao = new FavoritesDAO();
+        this.fdao = new FavoritesDAO();
+        this.hdao = new HistoryDAO();
     }
     
     public onPageLoaded(): void {
@@ -44,8 +48,8 @@ export class SearchPage {
     }
     
     public onClickOnStar(line: Line): void {
-        if(this.isFavorite(line)) this.dao.remove(line).then( (response: boolean) => this.onUnstar(response, line) );
-        else this.dao.save(line).then( (response: boolean) => this.onStar(response, line) );
+        if(this.isFavorite(line)) this.fdao.remove(line).then( (response: boolean) => this.onUnstar(response, line) );
+        else this.fdao.save(line).then( (response: boolean) => this.onStar(response, line) );
     }
     
     private onStar(response: boolean, line: Line): void {
@@ -60,11 +64,21 @@ export class SearchPage {
     }
     
     public find(line: Line): void {
-        this.nav.push(MapPage, { line: line });
+        let history: History = new History(line, new Date());
+        this.hdao.save(history).then( saved => {
+            if(saved) console.log(`Saved ${line.Line} to history.`);
+            this.nav.push(MapPage, { line: line });
+        });
     }
     
     public findText(): void {
-        this.nav.push(MapPage, { query: this.queryText });
+        let query: string = this.queryText.replace('  ', ' ').replace(' , ', ',').replace(', ', ',').replace(' ,', ',');
+        let line: Line = new Line(query, '');
+        let history: History = new History(line, new Date());
+        this.hdao.save(history).then( saved => {
+            if(saved) console.log(`Saved ${line.Line} to history.`);
+            this.nav.push(MapPage, { query: query });
+        });
     }
     
     public isFavorite(line: Line): boolean {
@@ -83,7 +97,7 @@ export class SearchPage {
     }
     
     private loadLines(): void {
-        this.dao.getAll().then((lines: Line[]) => {
+        this.fdao.getAll().then((lines: Line[]) => {
             this.favorites = lines;
             this.itineraryService.getItineraries().then((lines: Line[]) => {
                 this.lines = lines;
