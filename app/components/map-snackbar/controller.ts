@@ -58,7 +58,6 @@ export class MapSnackbar {
     }
     
     public onToggleDirection(): void {
-        console.log("Toggling direction...");
         let toggle: boolean = this.swapDirection(); // Method from MapPage
         if(toggle) {
             let tmp: string = this.coming;

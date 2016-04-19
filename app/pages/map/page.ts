@@ -59,7 +59,6 @@ export class MapPage {
     
     private updateMarkers(): void {
         this.service.getBuses(this.title).then((buses: Bus[]) => {
-            console.log(`Found ${buses.length} buses for the query '${this.title}'.`);
             this.buses = buses;
         });
     }

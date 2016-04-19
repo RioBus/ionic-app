@@ -32,6 +32,7 @@ export class GoogleMaps implements OnChanges {
     private line: Line;
     private mcontrol: MarkerController;
     private swap: boolean = false;
+    private static instance: GoogleMaps;
     
     public get Line(): Line {
         return this.line;
@@ -40,6 +41,11 @@ export class GoogleMaps implements OnChanges {
     constructor(platform: Platform, nav: NavController) {
         this.platform = platform;
         this.nav = nav;
+        GoogleMaps.instance = this;
+    }
+    
+    private static getInstance(): GoogleMaps {
+        return GoogleMaps.instance;
     }
     
     private isArray(value: any): boolean {
@@ -51,7 +57,7 @@ export class GoogleMaps implements OnChanges {
     }
     
     private ngOnDestroy(): void {
-        this.mcontrol.removeMarkers();
+        this.removeMarkers();
     }
     
     public ngOnChanges(changes: any): void {
@@ -74,21 +80,35 @@ export class GoogleMaps implements OnChanges {
     }
     
     public onSwapDirection(): boolean {
-        if(this.line.Description !== 'desconhecido') {
-            console.log(`Swapping ${Object.keys(GoogleMaps.markerList).length} markers`);
-            // return true;
+        let self = GoogleMaps.getInstance();
+        if(self.Line.Description !== 'desconhecido') {
+            self.swap = !self.swap;
+            self.removeMarkers();
+            self.updateMarkers(self.markers);
+            return true;
         }
         return false;
     }
     
     private updateMarkers(current: Bus[]): void {
-        current.forEach( bus => this.mcontrol.setMarker(bus) );
+        this.filterBuses(current).forEach( bus => {
+            this.mcontrol.setMarker(bus);
+        });
+    }
+    
+    private removeMarkers(): void {
+        this.mcontrol.removeMarkers();
+    }
+    
+    private filterBuses(buses: Bus[]): Bus[] {
+        if(!this.swap) return buses.filter( bus => bus.Direction === this.line.Description );
+        else return buses.filter( bus => bus.Direction !== this.line.Description );
     }
     
     private checkMarkerChanges(markers: any): void {
         if(!markers.previousValue && this.isArray(markers.currentValue)) {
             // Just loaded the map view
-            if(Object.keys(GoogleMaps.markerList).length>0) this.mcontrol.removeMarkers();
+            this.removeMarkers();
             this.updateMarkers(markers.currentValue);
         } else if(this.isArray(markers.previousValue) && this.isArray(markers.currentValue)) {
             // Received new data
