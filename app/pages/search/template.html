@@ -27,12 +27,12 @@
                     <ion-icon golden name="{{ isFavorite(item) ? 'star' : 'star-outline' }}"></ion-icon>
                 </button>
             </button>
-            
-            <ion-item *ngIf="Items.length===0 && queryText.length===0">
-                Carregando linhas ...
-            </ion-item>
         </ion-item-group>
         
         <button ion-item *ngIf="Items.length===0 && queryText.length>0" (click)="findText()">Buscar por <b>{{ queryText }}</b> ...</button>
     </ion-list>
+    
+    <ion-infinite-scroll (infinite)="loadLines($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

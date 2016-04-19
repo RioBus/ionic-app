@@ -25,6 +25,8 @@ export class SearchPage {
     private fdao: FavoritesDAO;
     private hdao: HistoryDAO;
     private ldao: LinesDAO;
+    private limit: number = 10;
+    private skip: number = 0;
     
     public get Items(): Line[] {
         return this.items;
@@ -45,7 +47,7 @@ export class SearchPage {
     
     public onPageLoaded(): void {
         this.loadRecents();
-        this.loadLines();
+        this.loadFavorites();
     }
     
     public onPageWillEnter(): void {
@@ -106,29 +108,33 @@ export class SearchPage {
         this.hdao.getLimited(2).then( histories => this.histories = histories );
     }
     
-    private loadLines(): void {
+    private loadFavorites(): void {
         this.fdao.getAll().then((lines: Line[]) => {
             this.favorites = lines;
-            this.ldao.getAll().then(lines => {
-                if(lines.length>0) {
-                    console.log(`Found ${lines.length} lines in the memory.`);
-                    this.lines = lines;
-                    this.items = lines;
-                }
-                else this.downloadLines();
+            this.loadLines();
+        });
+    }
+    
+    private loadLines(infiniteScroll?: any): void {
+        this.ldao.getLimited(this.limit, this.skip).then(lines => {
+            if(lines.length>0) {
+                this.items = this.items.concat(lines);
+                this.skip += this.limit;
+                if(infiniteScroll) infiniteScroll.complete();
+            }
+            else this.downloadLines(infiniteScroll);
+        });
+    }
+    
+    private downloadLines(infiniteScroll?: any): void {
+        this.itineraryService.getItineraries().then((lines: Line[]) => {
+            this.ldao.saveAll(lines).then( () => {
+                console.log(`Saved ${lines.length}.`);
+                let slice: Line[] = lines.splice(0, this.limit);
+                this.items = this.items.concat(slice);
+                this.skip += this.limit;
+                if(infiniteScroll) infiniteScroll.complete();
             });
         });
-    }
-    
-    private downloadLines(): void {
-        this.itineraryService.getItineraries().then((lines: Line[]) => {
-            this.lines = lines;
-            this.items = lines;
-            this.saveLines(lines);
-        });
-    }
-    
-    private saveLines(lines: Line[]): void {
-        this.ldao.saveAll(lines).then( () => console.log(`Saved ${lines.length}.`) );
     }
 }
