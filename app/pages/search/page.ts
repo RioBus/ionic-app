@@ -32,7 +32,6 @@ export class SearchPage {
     }
     
     public onPageLoaded(): void {
-        this.loadFavorites();
         this.loadLines();
     }
     
@@ -84,15 +83,12 @@ export class SearchPage {
     }
     
     private loadLines(): void {
-        this.itineraryService.getItineraries().then((lines: Line[]) => {
-            this.lines = lines;
-            this.items = this.sort(lines);
-        });
-    }
-    
-    private loadFavorites(): void {
         this.dao.getAll().then((lines: Line[]) => {
             this.favorites = lines;
+            this.itineraryService.getItineraries().then((lines: Line[]) => {
+                this.lines = lines;
+                this.items = this.sort(lines);
+            });
         });
     }
     
