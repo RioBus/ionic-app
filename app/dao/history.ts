@@ -22,7 +22,7 @@ export class HistoryDAO {
                     let output: History[] = [];
                     list.forEach( data => {
                         let line: Line = new Line(data.line.line, data.line.description);
-                        output.push(new History(line, data.timestamp));
+                        output.push(new History(line, new Date(data.timestamp)));
                     });
                     resolve(output);
                 }
@@ -63,5 +63,11 @@ export class HistoryDAO {
     
     public getAll(): Promise<History[]> {
         return this.Storage;
+    }
+    
+    public getLimited(size: number): Promise<History[]> {
+        return this.getAll().then( histories => histories
+            .sort( (a,b) => b.Timestamp.getTime() - a.Timestamp.getTime() )
+            .splice(0, size));
     }
 }

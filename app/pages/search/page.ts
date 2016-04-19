@@ -18,6 +18,7 @@ export class SearchPage {
     private items: Line[] = [];
     private lines: Line[] = [];
     private favorites: Line[] = [];
+    private histories: History[] = [];
     private queryText: string = '';
     private itineraryService: ItineraryService;
     private fdao: FavoritesDAO;
@@ -25,6 +26,10 @@ export class SearchPage {
     
     public get Items(): Line[] {
         return this.items;
+    }
+    
+    public get Histories(): History[] {
+        return this.histories;
     }
     
     public constructor(platform: Platform, nav: NavController, itineraryService: ItineraryService) {
@@ -36,6 +41,7 @@ export class SearchPage {
     }
     
     public onPageLoaded(): void {
+        this.loadRecents();
         this.loadLines();
     }
     
@@ -94,6 +100,10 @@ export class SearchPage {
         } else {
             this.items = this.sort(this.lines);
         }
+    }
+    
+    private loadRecents(): void {
+        this.hdao.getLimited(2).then( histories => this.histories = histories );
     }
     
     private loadLines(): void {
