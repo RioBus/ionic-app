@@ -8,7 +8,7 @@ import { FavoritesDAO } from '../../dao/favorites';
 @Component({
     selector: 'map-snackbar',
     templateUrl: 'build/components/map-snackbar/template.html',
-    inputs: ['line'],
+    inputs: ['line', 'swapDirection'],
     directives: [Button, Icon],
 })
 export class MapSnackbar {
@@ -22,6 +22,7 @@ export class MapSnackbar {
     private line: Line;
     private favorite: boolean = false;
     private dao: FavoritesDAO;
+    private swapDirection: () => boolean;
     
     public get Coming(): string {
         return this.coming;
@@ -56,11 +57,14 @@ export class MapSnackbar {
         if(line!==null) this.favorite = true;
     }
     
-    public toggleDirection(): void {
+    public onToggleDirection(): void {
         console.log("Toggling direction...");
-        let tmp: string = this.coming;
-        this.coming = this.going;
-        this.going = tmp;
+        let toggle: boolean = this.swapDirection(); // Method from MapPage
+        if(toggle) {
+            let tmp: string = this.coming;
+            this.coming = this.going;
+            this.going = tmp;
+        }
     }
     
     public toggleStar(): void {
