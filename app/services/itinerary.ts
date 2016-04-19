@@ -26,7 +26,7 @@ export class ItineraryService {
         obj.forEach((data) => {
             result.push(new Line(data.line, data.description));
         });
-        return result;
+        return this.sort(result);
     }
     
     public getItinerary(line: string): Promise<Itinerary> {
@@ -40,6 +40,15 @@ export class ItineraryService {
         return new Promise<Line[]>(resolve => {
             let url: string = `${API_ENDPOINT}/v3/itinerary`;
             this.http.get(url).subscribe(data => resolve( this.processLines( data.json() ) ) );
+        });
+    }
+    
+    private sort(items: Line[]): Line[] {
+        return items.sort((a: Line, b: Line) => {
+            if(!isNaN(parseInt(a.Line)) && !isNaN(parseInt(b.Line))) return (parseInt(a.Line) - parseInt(b.Line));
+            else if(!isNaN(parseInt(a.Line)) && isNaN(parseInt(b.Line))) return -1;
+            else if(isNaN(parseInt(a.Line)) && isNaN(parseInt(b.Line))) return 0;
+            else return 1; 
         });
     }
 }

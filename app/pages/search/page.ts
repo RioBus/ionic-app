@@ -6,6 +6,7 @@ import { ItineraryService } from '../../services/itinerary';
 import { MapPage } from '../map/page';
 import { FavoritesDAO } from '../../dao/favorites';
 import { HistoryDAO } from '../../dao/history';
+import { LinesDAO } from '../../dao/lines';
 
 @Page({
   templateUrl: 'build/pages/search/template.html',
@@ -23,6 +24,7 @@ export class SearchPage {
     private itineraryService: ItineraryService;
     private fdao: FavoritesDAO;
     private hdao: HistoryDAO;
+    private ldao: LinesDAO;
     
     public get Items(): Line[] {
         return this.items;
@@ -38,6 +40,7 @@ export class SearchPage {
         this.itineraryService = itineraryService;
         this.fdao = new FavoritesDAO();
         this.hdao = new HistoryDAO();
+        this.ldao = new LinesDAO();
     }
     
     public onPageLoaded(): void {
@@ -96,10 +99,7 @@ export class SearchPage {
             this.items = this.lines.filter((value: Line, index: number, lines: Line[]): boolean => {
                 return value.Line.toLowerCase().indexOf(this.queryText.toLowerCase())>-1 || value.Description.toLowerCase().indexOf(this.queryText.toLowerCase())>-1;
             });
-            this.items = this.sort(this.items);
-        } else {
-            this.items = this.sort(this.lines);
-        }
+        } else this.items = this.lines;
     }
     
     private loadRecents(): void {
@@ -109,19 +109,26 @@ export class SearchPage {
     private loadLines(): void {
         this.fdao.getAll().then((lines: Line[]) => {
             this.favorites = lines;
-            this.itineraryService.getItineraries().then((lines: Line[]) => {
-                this.lines = lines;
-                this.items = this.sort(lines);
+            this.ldao.getAll().then(lines => {
+                if(lines.length>0) {
+                    console.log(`Found ${lines.length} lines in the memory.`);
+                    this.lines = lines;
+                    this.items = lines;
+                }
+                else this.downloadLines();
             });
         });
     }
     
-    private sort(items: Line[]): Line[] {
-        return items.sort((a: Line, b: Line) => {
-            if(!isNaN(parseInt(a.Line)) && !isNaN(parseInt(b.Line))) return (parseInt(a.Line) - parseInt(b.Line));
-            else if(!isNaN(parseInt(a.Line)) && isNaN(parseInt(b.Line))) return -1;
-            else if(isNaN(parseInt(a.Line)) && isNaN(parseInt(b.Line))) return 0;
-            else return 1; 
+    private downloadLines(): void {
+        this.itineraryService.getItineraries().then((lines: Line[]) => {
+            this.lines = lines;
+            this.items = lines;
+            this.saveLines(lines);
         });
+    }
+    
+    private saveLines(lines: Line[]): void {
+        this.ldao.saveAll(lines).then( () => console.log(`Saved ${lines.length}.`) );
     }
 }
