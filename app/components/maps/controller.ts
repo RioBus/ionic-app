@@ -44,10 +44,6 @@ export class GoogleMaps implements OnChanges {
         GoogleMaps.instance = this;
     }
     
-    private static getInstance(): GoogleMaps {
-        return GoogleMaps.instance;
-    }
-    
     private isArray(value: any): boolean {
         return value instanceof Array;
     }
@@ -80,11 +76,11 @@ export class GoogleMaps implements OnChanges {
     }
     
     public onSwapDirection(): boolean {
-        let self = GoogleMaps.getInstance();
-        if(self.Line.Description !== 'desconhecido') {
-            self.swap = !self.swap;
-            self.removeMarkers();
-            self.updateMarkers(self.markers);
+        let This: GoogleMaps = GoogleMaps.instance;
+        if(This.Line.Description !== 'desconhecido') {
+            This.swap = !This.swap;
+            This.removeMarkers();
+            This.updateMarkers(This.markers);
             return true;
         }
         return false;
