@@ -3,6 +3,7 @@ import { Page, Platform, NavController } from 'ionic-angular';
 import { Line } from '../../models/itinerary';
 import { ItineraryService } from '../../services/itinerary';
 import { MapPage } from '../map/page';
+import { FavoritesDAO } from '../../dao/favorites';
 
 @Page({
   templateUrl: 'build/pages/search/template.html',
@@ -14,24 +15,25 @@ export class SearchPage {
     private nav: NavController;
     private items: Line[] = [];
     private lines: Line[] = [];
+    private favorites: Line[] = [];
     private queryText: string = '';
     private itineraryService: ItineraryService;
+    private dao: FavoritesDAO;
     
     public get Items(): Line[] {
         return this.items;
     }
     
-    constructor(platform: Platform, nav: NavController, itineraryService: ItineraryService) {
+    public constructor(platform: Platform, nav: NavController, itineraryService: ItineraryService) {
         this.platform = platform;
         this.nav = nav;
         this.itineraryService = itineraryService;
+        this.dao = new FavoritesDAO();
     }
     
     public onPageLoaded(): void {
-        this.itineraryService.getItineraries().then((lines: Line[]) => {
-            this.lines = lines;
-            this.items = this.sort(lines);
-        });
+        this.loadFavorites();
+        this.loadLines();
     }
     
     public onPageWillEnter(): void {
@@ -42,12 +44,32 @@ export class SearchPage {
         document.getElementById('search-view').style.display = 'none';
     }
     
+    public onClickOnStar(line: Line): void {
+        if(this.isFavorite(line)) this.dao.remove(line).then( (response: boolean) => this.onUnstar(response, line) );
+        else this.dao.save(line).then( (response: boolean) => this.onStar(response, line) );
+    }
+    
+    private onStar(response: boolean, line: Line): void {
+        if(response) this.favorites.push(line);
+    }
+    
+    private onUnstar(response: boolean, line: Line): void {
+        if(response) {
+            let index: number = this.favorites.findIndex( fav => fav.Line === line.Line );
+            this.favorites.splice(index, 1);
+        }
+    }
+    
     public find(line: Line): void {
         this.nav.push(MapPage, { line: line });
     }
     
     public findText(): void {
         this.nav.push(MapPage, { query: this.queryText });
+    }
+    
+    public isFavorite(line: Line): boolean {
+        return this.favorites.some( fav => line.Line === fav.Line );
     }
     
     public filter(event: any): void {
@@ -59,6 +81,19 @@ export class SearchPage {
         } else {
             this.items = this.sort(this.lines);
         }
+    }
+    
+    private loadLines(): void {
+        this.itineraryService.getItineraries().then((lines: Line[]) => {
+            this.lines = lines;
+            this.items = this.sort(lines);
+        });
+    }
+    
+    private loadFavorites(): void {
+        this.dao.getAll().then((lines: Line[]) => {
+            this.favorites = lines;
+        });
     }
     
     private sort(items: Line[]): Line[] {
