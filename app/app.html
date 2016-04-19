@@ -5,7 +5,7 @@
   </ion-toolbar>
 
   <ion-content>
-    <ion-list>
+    <ion-list no-lines>
       <button ion-item *ngFor="#p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
