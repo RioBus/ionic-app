@@ -16,7 +16,7 @@ import { SearchService }           from './services/search';
 export class Application {
 
   private rootPage: Type;
-  private pages: Array<{title: string, component: Type}>;
+  private pages: Array<{title: string, icon: string, component: Type}>;
   private app: IonicApp;
   private platform: Platform;
   private backPressed: boolean;
@@ -29,8 +29,10 @@ export class Application {
 
     // set our app's pages
     this.pages = [
-      { title: 'Buscar', component: SearchPage },
-      { title: 'Mapa', component: MapPage }
+      { title: 'Favoritos', icon: 'star', component: null },
+      { title: 'Histórico', icon: 'time', component: null },
+      { title: 'Sobre', icon: 'help-circle', component: null },
+      { title: 'Avalie o app', icon: 'thumbs-up', component: null },
     ];
   }
 
