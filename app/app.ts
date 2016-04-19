@@ -6,6 +6,7 @@ import { Type }                    from 'angular2/core';
 import { App, IonicApp, Platform } from 'ionic-angular';
 import { MapPage }                 from './pages/map/page';
 import { SearchPage }              from './pages/search/page';
+import { FavoritesPage }           from './pages/favorites/page';
 import { ItineraryService }        from './services/itinerary';
 import { SearchService }           from './services/search';
 
@@ -30,7 +31,8 @@ export class Application {
 
     // set our app's pages
     this.pages = [
-      { title: 'Favoritos', icon: 'star' },
+      { title: 'Pesquisar', icon: 'search', component: SearchPage },
+      { title: 'Favoritos', icon: 'star', component: FavoritesPage },
       { title: 'Histórico', icon: 'time' },
       { title: 'Sobre', icon: 'help-circle' },
       { title: 'Avalie o app', icon: 'thumbs-up', link: URL_PLAY_STORE },
