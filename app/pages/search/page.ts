@@ -1,5 +1,5 @@
 'use strict';
-import { Page, Platform, NavController } from 'ionic-angular';
+import { Page, NavController } from 'ionic-angular';
 import { Line } from '../../models/itinerary';
 import { History } from '../../models/history';
 import { ItineraryService } from '../../services/itinerary';
@@ -13,18 +13,19 @@ import { LinesDAO } from '../../dao/lines';
 })
 export class SearchPage {
     
-    private static limit: number = 30;
-    private platform: Platform;
+    private itineraryService: ItineraryService;
     private nav: NavController;
+    
     private items: Line[] = [];
     private lines: Line[] = [];
     private favorites: Line[] = [];
     private histories: History[] = [];
-    private queryText: string = '';
-    private itineraryService: ItineraryService;
+    
     private fdao: FavoritesDAO;
     private hdao: HistoryDAO;
     private ldao: LinesDAO;
+    
+    private queryText: string = '';
     private limit: number = 10;
     private skip: number = 0;
     
@@ -36,8 +37,11 @@ export class SearchPage {
         return this.histories;
     }
     
-    public constructor(platform: Platform, nav: NavController, itineraryService: ItineraryService) {
-        this.platform = platform;
+    public isFavorite(line: Line): boolean {
+        return this.favorites.some( fav => line.Line === fav.Line );
+    }
+    
+    public constructor(nav: NavController, itineraryService: ItineraryService) {
         this.nav = nav;
         this.itineraryService = itineraryService;
         this.fdao = new FavoritesDAO();
@@ -90,10 +94,6 @@ export class SearchPage {
             if(saved) console.log(`Saved ${line.Line} to history.`);
             this.nav.push(MapPage, { query: query });
         });
-    }
-    
-    public isFavorite(line: Line): boolean {
-        return this.favorites.some( fav => line.Line === fav.Line );
     }
     
     public filter(event: any): void {
