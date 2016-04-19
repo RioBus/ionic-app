@@ -1,6 +1,7 @@
 'use strict';
 declare var navigator: any;
 
+import { URL_PLAY_STORE }          from './const';
 import { Type }                    from 'angular2/core';
 import { App, IonicApp, Platform } from 'ionic-angular';
 import { MapPage }                 from './pages/map/page';
@@ -16,7 +17,7 @@ import { SearchService }           from './services/search';
 export class Application {
 
   private rootPage: Type;
-  private pages: Array<{title: string, icon: string, component: Type}>;
+  private pages: Array<{title: string, icon: string, component?: Type, link?: string}>;
   private app: IonicApp;
   private platform: Platform;
   private backPressed: boolean;
@@ -29,18 +30,22 @@ export class Application {
 
     // set our app's pages
     this.pages = [
-      { title: 'Favoritos', icon: 'star', component: null },
-      { title: 'Histórico', icon: 'time', component: null },
-      { title: 'Sobre', icon: 'help-circle', component: null },
-      { title: 'Avalie o app', icon: 'thumbs-up', component: null },
+      { title: 'Favoritos', icon: 'star' },
+      { title: 'Histórico', icon: 'time' },
+      { title: 'Sobre', icon: 'help-circle' },
+      { title: 'Avalie o app', icon: 'thumbs-up', link: URL_PLAY_STORE },
     ];
   }
 
-  public openPage(page: any): void {
-    // close the menu when clicking a link from the menu
-    this.app.getComponent('leftMenu').close();
-    // navigate to the new page if it is not the current page
-    this.app.getComponent('nav').setRoot(page.component);
+  public openPage(page: {title: string, icon: string, component?: Type, link?: string}): void {
+    if(page.component) {
+      // close the menu when clicking a link from the menu
+      this.app.getComponent('leftMenu').close();
+      // navigate to the new page if it is not the current page
+      this.app.getComponent('nav').setRoot(page.component);
+    } else if(page.link) {
+      window.open(page.link, '_system');
+    }
   }
   
   private registerBackButton(): void {
