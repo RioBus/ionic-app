@@ -1,9 +1,24 @@
-<ion-searchbar *navbar
-    [(ngModel)]="queryText"
-    (input)="filter($event)"
-    (cancel)="onSearchCancel($event)"
-    placeholder="Buscar...">
-</ion-searchbar>
+<ion-navbar *navbar primary>
+    <button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title class="{{ showSearchBox? '':'hidden' }}">
+        <ion-input
+            type="search"
+            placeholder="Buscar..."
+            (input)="filter($event)"
+            [(ngModel)]="queryText">
+        </ion-input>
+    </ion-title>
+    <ion-title class="{{ showSearchBox? 'hidden':'' }}">Rio Bus</ion-title>
+    
+    <ion-buttons end (click)="showSearchBox=true" class="{{ showSearchBox? 'hidden':'' }}">
+        <button>
+            <ion-icon name="search"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-navbar>
 
 <ion-content class="search" id="search-view">
     <ion-list>

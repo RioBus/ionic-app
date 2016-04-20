@@ -28,6 +28,7 @@ export class SearchPage {
     private queryText: string = '';
     private limit: number = 10;
     private skip: number = 0;
+    public showSearchBox: boolean = false;
     
     public get Items(): Line[] {
         return this.items;
@@ -108,10 +109,6 @@ export class SearchPage {
             this.items = this.itemsBkp;
             this.itemsBkp = [];
         }
-    }
-    
-    private onSearchCancel(event: any): void {
-        this.queryText = '';
     }
     
     private loadRecents(): void {

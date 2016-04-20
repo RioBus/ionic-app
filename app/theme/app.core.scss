@@ -8,9 +8,10 @@
 // App Shared Sass variables belong in app.variables.scss.
 
 @import '../pages/map/core';
+@import '../pages/search/core';
 @import '../components/maps/core';
 @import '../components/map-snackbar/core';
 
-ion-searchbar {
+ion-searchbar, ion-navbar {
   background-color: #4ea7f5 !important;
 }
