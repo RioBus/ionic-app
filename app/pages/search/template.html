@@ -1,6 +1,7 @@
 <ion-searchbar *navbar
     [(ngModel)]="queryText"
     (input)="filter($event)"
+    (cancel)="onSearchCancel($event)"
     placeholder="Buscar...">
 </ion-searchbar>
 

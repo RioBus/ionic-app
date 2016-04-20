@@ -110,6 +110,10 @@ export class SearchPage {
         }
     }
     
+    private onSearchCancel(event: any): void {
+        this.queryText = '';
+    }
+    
     private loadRecents(): void {
         this.hdao.getLimited(2).then( histories => this.histories = histories );
     }
