@@ -4,9 +4,10 @@ declare var navigator: any;
 import { URL_PLAY_STORE }          from './const';
 import { Type }                    from 'angular2/core';
 import { App, IonicApp, Platform } from 'ionic-angular';
+import { AboutPage }               from './pages/about/page';
+import { FavoritesPage }           from './pages/favorites/page';
 import { MapPage }                 from './pages/map/page';
 import { SearchPage }              from './pages/search/page';
-import { FavoritesPage }           from './pages/favorites/page';
 import { ItineraryService }        from './services/itinerary';
 import { SearchService }           from './services/search';
 
@@ -34,7 +35,7 @@ export class Application {
       { title: 'Pesquisar', icon: 'search', component: SearchPage },
       { title: 'Favoritos', icon: 'star', component: FavoritesPage },
       { title: 'Histórico', icon: 'time' },
-      { title: 'Sobre', icon: 'help-circle' },
+      { title: 'Sobre', icon: 'help-circle', component: AboutPage },
       { title: 'Avalie o app', icon: 'thumbs-up', link: URL_PLAY_STORE },
     ];
   }
