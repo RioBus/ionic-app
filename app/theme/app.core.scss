@@ -23,6 +23,23 @@ ion-menu div.menu-banner {
   background-repeat: no-repeat;
   background-position-x: 50%;
   background-position-y: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-menu div.menu-banner div.user-title img {
+  width: 64px;
+  height: 64px;
+  display: block;
+  margin: auto;
+}
+
+ion-menu div.menu-banner div.user-title h2 {
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 ion-menu ion-list {
