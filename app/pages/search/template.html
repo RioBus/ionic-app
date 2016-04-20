@@ -29,7 +29,7 @@
 <ion-content class="search" id="search-view">
     <ion-list>
         
-        <ion-item-group *ngIf="Histories.length>0">
+        <ion-item-group *ngIf="Histories.length>0 && !showSearchBox">
             <ion-item-divider light>Pesquisas recentes</ion-item-divider>
             <button ion-item *ngFor="#history of Histories" (click)="find(history.Line)">
                 <h2>{{ history.Line.Line }}</h2>
