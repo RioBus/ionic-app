@@ -1,0 +1,24 @@
+<ion-navbar *navbar primary>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+
+  <ion-title>{{ Title }}</ion-title>
+</ion-navbar>
+
+<ion-content class="history" id="history-view">
+    <ion-list>
+        <div *ngFor="#day of Days">
+            <button ion-item (click)="toggleHistories(day)">
+                <ion-icon item-left name="{{ presentDay(day)? 'arrow-dropup':'arrow-dropdown' }}"></ion-icon>
+                <h2 item-right>{{ day }}</h2>
+            </button>
+            <ion-item-group *ngIf="presentDay(day)">
+                <ion-item *ngFor="#item of Items | filterHistory:day" (click)="find(item)">
+                    <h2>{{ item.Line.Line }}</h2>
+                    <p>{{ item.Line.Description }}</p>
+                </ion-item>
+            </ion-item-group>
+        </div>
+    </ion-list>
+</ion-content>
