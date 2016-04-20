@@ -25,7 +25,6 @@ export class SearchPage {
     private hdao: HistoryDAO;
     private ldao: LinesDAO;
     
-    private queryText: string = '';
     private limit: number = 10;
     private skip: number = 0;
     public showSearchBox: boolean = false;
@@ -40,6 +39,13 @@ export class SearchPage {
     
     public isFavorite(line: Line): boolean {
         return this.favorites.some( fav => line.Line === fav.Line );
+    }
+    
+    public get searchBox(): any {
+        let element: any = document.getElementById('searchbox');
+        if(element) element = element.getElementsByTagName('input');
+        if(element) element = element.item(0);
+        return (element)? element : null;
     }
     
     public constructor(nav: NavController, itineraryService: ItineraryService) {
@@ -88,7 +94,7 @@ export class SearchPage {
     }
     
     public findText(): void {
-        let query: string = this.queryText.replace('  ', ' ').replace(' , ', ',').replace(', ', ',').replace(' ,', ',');
+        let query: string = this.searchBox.value.replace('  ', ' ').replace(' , ', ',').replace(', ', ',').replace(' ,', ',');
         let line: Line = new Line(query, '');
         let history: History = new History(line, new Date());
         this.hdao.save(history).then( saved => {
@@ -98,17 +104,23 @@ export class SearchPage {
     }
     
     public filter(event: any): void {
-        if(this.queryText.length>0) {
+        let query: string = this.searchBox.value;
+        if(query.length>0) {
             if(this.itemsBkp.length===0) this.itemsBkp = this.items;
             this.ldao.getAll().then(lines => {
                 this.items = lines.filter((value: Line, index: number, lines: Line[]): boolean => {
-                    return value.Line.toLowerCase().indexOf(this.queryText.toLowerCase())>-1 || value.Description.toLowerCase().indexOf(this.queryText.toLowerCase())>-1;
+                    return value.Line.toLowerCase().indexOf(query.toLowerCase())>-1 || value.Description.toLowerCase().indexOf(query.toLowerCase())>-1;
                 });
             });
         } else {
             this.items = this.itemsBkp;
             this.itemsBkp = [];
         }
+    }
+    
+    public showSearchBar(): void {
+        this.showSearchBox = true;
+        setTimeout(() => this.searchBox.focus() , 1); 
     }
     
     private loadRecents(): void {
@@ -134,9 +146,11 @@ export class SearchPage {
     }
     
     private downloadLines(infiniteScroll?: any): void {
-        if(this.queryText.length>0 && infiniteScroll) infiniteScroll.complete();
-        
-        this.itineraryService.getItineraries().then((lines: Line[]) => {
+        if(this.searchBox) {
+            let query: string = this.searchBox.value.toString();
+            if(query.length>0 && infiniteScroll) infiniteScroll.complete();
+            
+        } else this.itineraryService.getItineraries().then((lines: Line[]) => {
             this.ldao.saveAll(lines).then( () => {
                 console.log(`Saved ${lines.length}.`);
                 let slice: Line[] = lines.splice(0, this.limit);

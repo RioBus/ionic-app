@@ -5,15 +5,15 @@
 
     <ion-title class="{{ showSearchBox? '':'hidden' }}">
         <ion-input
+            id="searchbox"
             type="search"
-            placeholder="Buscar..."
             (input)="filter($event)"
-            [(ngModel)]="queryText">
+            placeholder="Buscar...">
         </ion-input>
     </ion-title>
     <ion-title class="{{ showSearchBox? 'hidden':'' }}">Rio Bus</ion-title>
     
-    <ion-buttons end (click)="showSearchBox=true" class="{{ showSearchBox? 'hidden':'' }}">
+    <ion-buttons end (click)="showSearchBar()" class="{{ showSearchBox? 'hidden':'' }}">
         <button>
             <ion-icon name="search"></ion-icon>
         </button>
@@ -23,7 +23,7 @@
 <ion-content class="search" id="search-view">
     <ion-list>
         
-        <ion-item-group *ngIf="Histories.length>0 && queryText.length===0">
+        <ion-item-group *ngIf="Histories.length>0 && searchbox && searchbox.value.length===0">
             <ion-item-divider light>Pesquisas recentes</ion-item-divider>
             <button ion-item *ngFor="#history of Histories" (click)="find(history.Line)">
                 <h2>{{ history.Line.Line }}</h2>
@@ -32,7 +32,7 @@
             </button>
         </ion-item-group>
         
-        <ion-item-group *ngIf="!(Items.length===0 && queryText.length>0)">
+        <ion-item-group *ngIf="!(Items.length===0 && searchbox && searchbox.value.length>0)">
             <ion-item-divider light>Linhas disponíveis</ion-item-divider>
             <button ion-item *ngFor="#item of Items">
                 <div (click)="find(item)">
@@ -45,7 +45,7 @@
             </button>
         </ion-item-group>
         
-        <button ion-item *ngIf="Items.length===0 && queryText.length>0" (click)="findText()">Buscar por <b>{{ queryText }}</b> ...</button>
+        <button ion-item *ngIf="Items.length===0 && searchbox && searchbox.value.length>0" (click)="findText()">Buscar por <b>{{ searchbox.value }}</b> ...</button>
     </ion-list>
     
     <ion-infinite-scroll (infinite)="loadLines($event)">
