@@ -123,6 +123,14 @@ export class SearchPage {
         setTimeout(() => this.searchBox.focus() , 1); 
     }
     
+    public hideSearchBar(): void {
+        if(this.searchBox.value.length>0) {
+            this.searchBox.value = '';
+            this.filter(null);
+        }
+        this.showSearchBox = false;
+    }
+    
     private loadRecents(): void {
         this.hdao.getLimited(2).then( histories => this.histories = histories );
     }
