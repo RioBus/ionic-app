@@ -1,15 +1,15 @@
 'use strict';
 declare var navigator: any;
 
-import { URL_PLAY_STORE, URL_FB_PAGE } from './const';
-import { Type }                        from 'angular2/core';
-import { App, IonicApp, Platform }     from 'ionic-angular';
-import { AboutPage }                   from './pages/about/page';
-import { FavoritesPage }               from './pages/favorites/page';
-import { HistoryPage }                 from './pages/history/page';
-import { SearchPage }                  from './pages/search/page';
-import { ItineraryService }            from './services/itinerary';
-import { SearchService }               from './services/search';
+import { URL_PLAY_STORE, URL_FB_PAGE }             from './const';
+import { Type }                                    from 'angular2/core';
+import { App, IonicApp, MenuController, Platform } from 'ionic-angular';
+import { SearchService }                           from './services/search';
+import { AboutPage }                               from './pages/about/page';
+import { SearchPage }                              from './pages/search/page';
+import { HistoryPage }                             from './pages/history/page';
+import { ItineraryService }                        from './services/itinerary';
+import { FavoritesPage }                           from './pages/favorites/page';
 
 // App decorator: http://ionicframework.com/docs/v2/api/decorators/App/
 @App({
@@ -23,12 +23,14 @@ export class Application {
   private rootPage: Type;
   private pages: Array<{ title: string, icon: string, component?: Type, link?: string }>;
   private app: IonicApp;
+  private menu: MenuController;
   private platform: Platform;
   private backPressed: boolean;
 
-  constructor(app: IonicApp, platform: Platform) {
+  constructor(app: IonicApp, platform: Platform, menu: MenuController) {
     this.app = app;
     this.platform = platform;
+    this.menu = menu;
     this.rootPage = SearchPage;
 
     // set our app's pages
@@ -46,7 +48,7 @@ export class Application {
   public openPage(page: { title: string, icon: string, component?: Type, link?: string }): void {
     if (page.component) {
       // close the menu when clicking a link from the menu
-      this.app.getComponent('leftMenu').close();
+      this.menu.close();
       // navigate to the new page if it is not the current page
       this.app.getComponent('nav').push(page.component);
     } else if (page.link) {
