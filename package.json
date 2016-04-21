@@ -71,21 +71,21 @@
     "webpack": "^1.12.15"
   },
   "cordovaPlugins": [
-    "cordova-sqlite-storage",
-    "cordova-plugin-device",
     "cordova-plugin-console",
-    "cordova-plugin-whitelist",
+    "cordova-plugin-device",
+    "cordova-plugin-geolocation",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
+    "cordova-sqlite-storage",
+    "cordova-plugin-whitelist",
     "ionic-plugin-keyboard",
     {
       "variables": {
         "API_KEY_FOR_ANDROID": "AIzaSyCOOHUdi4xszdxQZPmb3TEwXnTWp9GHurk"
       },
-      "locator": "cordova-plugin-googlemaps",
-      "id": "plugin.google.maps"
-    },
-    "cordova-plugin-geolocation"
+      "locator": "https://github.com/mapsplugin/cordova-plugin-googlemaps.git",
+      "id": "cordova-plugin-googlemaps"
+    }
   ],
   "cordovaPlatforms": [
     "android"
