@@ -6,9 +6,9 @@ import { Http } from 'angular2/http';
 
 @Injectable()
 export class ItineraryService {
-    
+
     private http: Http;
-    
+
     constructor(http: Http) {
         this.http = http;
     }
@@ -28,27 +28,33 @@ export class ItineraryService {
         });
         return this.sort(result);
     }
-    
+
     public getItinerary(line: string): Promise<Itinerary> {
-        return new Promise<Itinerary>(resolve => {
+        return new Promise<Itinerary>((resolve, reject) => {
             let url: string = `${API_ENDPOINT}/v3/itinerary/${line}`;
-            this.http.get(url).subscribe(data => resolve( this.processItinerary( data.json() ) ) );
+            this.http.get(url).subscribe(
+                data => resolve(this.processItinerary(data.json())),
+                error => reject(error)
+            );
         });
     }
-    
+
     public getItineraries(): Promise<Line[]> {
-        return new Promise<Line[]>(resolve => {
+        return new Promise<Line[]>((resolve, reject) => {
             let url: string = `${API_ENDPOINT}/v3/itinerary`;
-            this.http.get(url).subscribe(data => resolve( this.processLines( data.json() ) ) );
+            this.http.get(url).subscribe(
+                data => resolve(this.processLines(data.json())),
+                error => reject(error)
+            );
         });
     }
-    
+
     private sort(items: Line[]): Line[] {
         return items.sort((a: Line, b: Line) => {
-            if(!isNaN(parseInt(a.Line)) && !isNaN(parseInt(b.Line))) return (parseInt(a.Line) - parseInt(b.Line));
-            else if(!isNaN(parseInt(a.Line)) && isNaN(parseInt(b.Line))) return -1;
-            else if(isNaN(parseInt(a.Line)) && isNaN(parseInt(b.Line))) return 0;
-            else return 1; 
+            if (!isNaN(parseInt(a.Line)) && !isNaN(parseInt(b.Line))) return (parseInt(a.Line) - parseInt(b.Line));
+            else if (!isNaN(parseInt(a.Line)) && isNaN(parseInt(b.Line))) return -1;
+            else if (isNaN(parseInt(a.Line)) && isNaN(parseInt(b.Line))) return 0;
+            else return 1;
         });
     }
 }
