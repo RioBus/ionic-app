@@ -24,6 +24,7 @@ export class Application {
   private pages: Array<{ title: string, icon: string, component?: Type, link?: string }>;
   private app: IonicApp;
   private menu: MenuController;
+  private nav: any;
   private platform: Platform;
   private backPressed: boolean;
 
@@ -50,7 +51,7 @@ export class Application {
       // close the menu when clicking a link from the menu
       this.menu.close();
       // navigate to the new page if it is not the current page
-      this.app.getComponent('nav').push(page.component);
+      this.nav.push(page.component);
     } else if (page.link) {
       window.open(page.link, '_system');
     }
@@ -61,12 +62,13 @@ export class Application {
   }
 
   private onPlatformReady(): void {
+    this.nav = this.app.getComponent('nav');
     document.addEventListener('backbutton', () => this.handleBackButton(), false);
   }
 
   private handleBackButton(): void {
-    if (this.app.getComponent('nav').canGoBack()) {
-      this.app.getComponent('nav').pop();
+    if (this.nav.canGoBack()) {
+      this.nav.pop();
       return;
     }
     if (!this.backPressed) {
