@@ -2,7 +2,6 @@
 
 import { Button, Icon, List, Item, NavController } from 'ionic-angular';
 import { Component } from 'angular2/core';
-import { FilterHistoryPipe } from '../../pipes/filterHistory';
 import { History } from '../../models/history';
 import { MapPage } from '../../pages/map/page';
 
@@ -10,8 +9,7 @@ import { MapPage } from '../../pages/map/page';
     selector: 'history-dropdown-list',
     templateUrl: 'build/components/history-dropdown-list/template.html',
     inputs: ['items', 'title'],
-    directives: [Button, Icon, Item, List],
-    pipes: [FilterHistoryPipe]
+    directives: [Button, Icon, Item, List]
 })
 export class HistoryDropdownList {
     
