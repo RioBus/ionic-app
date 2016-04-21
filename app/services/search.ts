@@ -6,9 +6,9 @@ import { Http } from 'angular2/http';
 
 @Injectable()
 export class SearchService {
-    
+
     private http: Http;
-    
+
     constructor(http: Http) {
         this.http = http;
     }
@@ -20,12 +20,12 @@ export class SearchService {
         });
         return result;
     }
-    
+
     public getBuses(query: string): Promise<Bus[]> {
         return new Promise<Bus[]>((resolve, reject) => {
             let url: string = `${API_ENDPOINT}/v3/search/${query}`;
             this.http.get(url).subscribe(
-                data => resolve( this.processBuses( data.json() ) ),
+                data => resolve(this.processBuses(data.json())),
                 error => reject(error)
             );
         });
