@@ -1,20 +1,17 @@
 'use strict';
-import { Page, Platform, NavController } from 'ionic-angular';
+import { Page } from 'ionic-angular';
 import { History } from '../../models/history';
 import { MapPage } from '../map/page';
 import { HistoryDAO } from '../../dao/history';
-import { FilterHistoryPipe } from '../../pipes/filterHistory';
+import { HistoryDropdownList } from '../../components/history-dropdown-list/controller';
 
 @Page({
   templateUrl: 'build/pages/history/template.html',
-  pipes: [FilterHistoryPipe]
+  directives: [HistoryDropdownList]
 })
 export class HistoryPage {
     
-    private platform: Platform;
-    private nav: NavController;
     private items: any = {};
-    private show: any = {};
     private dao: HistoryDAO;
     
     public get Title(): string {
@@ -25,29 +22,25 @@ export class HistoryPage {
         return Object.keys(this.items);
     }
     
-    public get Items(): History[] {
+    public get Items(): any {
         return this.items;
     }
     
-    public constructor(platform: Platform, nav: NavController) {
-        this.platform = platform;
-        this.nav = nav;
+    public constructor() {
         this.dao = new HistoryDAO();
     }
     
-    public onPageLoaded(): void {}
-    
     public onPageWillEnter(): void {
-        this.loadHistories();
         document.getElementById('history-view').style.display = 'initial';
+        this.loadHistories();
     }
     
     public onPageWillLeave(): void {
         document.getElementById('history-view').style.display = 'none';
     }
     
-    public getDayHistories(day): History[] {
-        return this.items[day] || [];
+    public getByDay(day: string): History[] {
+        return this.items[day];
     }
     
     private loadHistories(): void {
@@ -56,22 +49,8 @@ export class HistoryPage {
             histories.forEach( history => {
                 let day: string = `${history.Timestamp.getDate()}/${history.Timestamp.getMonth()}/${history.Timestamp.getFullYear()}`;
                 if(!this.items[day]) this.items[day] = [];
-                this.show[day] = false;
                 this.items[day].push(history); 
             });
         });
-    }
-    
-    public toggleHistories(day: string) {
-        console.log(`Clicked in the item '${day}'`);
-        this.show[day] = !this.show[day];
-    }
-    
-    public presentDay(day: string): boolean {
-        return this.show[day];
-    }
-    
-    public find(item: History): void {
-        this.nav.push(MapPage, { line: item.Line });
     }
 }
