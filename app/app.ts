@@ -33,7 +33,6 @@ export class Application {
 
     // set our app's pages
     this.pages = [
-      { title: 'Pesquisar', icon: 'search', component: SearchPage },
       { title: 'Favoritos', icon: 'star', component: FavoritesPage },
       { title: 'Histórico', icon: 'time', component: HistoryPage },
       { title: 'Sobre', icon: 'help-circle', component: AboutPage },
@@ -47,10 +46,16 @@ export class Application {
       // close the menu when clicking a link from the menu
       this.app.getComponent('leftMenu').close();
       // navigate to the new page if it is not the current page
-      this.app.getComponent('nav').setRoot(page.component);
+      this.app.getComponent('nav').push(page.component);
     } else if(page.link) {
       window.open(page.link, '_system');
     }
+  }
+
+  private initializeApp(): void {
+    this.platform.ready().then(() => {
+      this.registerBackButton();
+    });
   }
   
   private registerBackButton(): void {
@@ -66,11 +71,5 @@ export class Application {
         }
         navigator.app.exitApp();
       }, false);
-  }
-
-  private initializeApp(): void {
-    this.platform.ready().then(() => {
-      this.registerBackButton();
-    });
   }
 }
