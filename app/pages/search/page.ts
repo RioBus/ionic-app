@@ -2,18 +2,16 @@
 import { Page, NavController } from 'ionic-angular';
 import { Line } from '../../models/itinerary';
 import { History } from '../../models/history';
-import { ItineraryService } from '../../services/itinerary';
 import { MapPage } from '../map/page';
 import { FavoritesDAO } from '../../dao/favorites';
 import { HistoryDAO } from '../../dao/history';
-import { LinesDAO } from '../../dao/lines';
+import { LineManager } from '../../managers/line';
 
 @Page({
     templateUrl: 'build/pages/search/template.html',
 })
 export class SearchPage {
 
-    private itineraryService: ItineraryService;
     private nav: NavController;
 
     private items: Line[] = [];
@@ -23,7 +21,7 @@ export class SearchPage {
 
     private fdao: FavoritesDAO;
     private hdao: HistoryDAO;
-    private ldao: LinesDAO;
+    private manager: LineManager;
 
     private limit: number = 10;
     private skip: number = 0;
@@ -48,12 +46,11 @@ export class SearchPage {
         return (element) ? element : null;
     }
 
-    public constructor(nav: NavController, itineraryService: ItineraryService) {
+    public constructor(nav: NavController, manager: LineManager) {
         this.nav = nav;
-        this.itineraryService = itineraryService;
+        this.manager = manager;
         this.fdao = new FavoritesDAO();
         this.hdao = new HistoryDAO();
-        this.ldao = new LinesDAO();
     }
 
     public onPageLoaded(): void {
@@ -107,10 +104,12 @@ export class SearchPage {
         let query: string = this.searchBox.value;
         if (query.length > 0) {
             if (this.itemsBkp.length === 0) this.itemsBkp = this.items;
-            this.ldao.getAll().then(lines => {
-                this.items = lines.filter((value: Line, index: number, lines: Line[]): boolean => {
-                    return value.Line.toLowerCase().indexOf(query.toLowerCase()) > -1 || value.Description.toLowerCase().indexOf(query.toLowerCase()) > -1;
-                });
+            this.manager.getAll().then(lines => {
+                this.items = lines.filter(
+                    (value: Line): boolean =>
+                        value.Line.toLowerCase().indexOf(query.toLowerCase()) > -1 ||
+                        value.Description.toLowerCase().indexOf(query.toLowerCase()) > -1
+                );
             });
         } else {
             this.items = this.itemsBkp;
@@ -143,28 +142,10 @@ export class SearchPage {
     }
 
     private loadLines(infiniteScroll?: any): void {
-        this.ldao.getLimited(this.limit, this.skip).then(lines => {
-            if (lines.length > 0) {
-                this.items = this.items.concat(lines);
-                this.skip += this.limit;
-                if (infiniteScroll) infiniteScroll.complete();
-            }
-            else this.downloadLines(infiniteScroll);
-        });
-    }
-
-    private downloadLines(infiniteScroll?: any): void {
-        if (this.showSearchBox) {
-            let query: string = this.searchBox.value.toString();
-            if (query.length > 0 && infiniteScroll) infiniteScroll.complete();
-
-        } else this.itineraryService.getItineraries().then((lines: Line[]) => {
-            this.ldao.saveAll(lines).then(() => {
-                let slice: Line[] = lines.splice(0, this.limit);
-                this.items = this.items.concat(slice);
-                this.skip += this.limit;
-                if (infiniteScroll) infiniteScroll.complete();
-            });
+        this.manager.getSlice(this.limit, this.skip).then(lines => {
+            this.items = this.items.concat(lines);
+            this.skip += this.limit;
+            if (infiniteScroll) infiniteScroll.complete();
         });
     }
 }

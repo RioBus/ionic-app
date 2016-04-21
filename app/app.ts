@@ -10,11 +10,12 @@ import { SearchPage }                              from './pages/search/page';
 import { HistoryPage }                             from './pages/history/page';
 import { ItineraryService }                        from './services/itinerary';
 import { FavoritesPage }                           from './pages/favorites/page';
+import { LineManager }                             from './managers/line';
 
 // App decorator: http://ionicframework.com/docs/v2/api/decorators/App/
 @App({
   templateUrl: 'build/app.html',
-  providers: [ItineraryService, SearchService],
+  providers: [ItineraryService, SearchService, LineManager],
   prodMode: true,
   config: {},
 })
