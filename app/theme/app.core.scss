@@ -19,7 +19,7 @@ ion-searchbar, ion-navbar {
 
 ion-menu div.menu-banner {
   width: 100%;
-  height: 200px;
+  height: 160px;
   background-image: url('../../img/banner.jpg');
   background-repeat: no-repeat;
   background-position-x: 50%;
@@ -44,7 +44,7 @@ ion-menu div.menu-banner div.user-title h2 {
 }
 
 ion-menu ion-list {
-  height: calc(100% - 220px);
+  height: calc(100% - 180px);
   overflow-x: hidden;
   overflow-y: scroll;
 }
