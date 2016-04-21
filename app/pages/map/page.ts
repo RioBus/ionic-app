@@ -1,6 +1,6 @@
 'use strict';
 declare var plugin: any;
-import { Page, Platform, NavController, NavParams } from 'ionic-angular';
+import { Page, NavParams } from 'ionic-angular';
 import { UPDATE_TIMEOUT } from '../../const';
 import { GoogleMaps } from '../../components/maps/controller';
 import { SearchService } from '../../services/search';
@@ -14,8 +14,6 @@ import { Line } from '../../models/itinerary';
 export class MapPage {
     
     private canvas: Element;
-    private platform: Platform;
-    private nav: NavController;
     private params: NavParams;
     private service: SearchService;
     private title: string = 'Rio Bus';
@@ -35,10 +33,8 @@ export class MapPage {
         return this.line;
     }
     
-    constructor(platform: Platform, nav: NavController, params: NavParams, service: SearchService) {
-        this.platform = platform;
+    constructor(params: NavParams, service: SearchService) {
         this.params = params;
-        this.nav = nav;
         this.service = service;
         
         if(this.params.data.line) {
@@ -60,6 +56,11 @@ export class MapPage {
     private updateMarkers(): void {
         this.service.getBuses(this.title).then((buses: Bus[]) => {
             this.buses = buses;
+        }, error => {
+            this.buses = [];
+            clearInterval(this.timer);
+            if(error.status===404) console.log(`[404] No buses were found the the query '${this.title}'.`);
+            else console.log(`[${error.status}] An error ocurred.`);
         });
     }
     

@@ -22,9 +22,12 @@ export class SearchService {
     }
     
     public getBuses(query: string): Promise<Bus[]> {
-        return new Promise<Bus[]>(resolve => {
+        return new Promise<Bus[]>((resolve, reject) => {
             let url: string = `${API_ENDPOINT}/v3/search/${query}`;
-            this.http.get(url).subscribe(data => resolve( this.processBuses( data.json() ) ) );
+            this.http.get(url).subscribe(
+                data => resolve( this.processBuses( data.json() ) ),
+                error => reject(error)
+            );
         });
     }
 }
