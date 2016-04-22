@@ -45,9 +45,7 @@
                     <h2>{{ item.Line }}</h2>
                     <p>{{ item.Description }}</p>
                 </div>
-                <button clear item-right (click)="onClickOnStar(item)">
-                    <ion-icon golden name="{{ isFavorite(item) ? 'star' : 'star-outline' }}"></ion-icon>
-                </button>
+                <favorite-button item-right [line]="item"></favorite-button>
             </button>
         </ion-item-group>
         

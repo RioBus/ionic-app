@@ -6,9 +6,11 @@ import { MapPage } from '../map/page';
 import { FavoritesDAO } from '../../dao/favorites';
 import { HistoryDAO } from '../../dao/history';
 import { LineManager } from '../../managers/line';
+import { FavoriteButton } from '../../components/favorite-button/controller';
 
 @Page({
     templateUrl: 'build/pages/search/template.html',
+    directives: [FavoriteButton]
 })
 export class SearchPage {
 
