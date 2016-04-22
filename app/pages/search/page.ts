@@ -30,14 +30,6 @@ export class SearchPage {
     private skip: number = 0;
     public showSearchBox: boolean = false;
 
-    public get Items(): Line[] {
-        return this.items;
-    }
-
-    public get Histories(): History[] {
-        return this.histories;
-    }
-
     public isFavorite(line: Line): boolean {
         return this.favorites.some(fav => line.Line === fav.Line);
     }
@@ -67,22 +59,6 @@ export class SearchPage {
 
     public onPageWillLeave(): void {
         document.getElementById('search-view').style.display = 'none';
-    }
-
-    public onClickOnStar(line: Line): void {
-        if (this.isFavorite(line)) this.fdao.remove(line).then((response: boolean) => this.onUnstar(response, line));
-        else this.fdao.save(line).then((response: boolean) => this.onStar(response, line));
-    }
-
-    private onStar(response: boolean, line: Line): void {
-        if (response) this.favorites.push(line);
-    }
-
-    private onUnstar(response: boolean, line: Line): void {
-        if (response) {
-            let index: number = this.favorites.findIndex(fav => fav.Line === line.Line);
-            this.favorites.splice(index, 1);
-        }
     }
 
     public find(line: Line): void {
