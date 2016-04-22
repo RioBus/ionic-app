@@ -5,13 +5,13 @@ import { NavController, Platform } from 'ionic-angular';
 import { MapSnackbar } from '../map-snackbar/controller';
 import { Component, OnChanges } from 'angular2/core';
 import { Bus } from '../../models/bus';
-import { Line } from '../../models/itinerary';
+import { Line, Itinerary } from '../../models/itinerary';
 import { MarkerController } from './marker';
 
 @Component({
     selector: 'google-maps',
     templateUrl: 'build/components/maps/template.html',
-    inputs: ['markers', 'line'],
+    inputs: ['markers', 'line', 'trajectory'],
     directives: [MapSnackbar],
 })
 export class GoogleMaps implements OnChanges {
@@ -20,14 +20,11 @@ export class GoogleMaps implements OnChanges {
     private platform: Platform;
     private map: any;
     private markers: Bus[];
+    private trajectory: Itinerary;
     private line: Line;
     private mcontrol: MarkerController;
     private swap: boolean = false;
     private static instance: GoogleMaps;
-
-    public get Line(): Line {
-        return this.line;
-    }
 
     constructor(platform: Platform, nav: NavController) {
         this.platform = platform;
@@ -35,20 +32,29 @@ export class GoogleMaps implements OnChanges {
         GoogleMaps.instance = this;
     }
 
-    private isArray(value: any): boolean {
-        return value instanceof Array;
-    }
-
-    private ngOnInit(): void {
+    public ngOnInit(): void {
         this.platform.ready().then(() => { this.onPlatformRedy(); });
     }
 
-    private ngOnDestroy(): void {
+    public ngOnDestroy(): void {
+        this.mcontrol.hideTrajectory();
         this.removeMarkers();
     }
 
     public ngOnChanges(changes: any): void {
-        this.checkMarkerChanges(changes.markers);
+        if (changes.markers) this.onMarkerChanges(changes.markers);
+        if (changes.trajectory) this.onTrajectoryChanges(changes.trajectory);
+    }
+
+    public onSwapDirection(): boolean {
+        let self: GoogleMaps = GoogleMaps.instance;
+        if (self.line.Description !== 'desconhecido') {
+            self.swap = !self.swap;
+            self.removeMarkers();
+            self.updateMarkers(self.markers);
+            return true;
+        }
+        return false;
     }
 
     private onPlatformRedy(): void {
@@ -66,15 +72,27 @@ export class GoogleMaps implements OnChanges {
         console.log('Map ready');
     }
 
-    public onSwapDirection(): boolean {
-        let self: GoogleMaps = GoogleMaps.instance;
-        if (self.Line.Description !== 'desconhecido') {
-            self.swap = !self.swap;
-            self.removeMarkers();
-            self.updateMarkers(self.markers);
-            return true;
+    private onTrajectoryChanges(trajectory: any): void {
+        if (this.trajectory) {
+            this.mcontrol.hideTrajectory();
+            this.mcontrol.showTrajectory(this.trajectory);
         }
-        return false;
+    }
+
+    private isArray(value: any): boolean {
+        return value instanceof Array;
+    }
+
+    private onMarkerChanges(markers: any): void {
+        if (!markers.previousValue && this.isArray(markers.currentValue)) {
+            // Just loaded the map view
+            this.removeMarkers();
+            this.updateMarkers(markers.currentValue);
+        } else if (this.isArray(markers.previousValue) && this.isArray(markers.currentValue)) {
+            // Received new data
+            if (JSON.stringify(markers.previousValue) !== JSON.stringify(markers.currentValue))
+                this.updateMarkers(markers.currentValue);
+        }
     }
 
     private updateMarkers(current: Bus[]): void {
@@ -90,17 +108,5 @@ export class GoogleMaps implements OnChanges {
     private filterBuses(buses: Bus[]): Bus[] {
         if (!this.swap) return buses.filter(bus => bus.Direction === this.line.Description);
         else return buses.filter(bus => bus.Direction !== this.line.Description);
-    }
-
-    private checkMarkerChanges(markers: any): void {
-        if (!markers.previousValue && this.isArray(markers.currentValue)) {
-            // Just loaded the map view
-            this.removeMarkers();
-            this.updateMarkers(markers.currentValue);
-        } else if (this.isArray(markers.previousValue) && this.isArray(markers.currentValue)) {
-            // Received new data
-            if (JSON.stringify(markers.previousValue) !== JSON.stringify(markers.currentValue))
-                this.updateMarkers(markers.currentValue);
-        }
     }
 }

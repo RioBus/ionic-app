@@ -5,7 +5,7 @@ import { SqlStorage } from 'ionic-angular';
 
 export class LinesDAO {
 
-    private collectionName = 'lines';
+    private collectionName: string = 'lines';
     private storage: SqlStorage;
 
     constructor() {

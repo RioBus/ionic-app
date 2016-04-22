@@ -11,11 +11,12 @@ import { HistoryPage }                             from './pages/history/page';
 import { ItineraryService }                        from './services/itinerary';
 import { FavoritesPage }                           from './pages/favorites/page';
 import { LineManager }                             from './managers/line';
+import { ItineraryManager }                        from './managers/itinerary';
 
 // App decorator: http://ionicframework.com/docs/v2/api/decorators/App/
 @App({
   templateUrl: 'build/app.html',
-  providers: [ItineraryService, SearchService, LineManager],
+  providers: [ItineraryService, SearchService, LineManager, ItineraryManager],
   prodMode: true,
   config: {},
 })
@@ -41,7 +42,7 @@ export class Application {
       { title: 'Histórico', icon: 'time', component: HistoryPage },
       { title: 'Sobre', icon: 'help-circle', component: AboutPage },
       { title: 'Avalie o app', icon: 'appstore', link: URL_PLAY_STORE },
-      { title: 'Curta no Facebook', icon: 'thumbs-up', link: URL_FB_PAGE }
+      { title: 'Curta no Facebook', icon: 'thumbs-up', link: URL_FB_PAGE },
     ];
 
     this.initializeApp();

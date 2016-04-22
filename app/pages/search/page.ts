@@ -145,7 +145,7 @@ export class SearchPage {
     }
 
     private loadLines(infiniteScroll?: any): void {
-        if(this.showSearchBox) {
+        if (this.showSearchBox) {
             if (infiniteScroll) infiniteScroll.complete();
             return;
         }

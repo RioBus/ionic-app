@@ -5,7 +5,8 @@ import { UPDATE_TIMEOUT } from '../../const';
 import { GoogleMaps } from '../../components/maps/controller';
 import { SearchService } from '../../services/search';
 import { Bus } from '../../models/bus';
-import { Line } from '../../models/itinerary';
+import { Line, Itinerary } from '../../models/itinerary';
+import { ItineraryManager } from '../../managers/itinerary';
 
 @Page({
     templateUrl: 'build/pages/map/template.html',
@@ -15,26 +16,21 @@ export class MapPage {
 
     private params: NavParams;
     private service: SearchService;
+    private manager: ItineraryManager;
     private title: string = 'Rio Bus';
     private timer: any;
-    private buses: Bus[];
-    private line: Line;
+    public buses: Bus[];
+    public line: Line;
+    public trajectory: Itinerary;
 
     public get Title(): string {
-        return this.title;
+        return this.title.replace(',', ', ');
     }
 
-    public get Markers(): Bus[] {
-        return this.buses;
-    }
-
-    public get Line(): Line {
-        return this.line;
-    }
-
-    constructor(params: NavParams, service: SearchService) {
+    constructor(params: NavParams, service: SearchService, manager: ItineraryManager) {
         this.params = params;
         this.service = service;
+        this.manager = manager;
 
         if (this.params.data.line) {
             this.line = this.params.data.line;
@@ -46,8 +42,14 @@ export class MapPage {
     }
 
     public onPageLoaded(): void {
+        this.showTrajectory();
         this.updateMarkers();
         this.timer = setInterval(() => this.updateMarkers(), UPDATE_TIMEOUT);
+    }
+
+    private showTrajectory(): void {
+        if (this.title.split(',').length === 1)
+            this.manager.getByLine(this.title).then(itinerary => this.trajectory = itinerary);
     }
 
     private updateMarkers(): void {
