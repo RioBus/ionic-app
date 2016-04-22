@@ -145,6 +145,10 @@ export class SearchPage {
     }
 
     private loadLines(infiniteScroll?: any): void {
+        if(this.showSearchBox) {
+            if (infiniteScroll) infiniteScroll.complete();
+            return;
+        }
         this.manager.getSlice(this.limit, this.skip).then(lines => {
             this.items = this.items.concat(lines);
             this.skip += this.limit;
