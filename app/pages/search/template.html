@@ -31,11 +31,10 @@
         
         <ion-item-group *ngIf="Histories.length>0 && !showSearchBox">
             <ion-item-divider light>Pesquisas recentes</ion-item-divider>
-            <button ion-item *ngFor="#history of Histories" (click)="find(history.Line)">
-                <h2>{{ history.Line.Line }}</h2>
-                <p>{{ history.Line.Description }}</p>
+            <ion-item *ngFor="#history of Histories">
+                <line-item [line]="history.Line"></line-item>
                 <ion-icon clear item-right name="time"></ion-icon>
-            </button>
+            </ion-item>
         </ion-item-group>
         
         <ion-item-group *ngIf="!(Items.length===0 && searchbox && searchbox.value.length>0)">
