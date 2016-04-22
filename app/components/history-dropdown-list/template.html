@@ -1,10 +1,9 @@
 <button ion-item (click)="toggleItem()">
     <ion-icon item-left name="{{ presentGroup()? 'arrow-dropup':'arrow-dropdown' }}"></ion-icon>
-    <h2 item-right>{{ Header }}</h2>
+    <h2 item-right>{{ title }}</h2>
 </button>
 <ion-item-group class="{{ presentGroup()? '':'hidden' }}">
-    <ion-item *ngFor="#item of Items" (click)="onItemClick(item)">
-        <h2>{{ item.Line.Line }}</h2>
-        <p>{{ item.Line.Description }}</p>
+    <ion-item *ngFor="#item of items">
+        <line-item [line]="item.Line"></line-item>
     </ion-item>
 </ion-item-group>
