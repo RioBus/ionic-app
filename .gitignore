@@ -33,3 +33,4 @@ platforms
 plugins
 
 .travis/travis_rsa.pem
+.vscode/
