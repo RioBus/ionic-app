@@ -38,7 +38,13 @@ export class HistoryDAO {
     public save(obj: History): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             this.Storage.then((histories: History[]) => {
-                let index: number = histories.findIndex(data => data.Line.Line === obj.Line.Line);
+                let tmpDate: Date = new Date();
+                let index: number = histories.findIndex(data =>
+                    data.Line.Line === obj.Line.Line &&
+                    data.Timestamp.getDate() === tmpDate.getDate() &&
+                    data.Timestamp.getMonth() === tmpDate.getMonth() &&
+                    data.Timestamp.getFullYear() === tmpDate.getFullYear()
+                );
                 if (index > -1) histories[index].incrementCounter();
                 else histories.push(obj);
                 this.set(histories).then(() => resolve(true));
