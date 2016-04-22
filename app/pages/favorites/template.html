@@ -9,13 +9,15 @@
 <ion-content class="favorites" id="favorites-view">
     <ion-list>
         <ion-item *ngFor="#item of Items">
-            <div (click)="find(item)">
+            <line-item [line]="item"></line-item>
+            <favorite-button item-right [line]="item"></favorite-button>
+            <!--<div (click)="find(item)">
                 <h2>{{ item.Line }}</h2>
                 <p>{{ item.Description }}</p>
             </div>
             <button clear item-right (click)="onClickOnStar(item)">
                 <ion-icon golden name="star"></ion-icon>
-            </button>
+            </button>-->
         </ion-item>
     </ion-list>
 </ion-content>

@@ -14,7 +14,7 @@ import { FavoritesDAO } from '../../dao/favorites';
 export class FavoriteButton {
 
     private line: Line;
-    private size: string;
+    public size: string;
     private favorite: boolean = false;
     private dao: FavoritesDAO;
 

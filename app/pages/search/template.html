@@ -40,13 +40,10 @@
         
         <ion-item-group *ngIf="!(Items.length===0 && searchbox && searchbox.value.length>0)">
             <ion-item-divider light>Linhas disponíveis</ion-item-divider>
-            <button ion-item *ngFor="#item of Items">
-                <div (click)="find(item)">
-                    <h2>{{ item.Line }}</h2>
-                    <p>{{ item.Description }}</p>
-                </div>
+            <ion-item *ngFor="#item of Items">
+                <line-item [line]="item"></line-item>
                 <favorite-button item-right [line]="item"></favorite-button>
-            </button>
+            </ion-item>
         </ion-item-group>
         
         <button ion-item *ngIf="Items.length===0 && searchbox && searchbox.value.length>0" (click)="findText()">Buscar por <b>{{ searchbox.value }}</b> ...</button>

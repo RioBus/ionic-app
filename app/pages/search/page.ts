@@ -7,10 +7,11 @@ import { FavoritesDAO } from '../../dao/favorites';
 import { HistoryDAO } from '../../dao/history';
 import { LineManager } from '../../managers/line';
 import { FavoriteButton } from '../../components/favorite-button/controller';
+import { LineItem } from '../../components/line-item/controller';
 
 @Page({
     templateUrl: 'build/pages/search/template.html',
-    directives: [FavoriteButton]
+    directives: [FavoriteButton, LineItem],
 })
 export class SearchPage {
 
