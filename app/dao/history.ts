@@ -9,7 +9,7 @@ export class HistoryDAO {
     private collectionName: string = 'history';
     private storage: SqlStorage;
 
-    constructor() {
+    public constructor() {
         this.storage = new SqlStorage();
     }
 

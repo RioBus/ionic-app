@@ -30,6 +30,13 @@ export class SearchPage {
     private skip: number = 0;
     public showSearchBox: boolean = false;
 
+    public constructor(nav: NavController, manager: LineManager) {
+        this.nav = nav;
+        this.manager = manager;
+        this.fdao = new FavoritesDAO();
+        this.hdao = new HistoryDAO();
+    }
+
     public isFavorite(line: Line): boolean {
         return this.favorites.some(fav => line.Line === fav.Line);
     }
@@ -39,13 +46,6 @@ export class SearchPage {
         if (element) element = element.getElementsByTagName('input');
         if (element) element = element.item(0);
         return (element) ? element : null;
-    }
-
-    public constructor(nav: NavController, manager: LineManager) {
-        this.nav = nav;
-        this.manager = manager;
-        this.fdao = new FavoritesDAO();
-        this.hdao = new HistoryDAO();
     }
 
     public onPageLoaded(): void {

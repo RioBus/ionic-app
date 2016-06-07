@@ -1,7 +1,7 @@
 'use strict';
 
 import { Button } from 'ionic-angular';
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { FavoriteButton } from '../favorite-button/controller';
 

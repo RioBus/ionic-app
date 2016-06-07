@@ -3,7 +3,7 @@
 import { ItineraryService } from '../services/itinerary';
 import { LinesDAO } from '../dao/lines';
 import { Line } from '../models/itinerary';
-import { Injectable } from 'angular2/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class LineManager {

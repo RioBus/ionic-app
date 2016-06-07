@@ -3,7 +3,7 @@
 import { ItineraryService } from '../services/itinerary';
 import { ItineraryDAO } from '../dao/itinerary';
 import { Itinerary } from '../models/itinerary';
-import { Injectable } from 'angular2/core';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ItineraryManager {

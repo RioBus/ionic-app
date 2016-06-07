@@ -14,16 +14,16 @@ export class FavoritesPage {
     private items: Line[] = [];
     private dao: FavoritesDAO;
 
+    public constructor() {
+        this.dao = new FavoritesDAO();
+    }
+
     public get Title(): string {
         return 'Favoritos';
     }
 
     public get Items(): Line[] {
         return this.items;
-    }
-
-    public constructor() {
-        this.dao = new FavoritesDAO();
     }
 
     public onPageWillEnter(): void {

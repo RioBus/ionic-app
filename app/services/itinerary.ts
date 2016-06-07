@@ -1,15 +1,16 @@
 'use strict';
+
 import { API_ENDPOINT } from '../const';
 import { Itinerary, Line, Spot } from '../models/itinerary';
-import { Injectable } from 'angular2/core';
-import { Http } from 'angular2/http';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class ItineraryService {
 
     private http: Http;
 
-    constructor(http: Http) {
+    public constructor(http: Http) {
         this.http = http;
     }
 

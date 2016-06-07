@@ -1,7 +1,7 @@
 'use strict';
 
 import { Button, Icon } from 'ionic-angular';
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { FavoritesDAO } from '../../dao/favorites';
 
@@ -18,15 +18,15 @@ export class FavoriteButton {
     private favorite: boolean = false;
     private dao: FavoritesDAO;
 
+    public constructor() {
+        this.dao = new FavoritesDAO();
+    }
+
     public get IsFavorite(): boolean {
         return this.favorite;
     }
 
-    constructor() {
-        this.dao = new FavoritesDAO();
-    }
-
-    private ngOnInit(): void {
+    public ngOnInit(): void {
         this.favoriteCheck();
     }
 
