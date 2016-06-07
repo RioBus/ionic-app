@@ -8,7 +8,7 @@
       </div>
     </div>
     <ion-list no-lines>
-      <button ion-item *ngFor="#p of pages" (click)="openPage(p)">
+      <button ion-item menuToggle *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon gray name="{{ p.icon }}" item-left></ion-icon>
         <span gray>{{p.title}}</span>
       </button>
