@@ -1,8 +1,9 @@
 'use strict';
 
-import { Type }                    from 'angular2/core';
-import { App, IonicApp, Platform } from 'ionic-angular';
-import { HomePage }                from './pages/home/page';
+import { Type, ViewChild }                    from '@angular/core';
+import { App, Platform, MenuController, Nav } from 'ionic-angular';
+import { StatusBar }                          from 'ionic-native';
+import { HomePage } from './pages/home/page';
 
 @App({
   templateUrl: 'build/app.html',
@@ -10,15 +11,17 @@ import { HomePage }                from './pages/home/page';
 })
 export class Application {
 
+  @ViewChild(Nav) private nav: Nav;
+
   private rootPage: Type;
   private pages: Array<{title: string, component: Type}>;
-  private app: IonicApp;
+  private menu: MenuController;
   private platform: Platform;
 
-  constructor(app: IonicApp, platform: Platform) {
+  constructor(platform: Platform, menu: MenuController) {
 
-    this.app = app;
     this.platform = platform;
+    this.menu = menu;
 
     this.rootPage = HomePage;
     this.initializeApp();
@@ -31,27 +34,16 @@ export class Application {
 
   private initializeApp(): void {
     this.platform.ready().then(() => {
-      // The platform is now ready. Note: if this callback fails to fire, follow
-      // the Troubleshooting guide for a number of possible solutions:
-      //
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      //
-      // First, let's hide the keyboard accessory bar (only works natively) since
-      // that's a better default:
-      //
-      // Keyboard.setAccessoryBarVisible(false);
-      //
-      // For example, we might change the StatusBar color. This one below is
-      // good for dark backgrounds and light text:
-      // StatusBar.setStyle(StatusBar.LIGHT_CONTENT)
+      StatusBar.styleDefault();
     });
   }
 
   public openPage(page: any): void {
     // close the menu when clicking a link from the menu
-    this.app.getComponent('leftMenu').close();
+    this.menu.close();
     // navigate to the new page if it is not the current page
-    this.app.getComponent('nav').setRoot(page.component);
+    this.nav.setRoot(page.component);
   };
 }
