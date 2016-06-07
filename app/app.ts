@@ -32,7 +32,7 @@ interface MenuItem {
   templateUrl: 'build/app.html',
   providers: [ItineraryService, SearchService, LineManager, ItineraryManager],
   config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
-  prodMode: false, // toggles Angular2 production mode on/off
+  prodMode: true, // toggles Angular2 production mode on/off
 })
 export class Application {
 

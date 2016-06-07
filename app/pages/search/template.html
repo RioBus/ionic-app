@@ -31,7 +31,7 @@
         
         <ion-item-group *ngIf="histories.length>0 && !showSearchBox">
             <ion-item-divider light>Pesquisas recentes</ion-item-divider>
-            <ion-item *ngFor="#history of histories">
+            <ion-item *ngFor="let history of histories">
                 <line-item [line]="history.Line"></line-item>
                 <ion-icon clear item-right name="time"></ion-icon>
             </ion-item>
