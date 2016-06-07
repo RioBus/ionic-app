@@ -40,7 +40,7 @@
     <ion-list [virtualScroll]="items" class="no-margin" bufferRatio="3">    
         <ion-item-group *ngIf="!(items.length===0 && searchbox && searchbox.value.length>0)">
             <ion-item-divider light>Linhas disponíveis</ion-item-divider>
-            <ion-item *virtualItem="#item">
+            <ion-item *virtualItem="let item">
                 <line-item [line]="item"></line-item>
                 <favorite-button item-right [line]="item"></favorite-button>
             </ion-item>
