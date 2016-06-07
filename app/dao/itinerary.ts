@@ -8,7 +8,7 @@ export class ItineraryDAO {
     private collectionName: string = 'itineraries';
     private storage: SqlStorage;
 
-    constructor() {
+    public constructor() {
         this.storage = new SqlStorage();
     }
 

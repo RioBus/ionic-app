@@ -1,7 +1,7 @@
 'use strict';
 
 import { Button, Icon, List, Item, NavController } from 'ionic-angular';
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { History } from '../../models/history';
 import { LineItem } from '../line-item/controller';
 

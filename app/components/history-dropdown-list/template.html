@@ -3,7 +3,7 @@
     <h2 item-right>{{ title }}</h2>
 </button>
 <ion-item-group class="{{ presentGroup()? '':'hidden' }}">
-    <ion-item *ngFor="#item of items">
+    <ion-item *ngFor="let item of items">
         <line-item [line]="item.Line"></line-item>
     </ion-item>
 </ion-item-group>

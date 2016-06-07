@@ -1,7 +1,7 @@
 'use strict';
 
 import { NavController } from 'ionic-angular';
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { History } from '../../models/history';
 import { MapPage } from '../../pages/map/page';

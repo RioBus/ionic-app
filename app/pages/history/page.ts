@@ -13,6 +13,10 @@ export class HistoryPage {
     private items: any = {};
     private dao: HistoryDAO;
 
+    public constructor() {
+        this.dao = new HistoryDAO();
+    }
+
     public get Title(): string {
         return 'Histórico';
     }
@@ -23,10 +27,6 @@ export class HistoryPage {
 
     public get Items(): any {
         return this.items;
-    }
-
-    public constructor() {
-        this.dao = new HistoryDAO();
     }
 
     public onPageWillEnter(): void {

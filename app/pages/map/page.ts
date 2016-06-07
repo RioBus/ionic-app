@@ -1,5 +1,7 @@
 'use strict';
+
 declare var plugin: any;
+
 import { Page, NavParams } from 'ionic-angular';
 import { UPDATE_TIMEOUT } from '../../const';
 import { GoogleMaps } from '../../components/maps/controller';
@@ -23,11 +25,7 @@ export class MapPage {
     public line: Line;
     public trajectory: Itinerary;
 
-    public get Title(): string {
-        return this.title.replace(',', ', ');
-    }
-
-    constructor(params: NavParams, service: SearchService, manager: ItineraryManager) {
+    public constructor(params: NavParams, service: SearchService, manager: ItineraryManager) {
         this.params = params;
         this.service = service;
         this.manager = manager;
@@ -39,6 +37,10 @@ export class MapPage {
         else if (this.params.data.query) {
             this.title = this.params.data.query;
         }
+    }
+
+    public get Title(): string {
+        return this.title.replace(',', ', ');
     }
 
     public onPageLoaded(): void {

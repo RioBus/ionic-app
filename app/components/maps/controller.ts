@@ -3,7 +3,7 @@ declare var plugin: any, google: any;
 
 import { NavController, Platform } from 'ionic-angular';
 import { MapSnackbar } from '../map-snackbar/controller';
-import { Component, OnChanges } from 'angular2/core';
+import { Component, OnChanges } from '@angular/core';
 import { Bus } from '../../models/bus';
 import { Line, Itinerary } from '../../models/itinerary';
 import { MarkerController } from './marker';

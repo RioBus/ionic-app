@@ -8,7 +8,7 @@ export class LinesDAO {
     private collectionName: string = 'lines';
     private storage: SqlStorage;
 
-    constructor() {
+    public constructor() {
         this.storage = new SqlStorage();
     }
 

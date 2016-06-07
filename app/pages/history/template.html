@@ -8,6 +8,6 @@
 
 <ion-content padding class="history" id="history-view">
     <ion-list>
-        <history-dropdown-list *ngFor="#day of Days" [title]="day" [items]="getByDay(day)"></history-dropdown-list>
+        <history-dropdown-list *ngFor="let day of Days" [title]="day" [items]="getByDay(day)"></history-dropdown-list>
     </ion-list>
 </ion-content>
