@@ -1,13 +1,19 @@
 'use strict';
 
-import { Type, ViewChild }                    from '@angular/core';
-import { App, Platform, MenuController, Nav } from 'ionic-angular';
-import { StatusBar }                          from 'ionic-native';
-import { HomePage } from './pages/home/page';
+import { Type, ViewChild }    from '@angular/core';
+import { App, Platform, Nav } from 'ionic-angular';
+import { StatusBar }          from 'ionic-native';
+import { HomePage }           from './pages/home/page';
 
+/**
+ * Bootstraps the Ionic app 
+ * 
+ * @class {Application}
+ */
 @App({
   templateUrl: 'build/app.html',
   config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
+  prodMode: false, // toggles Angular2 production mode on/off
 })
 export class Application {
 
@@ -15,35 +21,51 @@ export class Application {
 
   private rootPage: Type;
   private pages: Array<{title: string, component: Type}>;
-  private menu: MenuController;
   private platform: Platform;
 
-  constructor(platform: Platform, menu: MenuController) {
-
+  public constructor(platform: Platform) {
     this.platform = platform;
-    this.menu = menu;
-
     this.rootPage = HomePage;
-    this.initializeApp();
+    this.platform.ready().then(() => this.onReady());
 
+  }
+
+  /**
+   * When the cordova platform is ready, it configures the environment
+   * @return {void}
+   */
+  private onReady(): void {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+      this.hideSplashScreen();
+      StatusBar.styleDefault();
+      this.configureMenu();
+  }
+
+  /**
+   * Hides the splashscreen right when the app is ready.
+   * @return {void}
+   */
+  private hideSplashScreen(): void {
+      if (navigator && navigator.splashscreen) {
+          setTimeout(() => navigator.splashscreen.hide(), 100);
+      }
+  }
+
+  /**
+   * Configures menu links
+   * @return {void}
+   */
+  private configureMenu(): void {
     // set our app's pages
     this.pages = [
       { title: 'Home', component: HomePage }
     ];
   }
 
-  private initializeApp(): void {
-    this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-    });
-  }
-
-  public openPage(page: any): void {
+  public openPage(page: {title: string, component: Type}): void {
     // close the menu when clicking a link from the menu
-    this.menu.close();
     // navigate to the new page if it is not the current page
     this.nav.setRoot(page.component);
-  };
+  }
 }
