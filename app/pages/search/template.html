@@ -27,8 +27,7 @@
 </ion-navbar>
 
 <ion-content class="search" id="search-view">
-    <ion-list>
-        
+    <ion-list class="no-margin">
         <ion-item-group *ngIf="histories.length>0 && !showSearchBox">
             <ion-item-divider light>Pesquisas recentes</ion-item-divider>
             <ion-item *ngFor="#history of histories">
@@ -36,10 +35,12 @@
                 <ion-icon clear item-right name="time"></ion-icon>
             </ion-item>
         </ion-item-group>
-        
+    </ion-list>
+    
+    <ion-list [virtualScroll]="items" class="no-margin" bufferRatio="3">    
         <ion-item-group *ngIf="!(items.length===0 && searchbox && searchbox.value.length>0)">
             <ion-item-divider light>Linhas disponíveis</ion-item-divider>
-            <ion-item *ngFor="#item of items">
+            <ion-item *virtualItem="#item">
                 <line-item [line]="item"></line-item>
                 <favorite-button item-right [line]="item"></favorite-button>
             </ion-item>
@@ -47,8 +48,4 @@
         
         <button ion-item *ngIf="items.length===0 && searchbox && searchbox.value.length>0" (click)="findText()">Buscar por <b>{{ searchbox.value }}</b> ...</button>
     </ion-list>
-    
-    <ion-infinite-scroll (infinite)="loadLines($event)">
-        <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll>
 </ion-content>

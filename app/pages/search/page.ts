@@ -26,8 +26,6 @@ export class SearchPage {
     private hdao: HistoryDAO;
     private manager: LineManager;
 
-    private limit: number = 10;
-    private skip: number = 0;
     public showSearchBox: boolean = false;
 
     public isFavorite(line: Line): boolean {
@@ -120,15 +118,9 @@ export class SearchPage {
         });
     }
 
-    private loadLines(infiniteScroll?: any): void {
-        if (this.showSearchBox) {
-            if (infiniteScroll) infiniteScroll.complete();
-            return;
-        }
-        this.manager.getSlice(this.limit, this.skip).then(lines => {
-            this.items = this.items.concat(lines);
-            this.skip += this.limit;
-            if (infiniteScroll) infiniteScroll.complete();
+    private loadLines(): void {
+        this.manager.getAll().then(lines => {
+            this.items = lines;
         });
     }
 }
