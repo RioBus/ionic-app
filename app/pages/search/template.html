@@ -39,7 +39,7 @@
         
         <ion-item-group *ngIf="!(items.length===0 && searchbox && searchbox.value.length>0)">
             <ion-item-divider light>Linhas disponíveis</ion-item-divider>
-            <ion-item *ngFor="#item of items">
+            <ion-item *ngFor="let item of items">
                 <line-item [line]="item"></line-item>
                 <favorite-button item-right [line]="item"></favorite-button>
             </ion-item>
