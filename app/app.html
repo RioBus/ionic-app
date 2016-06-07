@@ -5,9 +5,10 @@
   </ion-toolbar>
 
   <ion-content>
-    <ion-list>
+    <ion-list no-lines>
       <button ion-item menuToggle *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+        <ion-icon name="{{ p.icon }}" item-left></ion-icon>
+        <span>{{p.title}}</span>
       </button>
     </ion-list>
   </ion-content>

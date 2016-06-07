@@ -5,6 +5,15 @@ import { App, Platform, Nav } from 'ionic-angular';
 import { StatusBar }          from 'ionic-native';
 import { HomePage }           from './pages/home/page';
 
+interface MenuItem {
+  title: string;
+  icon: string;
+  component?: Type;
+  link?: string;
+  action?: Function;
+  home?: boolean;
+}
+
 /**
  * Bootstraps the Ionic app 
  * 
@@ -20,7 +29,7 @@ export class Application {
   @ViewChild(Nav) private nav: Nav;
 
   private rootPage: Type;
-  private pages: Array<{title: string, component: Type}>;
+  private pages: MenuItem[];
   private platform: Platform;
 
   public constructor(platform: Platform) {
@@ -43,6 +52,17 @@ export class Application {
   }
 
   /**
+   * Configures menu links
+   * @return {void}
+   */
+  private configureMenu(): void {
+    // set our app's pages
+    this.pages = [
+          { title: 'Home', icon: 'home', component: HomePage, home: true },
+    ];
+  }
+
+  /**
    * Hides the splashscreen right when the app is ready.
    * @return {void}
    */
@@ -53,19 +73,16 @@ export class Application {
   }
 
   /**
-   * Configures menu links
+   * Opens a given page
+   * @param {MenuItem} page - Clicked page item
    * @return {void}
    */
-  private configureMenu(): void {
-    // set our app's pages
-    this.pages = [
-      { title: 'Home', component: HomePage }
-    ];
-  }
-
-  public openPage(page: {title: string, component: Type}): void {
-    // close the menu when clicking a link from the menu
-    // navigate to the new page if it is not the current page
-    this.nav.setRoot(page.component);
+  public openPage(page: MenuItem): void {
+      if (page.component) {
+          if (!page.home) this.nav.push(page.component);
+          else this.rootPage = page.component;
+      }
+      else if (page.link) window.open(page.link, '_system');
+      else if (page.action) page.action();
   }
 }
