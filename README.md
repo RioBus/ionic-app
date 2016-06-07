@@ -3,8 +3,8 @@
 ## Install & Start
 
 ```bash
-git clone https://github.com/fmsouza/riobus-ionic.git
-cd riobus-ionic
+git clone https://github.com/riobus/ionic.git
+cd ionic
 npm install       # or `npm run reinstall` if you get an error
 npm start         # start the application (ionic serve)
 ```
@@ -37,9 +37,9 @@ npm run e2e
 * [Removing assets from the APK](http://lathonez.com/2016/cordova-remove-assets/)
 
 ## Contribute
-Issues and PRs are welcome, see the [issues list](https://github.com/fmsouza/ionic2-blank/issues)
+Issues and PRs are welcome, see the [issues list](https://github.com/riobus/ionic/issues)
 
 ## Acks
 
-* This project is essentially a fork of [@lathonez's clicker](https://github.com/lathonez/clicker) and would not be possible without it
+* This project is based on [@lathonez's clicker](https://github.com/lathonez/clicker) and would not be possible without it
 * @ric9176 and @DanielaGSB for E2E tests (#50)
