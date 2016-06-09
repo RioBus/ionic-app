@@ -1,9 +1,9 @@
 'use strict';
 
-import { Type, ViewChild }    from '@angular/core';
-import { App, Platform, Nav } from 'ionic-angular';
-import { StatusBar }          from 'ionic-native';
-import { HomePage }           from './pages/home/page';
+import { Component, Type, ViewChild }    from '@angular/core';
+import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
+import { StatusBar }                     from 'ionic-native';
+import { HomePage }                      from './pages/home/page';
 
 interface MenuItem {
   title: string;
@@ -19,10 +19,8 @@ interface MenuItem {
  * 
  * @class {Application}
  */
-@App({
+@Component({
   templateUrl: 'build/app.html',
-  config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
-  prodMode: false, // toggles Angular2 production mode on/off
 })
 export class Application {
 
@@ -86,3 +84,10 @@ export class Application {
       else if (page.action) page.action();
   }
 }
+
+// Pass the main app component as the first argument
+// Pass any providers for your app in the second argument
+// Set any config for your app as the third argument:
+// http://ionicframework.com/docs/v2/api/config/Config/
+
+ionicBootstrap(Application, [], {});
