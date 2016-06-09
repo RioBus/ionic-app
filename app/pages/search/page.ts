@@ -1,5 +1,7 @@
 'use strict';
-import { Page, NavController } from 'ionic-angular';
+
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
 import { Line } from '../../models/itinerary';
 import { History } from '../../models/history';
 import { MapPage } from '../map/page';
@@ -9,7 +11,7 @@ import { LineManager } from '../../managers/line';
 import { FavoriteButton } from '../../components/favorite-button/controller';
 import { LineItem } from '../../components/line-item/controller';
 
-@Page({
+@Component({
     templateUrl: 'build/pages/search/template.html',
     directives: [FavoriteButton, LineItem],
 })
@@ -46,16 +48,16 @@ export class SearchPage {
         return (element) ? element : null;
     }
 
-    public onPageLoaded(): void {
+    public ionViewLoaded(): void {
         this.loadRecents();
         this.loadFavorites();
     }
 
-    public onPageWillEnter(): void {
+    public ionViewWillEnter(): void {
         document.getElementById('search-view').style.display = 'initial';
     }
 
-    public onPageWillLeave(): void {
+    public ionViewWillLeave(): void {
         document.getElementById('search-view').style.display = 'none';
     }
 

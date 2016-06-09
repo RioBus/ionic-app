@@ -1,8 +1,7 @@
 'use strict';
 
-declare var plugin: any;
-
-import { Page, NavParams } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavParams } from 'ionic-angular';
 import { UPDATE_TIMEOUT } from '../../const';
 import { GoogleMaps } from '../../components/maps/controller';
 import { SearchService } from '../../services/search';
@@ -10,7 +9,7 @@ import { Bus } from '../../models/bus';
 import { Line, Itinerary } from '../../models/itinerary';
 import { ItineraryManager } from '../../managers/itinerary';
 
-@Page({
+@Component({
     templateUrl: 'build/pages/map/template.html',
     directives: [GoogleMaps],
 })
@@ -43,7 +42,7 @@ export class MapPage {
         return this.title.replace(',', ', ');
     }
 
-    public onPageLoaded(): void {
+    public ionViewLoaded(): void {
         this.showTrajectory();
         this.updateMarkers();
         this.timer = setInterval(() => this.updateMarkers(), UPDATE_TIMEOUT);
@@ -63,7 +62,7 @@ export class MapPage {
         });
     }
 
-    public onPageWillLeave(): void {
+    public ionViewWillLeave(): void {
         clearInterval(this.timer);
     }
 }
