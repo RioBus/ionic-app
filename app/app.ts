@@ -5,6 +5,15 @@ import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
 import { StatusBar }                     from 'ionic-native';
 import { HomePage }                      from './pages/home/page';
 
+// Application providers
+const providers: any[] = [];
+
+// Application config
+// http://ionicframework.com/docs/v2/api/config/Config/
+const config: any = {
+  prodMode: false,
+};
+
 interface MenuItem {
   title: string;
   icon: string;
@@ -87,7 +96,5 @@ export class Application {
 
 // Pass the main app component as the first argument
 // Pass any providers for your app in the second argument
-// Set any config for your app as the third argument:
-// http://ionicframework.com/docs/v2/api/config/Config/
-
-ionicBootstrap(Application, [], {});
+// Set any config for your app as the third argument
+ionicBootstrap(Application, providers, config);
