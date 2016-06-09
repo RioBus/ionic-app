@@ -1,18 +1,27 @@
 'use strict';
 declare var navigator: any;
 
-import { Type, ViewChild }             from '@angular/core';
-import { App, Platform, Nav }          from 'ionic-angular';
-import { StatusBar }                   from 'ionic-native';
-import { URL_PLAY_STORE, URL_FB_PAGE } from './const';
-import { SearchService }               from './services/search';
-import { AboutPage }                   from './pages/about/page';
-import { SearchPage }                  from './pages/search/page';
-import { HistoryPage }                 from './pages/history/page';
-import { ItineraryService }            from './services/itinerary';
-import { FavoritesPage }               from './pages/favorites/page';
-import { LineManager }                 from './managers/line';
-import { ItineraryManager }            from './managers/itinerary';
+import { URL_PLAY_STORE, URL_FB_PAGE }   from './const';
+import { SearchService }                 from './services/search';
+import { AboutPage }                     from './pages/about/page';
+import { SearchPage }                    from './pages/search/page';
+import { HistoryPage }                   from './pages/history/page';
+import { ItineraryService }              from './services/itinerary';
+import { FavoritesPage }                 from './pages/favorites/page';
+import { LineManager }                   from './managers/line';
+import { ItineraryManager }              from './managers/itinerary';
+import { Component, Type, ViewChild }    from '@angular/core';
+import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
+import { StatusBar }                     from 'ionic-native';
+
+// Application providers
+const providers: any[] = [ItineraryService, SearchService, LineManager, ItineraryManager];
+
+// Application config
+// http://ionicframework.com/docs/v2/api/config/Config/
+const config: any = {
+  prodMode: true,
+};
 
 interface MenuItem {
   title: string;
@@ -28,11 +37,8 @@ interface MenuItem {
  * 
  * @class {Application}
  */
-@App({
+@Component({
   templateUrl: 'build/app.html',
-  providers: [ItineraryService, SearchService, LineManager, ItineraryManager],
-  config: {}, // http://ionicframework.com/docs/v2/api/config/Config/
-  prodMode: true, // toggles Angular2 production mode on/off
 })
 export class Application {
 
@@ -98,3 +104,8 @@ export class Application {
       else if (page.action) page.action();
   }
 }
+
+// Pass the main app component as the first argument
+// Pass any providers for your app in the second argument
+// Set any config for your app as the third argument
+ionicBootstrap(Application, providers, config);
