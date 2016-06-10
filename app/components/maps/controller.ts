@@ -1,7 +1,7 @@
 'use strict';
-declare var plugin: any, google: any;
 
-import { NavController, Platform } from 'ionic-angular';
+import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
+import { Platform } from 'ionic-angular';
 import { MapSnackbar } from '../map-snackbar/controller';
 import { Component, OnChanges } from '@angular/core';
 import { Bus } from '../../models/bus';
@@ -14,26 +14,37 @@ import { MarkerController } from './marker';
     inputs: ['markers', 'line', 'trajectory'],
     directives: [MapSnackbar],
 })
-export class GoogleMaps implements OnChanges {
+export class GoogleMapsComponent implements OnChanges {
 
-    private nav: NavController;
-    private platform: Platform;
-    private map: any;
+    private map: GoogleMap;
     private markers: Bus[];
     private trajectory: Itinerary;
     private line: Line;
     private mcontrol: MarkerController;
     private swap: boolean = false;
-    private static instance: GoogleMaps;
+    private static instance: GoogleMapsComponent;
 
-    constructor(platform: Platform, nav: NavController) {
-        this.platform = platform;
-        this.nav = nav;
-        GoogleMaps.instance = this;
+    public constructor(platform: Platform) {
+        GoogleMapsComponent.instance = this;
+        platform.ready().then(() => this.onPlatformReady());
     }
 
-    public ngOnInit(): void {
-        this.platform.ready().then(() => { this.onPlatformRedy(); });
+    private onPlatformReady(): void {
+        this.map = new GoogleMap('map_canvas');
+        this.configureMap();
+        this.mcontrol = new MarkerController(this.map);
+        this.map.one(GoogleMapsEvent.MAP_READY)
+            .then(() => this.onMapReady());
+    }
+
+    private configureMap(): void {
+        this.map.setCompassEnabled(true);
+        this.map.setCenter(new GoogleMapsLatLng('-22.9083', '-43.1964'));
+        this.map.setZoom(12);
+        this.map.setMyLocationEnabled(true);
+        this.map.setIndoorEnabled(false);
+        this.map.setMapTypeId('MAP_TYPE_NORMAL');
+        this.map.setTrafficEnabled(true);
     }
 
     public ngOnDestroy(): void {
@@ -46,8 +57,12 @@ export class GoogleMaps implements OnChanges {
         if (changes.trajectory) this.onTrajectoryChanges(changes.trajectory);
     }
 
+    private onMapReady(): void {
+        console.log('Map ready');
+    }
+
     public onSwapDirection(): boolean {
-        let self: GoogleMaps = GoogleMaps.instance;
+        let self: GoogleMapsComponent = GoogleMapsComponent.instance;
         if (self.line.Description !== 'desconhecido') {
             self.swap = !self.swap;
             self.removeMarkers();
@@ -55,21 +70,6 @@ export class GoogleMaps implements OnChanges {
             return true;
         }
         return false;
-    }
-
-    private onPlatformRedy(): void {
-        // Map centered in RJ
-        this.map = plugin.google.maps.Map.getMap(document.getElementById('map_canvas'), {
-            mapType: plugin.google.maps.MapTypeId.ROADMAP,
-            controls: { compass: true, myLocationButton: true, indoorPicker: false, zoom: false },
-            camera: { latLng: new plugin.google.maps.LatLng(-22.9083, -43.1964), zoom: 12 },
-        });
-        this.mcontrol = new MarkerController(this.map);
-        this.map.addEventListener(plugin.google.maps.event.MAP_READY, () => { this.onMapReady(); });
-    }
-
-    private onMapReady(): void {
-        console.log('Map ready');
     }
 
     private onTrajectoryChanges(trajectory: any): void {

@@ -3,7 +3,7 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 import { UPDATE_TIMEOUT } from '../../const';
-import { GoogleMaps } from '../../components/maps/controller';
+import { GoogleMapsComponent } from '../../components/maps/controller';
 import { SearchService } from '../../services/search';
 import { Bus } from '../../models/bus';
 import { Line, Itinerary } from '../../models/itinerary';
@@ -11,7 +11,7 @@ import { ItineraryManager } from '../../managers/itinerary';
 
 @Component({
     templateUrl: 'build/pages/map/template.html',
-    directives: [GoogleMaps],
+    directives: [GoogleMapsComponent],
 })
 export class MapPage {
 
