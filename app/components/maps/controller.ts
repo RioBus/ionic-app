@@ -8,6 +8,12 @@ import { Bus } from '../../models/bus';
 import { Line, Itinerary } from '../../models/itinerary';
 import { MarkerController } from './marker';
 
+const mapConfig: any =  {
+    mapType: 'MAP_TYPE_NORMAL',
+    controls: { compass: true, myLocationButton: true, indoorPicker: false, zoom: false },
+    camera: { latLng: new GoogleMapsLatLng('-22.9083', '-43.1964'), zoom: 12 },
+};
+
 @Component({
     selector: 'google-maps',
     templateUrl: 'build/components/maps/template.html',
@@ -31,20 +37,9 @@ export class GoogleMapsComponent implements OnChanges {
 
     private onPlatformReady(): void {
         this.map = new GoogleMap('map_canvas');
-        this.configureMap();
         this.mcontrol = new MarkerController(this.map);
         this.map.one(GoogleMapsEvent.MAP_READY)
             .then(() => this.onMapReady());
-    }
-
-    private configureMap(): void {
-        this.map.setCompassEnabled(true);
-        this.map.setCenter(new GoogleMapsLatLng('-22.9083', '-43.1964'));
-        this.map.setZoom(12);
-        this.map.setMyLocationEnabled(true);
-        this.map.setIndoorEnabled(false);
-        this.map.setMapTypeId('MAP_TYPE_NORMAL');
-        this.map.setTrafficEnabled(true);
     }
 
     public ngOnDestroy(): void {
@@ -59,6 +54,7 @@ export class GoogleMapsComponent implements OnChanges {
 
     private onMapReady(): void {
         console.log('Map ready');
+        this.map.setOptions(mapConfig);
     }
 
     public onSwapDirection(): boolean {
