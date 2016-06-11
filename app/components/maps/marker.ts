@@ -28,7 +28,7 @@ export class MarkerController {
     }
 
     public removeMarkers(): void {
-        Object.keys(this.markers).forEach((key) => this.removeMarker(key), this);
+        Object.keys(this.markers).forEach((key: string) => this.removeMarker(key));
         this.locations = [];
     }
 
