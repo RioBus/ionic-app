@@ -3,7 +3,7 @@
 import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 import { Platform } from 'ionic-angular';
 import { MapSnackbar } from '../map-snackbar/controller';
-import { Component, OnChanges } from '@angular/core';
+import { Component, OnChanges, OnDestroy } from '@angular/core';
 import { Bus } from '../../models/bus';
 import { Line, Itinerary } from '../../models/itinerary';
 import { MarkerController } from './marker';
@@ -20,7 +20,7 @@ const mapConfig: any =  {
     inputs: ['markers', 'line', 'trajectory'],
     directives: [MapSnackbar],
 })
-export class GoogleMapsComponent implements OnChanges {
+export class GoogleMapsComponent implements OnChanges, OnDestroy {
 
     private map: GoogleMap;
     private markers: Bus[];
