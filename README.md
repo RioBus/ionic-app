@@ -1,4 +1,4 @@
-# Rio Bus Ionic app
+# Rio Bus hybrid android app
 
 ## Install & Start
 
@@ -39,20 +39,17 @@ Issues and PRs are welcome, see the [issues list](https://github.com/riobus/ioni
 
 ## Acks
 
-* This project is essentially a fork of [@lathonez's clicker](https://github.com/lathonez/clicker) and would not be possible without it
-* This started out as a fork of [Angular 2 Seed](https://github.com/mgechev/angular2-seed) and would not be possible without it
+* This project started from [@fmosuza's ionic2 seed](https://github.com/fmsouza/ionic2-blank)
 * @bengro for the lightweightify inspiration (#68)
-* @ric9176 and @DanielaGSB for E2E tests (#50)
-* [Everyone else](https://github.com/lathonez/clicker/graphs/contributors) for the advice, help, PRs etc
 
 ## Changelog
 
-See the changelog [here](https://github.com/lathonez/clicker/blob/master/CHANGELOG.md)
+See the changelog [here](https://github.com/riobus/ionic/blob/master/CHANGELOG.md)
 
-## Dependencies
+## Main dependencies
 
-* **@Angular:** 2.0.0-rc.1
-* **Ionic:** 2.0.0-beta.8
+* **angular:** 2.0.0-rc.1
+* **ionic:** 2.0.0-beta.8
 
 External dependencies are listed here to justify their inclusion and to allow for their removal if your project isn't using the related functionality.
 
