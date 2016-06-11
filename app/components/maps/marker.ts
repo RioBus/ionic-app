@@ -1,6 +1,6 @@
 'use strict';
-declare var plugin: any;
 
+import { GoogleMap, GoogleMapsMarkerOptions, GoogleMapsMarker, GoogleMapsLatLng, GoogleMapsPolylineOptions, GoogleMapsPolyline } from 'ionic-native';
 import { Bus } from '../../models/bus';
 import { Itinerary } from '../../models/itinerary';
 
@@ -13,29 +13,29 @@ class Icon {
 
 export class MarkerController {
 
-    private map: any;
+    private map: GoogleMap;
     private markers: any = {};
-    private locations: any[] = [];
-    private trajectory: any;
+    private locations: GoogleMapsLatLng[] = [];
+    private trajectory: GoogleMapsPolyline;
 
-    public constructor(map: any) {
+    public constructor(map: GoogleMap) {
         this.map = map;
     }
 
     public setMarker(bus: Bus): void {
         if (this.markers[bus.Order]) this.updatePosition(bus);
-        else this.map.addMarker(this.getMarkerData(bus), marker => this.addMarker(bus, marker));
+        else this.map.addMarker(this.getMarkerData(bus)).then(marker => this.addMarker(bus, marker));
     }
 
     public removeMarkers(): void {
-        Object.keys(this.markers).forEach((key) => this.removeMarker(key), this);
+        Object.keys(this.markers).forEach((key: string) => this.removeMarker(key));
         this.locations = [];
     }
 
     public showTrajectory(trajectory: Itinerary): void {
-        let positions: any[] = [];
-        trajectory.Spots.forEach(spot => positions.push(new plugin.google.maps.LatLng(spot.Latitude, spot.Longitude)));
-        this.map.addPolyline(this.getTrajectoryConfiguration(positions), polyline => this.trajectory = polyline);
+        let positions: GoogleMapsLatLng[] = [];
+        trajectory.Spots.forEach(spot => positions.push(new GoogleMapsLatLng(spot.Latitude.toString(), spot.Longitude.toString())));
+        this.map.addPolyline(this.getTrajectoryConfiguration(positions)).then( (polyline: GoogleMapsPolyline) => this.trajectory = polyline);
     }
 
     public hideTrajectory(): void {
@@ -43,12 +43,12 @@ export class MarkerController {
     }
 
     private updatePosition(bus: Bus): void {
-        this.markers[bus.Order].setPosition(new plugin.google.maps.LatLng(bus.Latitude, bus.Longitude));
+        this.markers[bus.Order].setPosition(new GoogleMapsLatLng(bus.Latitude.toString(), bus.Longitude.toString()));
     }
 
-    private addMarker(bus: Bus, marker: any): void {
+    private addMarker(bus: Bus, marker: GoogleMapsMarker): void {
         this.markers[bus.Order] = marker;
-        this.fitBounds(marker.get('position'));
+        marker.getPosition().then((latLng: GoogleMapsLatLng) => this.fitBounds(latLng));
     }
 
     private removeMarker(key: string): void {
@@ -56,25 +56,21 @@ export class MarkerController {
         delete this.markers[key];
     }
 
-    private getTrajectoryConfiguration(points: any[]): any {
-        return { points: points, color : '#0000FF', width: 5, geodesic: true, zIndex: 4 };
+    private getTrajectoryConfiguration(points: GoogleMapsLatLng[]): GoogleMapsPolylineOptions {
+        return { points: points, color : '#0000FF', width: 5, zIndex: 4 };
     }
 
-    private getMarkerData(bus: Bus): any {
+    private getMarkerData(bus: Bus): GoogleMapsMarkerOptions {
         return {
-            position: new plugin.google.maps.LatLng(bus.Latitude, bus.Longitude),
+            position: new GoogleMapsLatLng(bus.Latitude.toString(), bus.Longitude.toString()),
+            icon: { url: this.getIconPath(bus.Timestamp), size: { width: 40, height: 47 } },
             title: this.formatInfoWindow(bus),
-            icon: {
-                url: this.getIconPath(bus.Timestamp),
-                size: { width: 40, height: 47 },
-            },
         };
     }
 
-    private fitBounds(location: any): void {
+    private fitBounds(location: GoogleMapsLatLng): void {
         this.locations.push(location);
-        let bounds: any = new plugin.google.maps.LatLngBounds(this.locations);
-        this.map.animateCamera({ 'target': bounds });
+        this.map.animateCamera({ 'target': this.locations });
     }
 
     private getIconPath(datetime: Date): string {

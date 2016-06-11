@@ -1,11 +1,11 @@
 'use strict';
-import { Page } from 'ionic-angular';
+import { Component } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { FavoritesDAO } from '../../dao/favorites';
 import { FavoriteButton } from '../../components/favorite-button/controller';
 import { LineItem } from '../../components/line-item/controller';
 
-@Page({
+@Component({
     templateUrl: 'build/pages/favorites/template.html',
     directives: [FavoriteButton, LineItem],
 })
@@ -26,12 +26,12 @@ export class FavoritesPage {
         return this.items;
     }
 
-    public onPageWillEnter(): void {
+    public ionViewWillEnter(): void {
         this.loadFavorites();
         document.getElementById('favorites-view').style.display = 'initial';
     }
 
-    public onPageWillLeave(): void {
+    public ionViewWillLeave(): void {
         document.getElementById('favorites-view').style.display = 'none';
     }
 

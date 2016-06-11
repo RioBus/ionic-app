@@ -1,10 +1,10 @@
 'use strict';
-import { Page } from 'ionic-angular';
+import { Component } from '@angular/core';
 import { History } from '../../models/history';
 import { HistoryDAO } from '../../dao/history';
 import { HistoryDropdownList } from '../../components/history-dropdown-list/controller';
 
-@Page({
+@Component({
     templateUrl: 'build/pages/history/template.html',
     directives: [HistoryDropdownList],
 })
@@ -29,12 +29,12 @@ export class HistoryPage {
         return this.items;
     }
 
-    public onPageWillEnter(): void {
+    public ionViewWillEnter(): void {
         document.getElementById('history-view').style.display = 'initial';
         this.loadHistories();
     }
 
-    public onPageWillLeave(): void {
+    public ionViewWillLeave(): void {
         document.getElementById('history-view').style.display = 'none';
     }
 
