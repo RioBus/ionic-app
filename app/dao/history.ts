@@ -1,9 +1,13 @@
-'use strict';
-
 import { Line } from '../models/itinerary';
 import { History } from '../models/history';
 import { SqlStorage } from 'ionic-angular';
 
+/**
+ * HistoryDAO class is responsible for saving and retrieving
+ * information from history searches from the memory.
+ * 
+ * @class {HistoryDAO}
+ */
 export class HistoryDAO {
 
     private collectionName: string = 'history';
@@ -13,6 +17,11 @@ export class HistoryDAO {
         this.storage = new SqlStorage();
     }
 
+    /**
+     * @private
+     * Retrieves all the searches stored in the memory.
+     * @return {Promise<History[]>}
+     */
     private get Storage(): Promise<History[]> {
         return new Promise<History[]>((resolve) => {
             this.storage.get(this.collectionName).then((content: string) => {
@@ -30,10 +39,21 @@ export class HistoryDAO {
         });
     }
 
+    /**
+     * @private
+     * Saves an array os histories to the memory.
+     * @param {History[]} objs - array of History objects
+     * @return {Promise<any>}
+     */
     private set(objs: History[]): Promise<any> {
         return this.storage.set(this.collectionName, JSON.stringify(objs));
     }
 
+    /**
+     * Saves an History instance to the memory
+     * @param {History} obj - History instance
+     * @return {Promise<boolean>}
+     */
     public save(obj: History): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             this.Storage.then((histories: History[]) => {
@@ -51,6 +71,11 @@ export class HistoryDAO {
         });
     }
 
+    /**
+     * Removes a History instance from the memory
+     * @param {History} obj - History instance
+     * @return {Promise<boolean>}
+     */
     public remove(obj: History): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             this.Storage.then((histories: History[]) => {
@@ -65,14 +90,29 @@ export class HistoryDAO {
         });
     }
 
+    /**
+     * Retrieves all the history data stored in the memory.
+     * @return {Promise<History[]>}
+     */
     public getAll(): Promise<History[]> {
         return this.Storage;
     }
 
+    /**
+     * Retrieves a limited slice of data from the memory
+     * @param {number} size - number of History instances to retrieve
+     * @return {Promise<History[]>}
+     */
     public getLimited(size: number): Promise<History[]> {
         return this.Storage.then(histories => histories.splice(0, size));
     }
 
+    /**
+     * @private
+     * Sorts the History array based on timestamp
+     * @param {History[]} histories - Array of History
+     * @return {History[]}
+     */
     private sort(histories: History[]): History[] {
         return histories.sort((a, b) => {
             let newer: number = b.Timestamp.getTime() - a.Timestamp.getTime();
