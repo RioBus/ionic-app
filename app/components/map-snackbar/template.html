@@ -1,13 +1,13 @@
 <div class="map-snackbar">
-    <div class="map-col-20 left button-centered">
+    <div class="map-col-20 left button-centered" *ngIf="swapable">
         <button clear medium (click)="onToggleDirection()">
             <img src="img/ic_swap_calls.png">
         </button>
     </div>
-    <div class="map-col-60 left centered">
-        <p class="firstline">{{ Coming }}</p>
+    <div class="left centered" [ngClass]="{ 'map-col-60': swapable, 'map-col-80': !swapable }">
+        <p class="firstline">{{ coming }}</p>
         <hr>
-        <p class="secondline">{{ Going }}</p>
+        <p class="secondline">{{ going }}</p>
     </div>
     <div class="map-col-20 right button-centered">
         <favorite-button [line]="line" size="large"></favorite-button>
