@@ -7,6 +7,7 @@ import { Component, OnChanges, OnDestroy } from '@angular/core';
 import { Bus } from '../../models/bus';
 import { Line, Itinerary } from '../../models/itinerary';
 import { MarkerController } from './marker';
+import { ENABLE_SWAP_DIRECTION } from '../../const';
 
 const mapConfig: any =  {
     mapType: 'MAP_TYPE_NORMAL',
@@ -25,10 +26,11 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     private map: GoogleMap;
     private markers: Bus[];
     private trajectory: Itinerary;
-    private line: Line;
     private mcontrol: MarkerController;
     private swap: boolean = false;
     private static instance: GoogleMapsComponent;
+    public line: Line;
+    public swapable: boolean = ENABLE_SWAP_DIRECTION;
 
     public constructor(platform: Platform) {
         GoogleMapsComponent.instance = this;
@@ -92,9 +94,8 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     }
 
     private updateMarkers(current: Bus[]): void {
-        this.filterBuses(current).forEach(bus => {
-            this.mcontrol.setMarker(bus);
-        });
+        let buses: Bus[] = (this.swapable) ? this.filterBuses(current) : current;
+        buses.forEach(bus => this.mcontrol.setMarker(bus));
     }
 
     private removeMarkers(): void {

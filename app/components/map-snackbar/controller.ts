@@ -8,23 +8,16 @@ import { FavoriteButton } from '../favorite-button/controller';
 @Component({
     selector: 'map-snackbar',
     templateUrl: 'build/components/map-snackbar/template.html',
-    inputs: ['line', 'swapDirection'],
+    inputs: ['line', 'swapDirection', 'swapable'],
     directives: [Button, FavoriteButton],
 })
 export class MapSnackbar {
 
-    private line: Line;
-    private swapDirection: () => boolean;
-    private coming: string = 'SENTIDO';
-    private going: string = 'DESCONHECIDO';
-
-    public get Coming(): string {
-        return this.coming;
-    }
-
-    public get Going(): string {
-        return this.going;
-    }
+    public line: Line;
+    public swapable: boolean;
+    public swapDirection: () => boolean;
+    public coming: string = 'SENTIDO';
+    public going: string = 'DESCONHECIDO';
 
     public ngOnInit(): void {
         if (this.line && this.line.Description.indexOf(' X ') > -1) {
