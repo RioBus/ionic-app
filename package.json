@@ -81,5 +81,7 @@
       "id": "plugin.google.maps"
     }
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "android"
+  ]
 }
