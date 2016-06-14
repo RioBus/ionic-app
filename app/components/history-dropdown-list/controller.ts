@@ -1,4 +1,4 @@
-import { Button, Icon, List, Item, NavController } from 'ionic-angular';
+import { Button, Icon, List, Item } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { History } from '../../models/history';
 import { LineItem } from '../line-item/controller';
