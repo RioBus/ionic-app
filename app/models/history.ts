@@ -1,5 +1,3 @@
-'use strict';
-
 import { Line } from './itinerary';
 
 export class History {
