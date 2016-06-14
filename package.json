@@ -71,6 +71,7 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
+    "cordova-plugin-globalization",
     "ionic-plugin-keyboard",
     {
       "variables": {

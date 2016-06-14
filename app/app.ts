@@ -12,7 +12,9 @@ import { LineManager }                   from './managers/line';
 import { ItineraryManager }              from './managers/itinerary';
 import { Component, Type, ViewChild }    from '@angular/core';
 import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
-import { StatusBar }                     from 'ionic-native';
+import { StatusBar, Splashscreen }       from 'ionic-native';
+import { HomePage }                      from './pages/home/page';
+import { BasePage }                      from './core/page';
 
 // Application providers
 const providers: any[] = [ItineraryService, SearchService, LineManager, ItineraryManager];
@@ -40,7 +42,7 @@ interface MenuItem {
 @Component({
   templateUrl: 'build/app.html',
 })
-export class Application {
+export class Application extends BasePage {
 
   @ViewChild(Nav) private nav: Nav;
 
@@ -48,6 +50,7 @@ export class Application {
   private pages: MenuItem[];
 
   public constructor(platform: Platform) {
+    super();
     this.rootPage = SearchPage;
     platform.ready().then(() => this.onReady());
 
@@ -85,9 +88,7 @@ export class Application {
    * @return {void}
    */
   private hideSplashScreen(): void {
-      if (navigator && navigator.splashscreen) {
-          setTimeout(() => navigator.splashscreen.hide(), 100);
-      }
+      setTimeout(() => Splashscreen.hide(), 100);
   }
 
   /**
