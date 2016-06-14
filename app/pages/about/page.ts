@@ -1,14 +1,13 @@
-'use strict';
-
 import { Component } from '@angular/core';
+import { BasePage } from '../../core/page';
 
 @Component({
     templateUrl: 'build/pages/about/template.html',
     directives: [],
 })
-export class AboutPage {
+export class AboutPage extends BasePage {
 
-    public get Title(): string {
-        return 'Sobre o Rio Bus';
+    public get PageContent(): string {
+        return this.Text.PAGE_ABOUT_CONTENT || '';
     }
 }
