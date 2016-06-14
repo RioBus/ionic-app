@@ -55,6 +55,7 @@ export class FavoriteButton {
 
     /**
      * Event for when the user is trying to star a line
+     * @param {boolean} response - response from the operation
      * @return {void}
      */
     private onStar(response: boolean): void {
@@ -64,6 +65,7 @@ export class FavoriteButton {
 
     /**
      * Event for when the user is trying to unstar a line
+     * @param {boolean} response - response from the operation
      * @return {void}
      */
     private onUnstar(response: boolean): void {
