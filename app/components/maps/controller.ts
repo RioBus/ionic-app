@@ -1,5 +1,3 @@
-'use strict';
-
 import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 import { Platform } from 'ionic-angular';
 import { MapSnackbar } from '../map-snackbar/controller';
@@ -9,12 +7,17 @@ import { Line, Itinerary } from '../../models/itinerary';
 import { MarkerController } from './marker';
 import { ENABLE_SWAP_DIRECTION } from '../../const';
 
+// Configuration for the map available resources and presentation
 const mapConfig: any =  {
     mapType: 'MAP_TYPE_NORMAL',
     controls: { compass: true, myLocationButton: true, indoorPicker: false, zoom: false },
     camera: { latLng: new GoogleMapsLatLng('-22.9083', '-43.1964'), zoom: 12 },
 };
 
+/**
+ * Represents the <google-maps> HTML component.
+ * @class {GoogleMapsComponent}
+ */
 @Component({
     selector: 'google-maps',
     templateUrl: 'build/components/maps/template.html',
@@ -37,6 +40,10 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
         platform.ready().then(() => this.onPlatformReady());
     }
 
+    /**
+     * Called when the Ionic platform is ready. It initializes the map.
+     * @return {void}
+     */
     private onPlatformReady(): void {
         this.map = new GoogleMap('map_canvas');
         this.mcontrol = new MarkerController(this.map);
@@ -44,32 +51,57 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
             .then(() => this.onMapReady());
     }
 
+    /**
+     * Called when the view is closed
+     * @return {void}
+     */
     public ngOnDestroy(): void {
         this.mcontrol.hideTrajectory();
         this.removeMarkers();
     }
 
+    /**
+     * Called when the input data has changes
+     * @param {Object} changes - changes object
+     * @return {void}
+     */
     public ngOnChanges(changes: any): void {
         if (changes.markers) this.onMarkerChanges(changes.markers);
         if (changes.trajectory) this.onTrajectoryChanges(changes.trajectory);
     }
 
+    /**
+     * Called when the map is ready to be presented in the view.
+     * @return {void}
+     */
     private onMapReady(): void {
         console.log('Map ready');
         this.map.setOptions(mapConfig);
     }
 
+    /**
+     * Handles the swap direction button click from outside. It implements the procedure to check
+     * wether the direction is swipeable or not.
+     * @return {boolean}
+     */
     public onSwapDirection(): boolean {
-        let self: GoogleMapsComponent = GoogleMapsComponent.instance;
-        if (self.line.Description !== 'desconhecido') {
-            self.swap = !self.swap;
-            self.removeMarkers();
-            self.updateMarkers(self.markers);
-            return true;
+        if (this.swapable) {
+            let self: GoogleMapsComponent = GoogleMapsComponent.instance;
+            if (self.line.Description !== 'desconhecido') {
+                self.swap = !self.swap;
+                self.removeMarkers();
+                self.updateMarkers(self.markers);
+                return true;
+            }
         }
         return false;
     }
 
+    /**
+     * Called when the trajectory data changed. It updates the trajectory displayed in the map.
+     * @param {Object} trajectory - new trajectory object
+     * @return {void}
+     */
     private onTrajectoryChanges(trajectory: any): void {
         if (this.trajectory) {
             this.mcontrol.hideTrajectory();
@@ -77,10 +109,21 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
         }
     }
 
+    /**
+     * Checks if the given value is an Array instance
+     * @param {any} value - value to check
+     * @return {boolean}
+     */
     private isArray(value: any): boolean {
         return value instanceof Array;
     }
 
+    /**
+     * Called when there are updates in the inputted data. It handles the markers update
+     * process.
+     * @param {Object} markers - data updates
+     * @return {void}
+     */
     private onMarkerChanges(markers: any): void {
         if (!markers.previousValue && this.isArray(markers.currentValue)) {
             // Just loaded the map view
@@ -93,15 +136,29 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
         }
     }
 
+    /**
+     * Updates the markers in the map
+     * @param {Bus[]} current - The new buses list
+     * @return {void}
+     */
     private updateMarkers(current: Bus[]): void {
         let buses: Bus[] = (this.swapable) ? this.filterBuses(current) : current;
         buses.forEach(bus => this.mcontrol.setMarker(bus));
     }
 
+    /**
+     * Remove all the markers in the map.
+     * @return {void}
+     */
     private removeMarkers(): void {
         this.mcontrol.removeMarkers();
     }
 
+    /**
+     * Filters the given bus list for show only those on the current direction
+     * @param {Bus[]} buses - bus list input
+     * @return {Bus[]}
+     */
     private filterBuses(buses: Bus[]): Bus[] {
         if (!this.swap) return buses.filter(bus => bus.Direction === this.line.Description);
         else return buses.filter(bus => bus.Direction !== this.line.Description);
