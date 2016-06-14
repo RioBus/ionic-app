@@ -1,8 +1,12 @@
-'use strict';
-
 import { Itinerary, Spot, ItineraryMap } from '../models/itinerary';
 import { SqlStorage } from 'ionic-angular';
 
+/**
+ * ItineraryDAO class is responsible for saving and retrieving
+ * information about Itineraries from the memory.
+ * 
+ * @class {ItineraryDAO}
+ */
 export class ItineraryDAO {
 
     private collectionName: string = 'itineraries';
@@ -12,6 +16,11 @@ export class ItineraryDAO {
         this.storage = new SqlStorage();
     }
 
+    /**
+     * @private
+     * Retrieves the ItineraryMap stored in the memory.
+     * @return {Promise<ItineraryMap>}
+     */
     private get Storage(): Promise<ItineraryMap> {
         return new Promise<ItineraryMap>((resolve) => {
             this.storage.get(this.collectionName).then((content: string) => {
@@ -32,14 +41,30 @@ export class ItineraryDAO {
         });
     }
 
+    /**
+     * @private
+     * Saves an ItineraryMap to the memory.
+     * @param {ItineraryMap} obj - map of itineraries
+     * @return {Promise<void>}
+     */
     private set(obj: ItineraryMap): Promise<void> {
         return this.storage.set(this.collectionName, JSON.stringify(obj));
     }
 
+    /**
+     * Retrieves an Itinerary from the memory.
+     * @param {string} line - Itinerary line identifier
+     * @return {Promise<Itinerary>} 
+     */
     public get(line: string): Promise<Itinerary> {
         return new Promise<Itinerary>(resolve => this.Storage.then( map => resolve(map.get(line))));
     }
 
+    /**
+     * Saves an Itinerary instance to the memory
+     * @param {Itinerary} obj - Itinerary instance
+     * @return {Promise<boolean>}
+     */
     public save(obj: Itinerary): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             this.Storage.then((map: ItineraryMap) => {
@@ -49,6 +74,11 @@ export class ItineraryDAO {
         });
     }
 
+    /**
+     * Removes an Itinerary instance from the memory
+     * @param {Itinerary} obj - Itinerary instance
+     * @return {Promise<boolean>}
+     */
     public remove(obj: Itinerary): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             this.Storage.then((map: ItineraryMap) => {
