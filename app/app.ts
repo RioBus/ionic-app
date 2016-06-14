@@ -13,7 +13,6 @@ import { ItineraryManager }              from './managers/itinerary';
 import { Component, Type, ViewChild }    from '@angular/core';
 import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
 import { StatusBar, Splashscreen }       from 'ionic-native';
-import { HomePage }                      from './pages/home/page';
 import { BasePage }                      from './core/page';
 
 // Application providers
@@ -75,12 +74,12 @@ export class Application extends BasePage {
   private configureMenu(): void {
     // set our app's pages
     this.pages = [
-      { title: 'Buscar', icon: 'search', component: SearchPage, home: true },
-      { title: 'Favoritos', icon: 'star', component: FavoritesPage },
-      { title: 'Histórico', icon: 'time', component: HistoryPage },
-      { title: 'Sobre', icon: 'help-circle', component: AboutPage },
-      { title: 'Avalie o app', icon: 'appstore', link: URL_PLAY_STORE },
-      { title: 'Curta no Facebook', icon: 'thumbs-up', link: URL_FB_PAGE },
+      { title: this.Text.MENU_OPTION_SEARCH, icon: 'search', component: SearchPage, home: true },
+      { title: this.Text.MENU_OPTION_FAVORITES, icon: 'star', component: FavoritesPage },
+      { title: this.Text.MENU_OPTION_HISTORY, icon: 'time', component: HistoryPage },
+      { title: this.Text.MENU_OPTION_ABOUT, icon: 'help-circle', component: AboutPage },
+      { title: this.Text.MENU_OPTION_RATE, icon: 'appstore', link: URL_PLAY_STORE },
+      { title: this.Text.MENU_OPTION_LIKE, icon: 'thumbs-up', link: URL_FB_PAGE },
     ];
   }
   /**
