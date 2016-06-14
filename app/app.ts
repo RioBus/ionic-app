@@ -1,6 +1,3 @@
-'use strict';
-declare var navigator: any;
-
 import { URL_PLAY_STORE, URL_FB_PAGE }   from './const';
 import { SearchService }                 from './services/search';
 import { AboutPage }                     from './pages/about/page';
@@ -82,6 +79,7 @@ export class Application extends BasePage {
       { title: this.Text.MENU_OPTION_LIKE, icon: 'thumbs-up', link: URL_FB_PAGE },
     ];
   }
+
   /**
    * Hides the splashscreen right when the app is ready.
    * @return {void}
