@@ -1,5 +1,5 @@
-'use strict';
 import { Component } from '@angular/core';
+import { BasePage } from '../../core/page';
 
 /**
  * HomePage class is the Home view controller
@@ -9,4 +9,9 @@ import { Component } from '@angular/core';
 @Component({
   templateUrl: 'build/pages/home/template.html',
 })
-export class HomePage {}
+export class HomePage extends BasePage {
+
+  public constructor() {
+    super();
+  }
+}

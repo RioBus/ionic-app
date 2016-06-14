@@ -2,8 +2,9 @@
 
 import { Component, Type, ViewChild }    from '@angular/core';
 import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
-import { StatusBar }                     from 'ionic-native';
+import { StatusBar, Splashscreen }       from 'ionic-native';
 import { HomePage }                      from './pages/home/page';
+import { BasePage }                      from './core/page';
 
 // Application providers
 const providers: any[] = [];
@@ -31,7 +32,7 @@ interface MenuItem {
 @Component({
   templateUrl: 'build/app.html',
 })
-export class Application {
+export class Application extends BasePage {
 
   @ViewChild(Nav) private nav: Nav;
 
@@ -40,6 +41,7 @@ export class Application {
   private platform: Platform;
 
   public constructor(platform: Platform) {
+    super();
     this.platform = platform;
     this.rootPage = HomePage;
     this.platform.ready().then(() => this.onReady());
@@ -65,7 +67,7 @@ export class Application {
   private configureMenu(): void {
     // set our app's pages
     this.pages = [
-          { title: 'Home', icon: 'home', component: HomePage, home: true },
+          { title: this.Text.MENU_OPTION_HOME, icon: 'home', component: HomePage, home: true },
     ];
   }
 
@@ -74,9 +76,7 @@ export class Application {
    * @return {void}
    */
   private hideSplashScreen(): void {
-      if (navigator && navigator.splashscreen) {
-          setTimeout(() => navigator.splashscreen.hide(), 100);
-      }
+      setTimeout(() => Splashscreen.hide(), 100);
   }
 
   /**
