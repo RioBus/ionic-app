@@ -1,8 +1,12 @@
-'use strict';
-
 import { Line } from '../models/itinerary';
 import { SqlStorage } from 'ionic-angular';
 
+/**
+ * FavoritesDAO class is responsible for saving and retrieving
+ * information from favorite lines from the memory.
+ * 
+ * @class {FavoritesDAO}
+ */
 export class FavoritesDAO {
 
     private collectionName: string = 'favorites';
@@ -12,6 +16,11 @@ export class FavoritesDAO {
         this.storage = new SqlStorage();
     }
 
+    /**
+     * @private
+     * Retrieves all the lines stored in the memory.
+     * @return {Promise<Line[]>}
+     */
     private get Storage(): Promise<Line[]> {
         return new Promise<Line[]>((resolve) => {
             this.storage.get(this.collectionName).then((content: string) => {
@@ -26,10 +35,21 @@ export class FavoritesDAO {
         });
     }
 
+    /**
+     * @private
+     * Saves an array os lines to the memory.
+     * @param {Line[]} objs - array of Line objects
+     * @return {Promise<any>}
+     */
     private set(objs: Line[]): Promise<any> {
         return this.storage.set(this.collectionName, JSON.stringify(objs));
     }
 
+    /**
+     * Saves an Line instance to the memory
+     * @param {Line} obj - Line instance
+     * @return {Promise<boolean>}
+     */
     public save(obj: Line): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             this.Storage.then((lines: Line[]) => {
@@ -43,6 +63,11 @@ export class FavoritesDAO {
         });
     }
 
+    /**
+     * Removes a favorite Line instance from the memory
+     * @param {Line} obj - Favorite Line instance
+     * @return {Promise<boolean>}
+     */
     public remove(obj: Line): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
             this.Storage.then((lines: Line[]) => {
@@ -57,6 +82,11 @@ export class FavoritesDAO {
         });
     }
 
+    /**
+     * Retrieves one line stored in the memory identified by it's line code.
+     * @param {string} line - line identifier
+     * @return {Promise<Line>}
+     */
     public getByLine(line: string): Promise<Line> {
         return this.Storage.then((lines: Line[]) => {
             if (lines.length > 0) {
@@ -69,6 +99,10 @@ export class FavoritesDAO {
         });
     }
 
+    /**
+     * Retrieves all the lines stored in the memory.
+     * @return {Promise<Line[]>}
+     */
     public getAll(): Promise<Line[]> {
         return this.Storage;
     }
