@@ -61,7 +61,7 @@ export class Application extends BasePage {
       // Here you can do any higher level native things you might need.
       this.hideSplashScreen();
       StatusBar.styleDefault();
-      this.configureMenu();
+      setTimeout(() => this.configureMenu(), 1);
   }
 
   /**
