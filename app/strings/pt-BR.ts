@@ -7,6 +7,9 @@ export const MENU_OPTION_ABOUT: string = 'Sobre';
 export const MENU_OPTION_RATE: string = 'Avalie o app';
 export const MENU_OPTION_LIKE: string = 'Curta no Facebook';
 
+// Page Favorites
+export const PAGE_FAVORITES_TITLE: string = 'Favoritos';
+
 // Page About
 export const PAGE_ABOUT_TITLE: string = 'Sobre o Rio Bus';
 export const PAGE_ABOUT_CONTENT: string = `

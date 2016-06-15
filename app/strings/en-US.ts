@@ -7,6 +7,9 @@ export const MENU_OPTION_ABOUT: string = 'About';
 export const MENU_OPTION_RATE: string = 'Rate the app';
 export const MENU_OPTION_LIKE: string = 'Like Facebook page';
 
+// Page Favorites
+export const PAGE_FAVORITES_TITLE: string = 'Favorites';
+
 // Page About
 export const PAGE_ABOUT_TITLE: string = 'About the Rio Bus';
 export const PAGE_ABOUT_CONTENT: string = `
