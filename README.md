@@ -40,7 +40,6 @@ Issues and PRs are welcome, see the [issues list](https://github.com/riobus/ioni
 ## Acks
 
 * This project started from [@fmosuza's ionic2 seed](https://github.com/fmsouza/ionic2-blank)
-* @bengro for the lightweightify inspiration (#68)
 
 ## Changelog
 
