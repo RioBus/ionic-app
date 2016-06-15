@@ -38,13 +38,11 @@ export class Application extends BasePage {
 
   private rootPage: Type;
   private pages: MenuItem[];
-  private platform: Platform;
 
   public constructor(platform: Platform) {
     super();
-    this.platform = platform;
     this.rootPage = HomePage;
-    this.platform.ready().then(() => this.onReady());
+    platform.ready().then(() => this.onReady());
 
   }
 
@@ -57,7 +55,7 @@ export class Application extends BasePage {
       // Here you can do any higher level native things you might need.
       this.hideSplashScreen();
       StatusBar.styleDefault();
-      this.configureMenu();
+      setTimeout(() => this.configureMenu(), 1);
   }
 
   /**
