@@ -32,7 +32,6 @@ export class MapSnackbar extends BasePage implements OnInit {
      */
     public ngOnInit(): void {
         if (this.line && this.line.Description.indexOf(' X ') > -1) {
-            console.log(`Line: ${JSON.stringify(this.line)}`);
             let tmp: string[] = this.line.Description.split(' X ');
             this.coming = tmp[0];
             this.going = tmp[1];
