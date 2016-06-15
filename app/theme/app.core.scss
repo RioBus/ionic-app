@@ -29,6 +29,10 @@ ion-menu div.menu-banner {
   align-items: center;
 }
 
+ion-menu div.menu-banner div.user-title {
+  width: 100%;
+}
+
 ion-menu div.menu-banner div.user-title img {
   width: 64px;
   height: 64px;
@@ -38,6 +42,7 @@ ion-menu div.menu-banner div.user-title img {
 
 ion-menu div.menu-banner div.user-title h2 {
   color: #FFFFFF;
+  text-align: center;
   font-size: 24px;
   font-weight: bold;
   margin-top: 5px;

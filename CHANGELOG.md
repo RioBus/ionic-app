@@ -11,3 +11,4 @@
 * Recent searches
 * Markers presented splitted by sense, and you can swap the visualization
 * List of available lines
+* String manager for multiple languages
