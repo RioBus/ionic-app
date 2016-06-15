@@ -1,5 +1,3 @@
-'use strict';
-
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Line } from '../../models/itinerary';
@@ -10,37 +8,52 @@ import { HistoryDAO } from '../../dao/history';
 import { LineManager } from '../../managers/line';
 import { FavoriteButton } from '../../components/favorite-button/controller';
 import { LineItem } from '../../components/line-item/controller';
+import { BasePage } from '../../core/page';
 
+/**
+ * SearchPage represents the search view in the app.
+ * @class {SearchPage}
+ */
 @Component({
     templateUrl: 'build/pages/search/template.html',
     directives: [FavoriteButton, LineItem],
 })
-export class SearchPage {
+export class SearchPage extends BasePage {
 
     private nav: NavController;
-
-    private items: Line[] = [];
-    private itemsBkp: Line[] = [];
-    private favorites: Line[] = [];
-    private histories: History[] = [];
 
     private fdao: FavoritesDAO;
     private hdao: HistoryDAO;
     private manager: LineManager;
 
+    private itemsBkp: Line[] = [];
+    private favorites: Line[] = [];
+    public items: Line[] = [];
+    public histories: History[] = [];
+
     public showSearchBox: boolean = false;
 
     public constructor(nav: NavController, manager: LineManager) {
+        super();
         this.nav = nav;
         this.manager = manager;
         this.fdao = new FavoritesDAO();
         this.hdao = new HistoryDAO();
     }
 
+    /**
+     * Checks if the given line is favorite.
+     * @param {string} line - line identifier
+     * @return {boolean}
+     */
     public isFavorite(line: Line): boolean {
         return this.favorites.some(fav => line.Line === fav.Line);
     }
 
+    /**
+     * ion-input#searchbox
+     * return {any}
+     */
     public get searchBox(): any {
         let element: any = document.getElementById('searchbox');
         if (element) element = element.getElementsByTagName('input');
@@ -48,28 +61,36 @@ export class SearchPage {
         return (element) ? element : null;
     }
 
+    /**
+     * Part of Ionic lifecycle. Runs when the view was just presented.
+     * @return {void}
+     */
     public ionViewLoaded(): void {
         this.loadRecents();
         this.loadFavorites();
     }
 
+    /**
+     * Part of Ionic lifecycle. Runs when the view is about to be presented.
+     * @return {void}
+     */
     public ionViewWillEnter(): void {
         document.getElementById('search-view').style.display = 'initial';
     }
 
+    /**
+     * Part of Ionic lifecycle. Runs when the view is about to be hidden.
+     * @return {void}
+     */
     public ionViewWillLeave(): void {
         document.getElementById('search-view').style.display = 'none';
     }
 
-    public find(line: Line): void {
-        let history: History = new History(line, new Date());
-        this.hdao.save(history).then(saved => {
-            if (saved) console.log(`Saved ${line.Line} to history.`);
-            this.nav.push(MapPage, { line: line });
-        });
-    }
-
-    public findText(): void {
+    /**
+     * Handles the click event triggered when the 'search for ...' item is pressed.
+     * @return {void}
+     */
+    public onClickFind(): void {
         let query: string = this.searchBox.value.replace('  ', ' ').replace(' , ', ',').replace(', ', ',').replace(' ,', ',');
         let line: Line = new Line(query, '');
         let history: History = new History(line, new Date());
@@ -79,7 +100,12 @@ export class SearchPage {
         });
     }
 
-    public filter(event: any): void {
+    /**
+     * Handles the event triggered when there is a new input in the searchbox.
+     * @param {Event} event - triggered event
+     * @return {void}
+     */
+    public onInput(event: Event): void {
         let query: string = this.searchBox.value;
         if (query.length > 0) {
             if (this.itemsBkp.length === 0) this.itemsBkp = this.items;
@@ -96,23 +122,39 @@ export class SearchPage {
         }
     }
 
+    /**
+     * Displays the searchbox
+     * @return {void}
+     */
     public showSearchBar(): void {
         this.showSearchBox = true;
         setTimeout(() => this.searchBox.focus(), 1);
     }
 
+    /**
+     * Hides the searchbox
+     * @return {void}
+     */
     public hideSearchBar(): void {
         if (this.searchBox.value.length > 0) {
             this.searchBox.value = '';
-            this.filter(null);
+            this.onInput(null);
         }
         this.showSearchBox = false;
     }
 
+    /**
+     * Loads the recent queries
+     * @return {void}
+     */
     private loadRecents(): void {
         this.hdao.getLimited(2).then(histories => this.histories = histories);
     }
 
+    /**
+     * Loads the favorite lines
+     * @return {void}
+     */
     private loadFavorites(): void {
         this.fdao.getAll().then((lines: Line[]) => {
             this.favorites = lines;
@@ -120,6 +162,10 @@ export class SearchPage {
         });
     }
 
+    /**
+     * Loads all lines
+     * @return {void}
+     */
     private loadLines(): void {
         this.manager.getAll().then(lines => {
             this.items = lines;

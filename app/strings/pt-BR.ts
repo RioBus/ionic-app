@@ -1,5 +1,7 @@
+export const APP_TITLE: string = 'Rio Bus';
+
 // Sidemenu
-export const MENU_TITLE: string = 'Rio Bus';
+export const MENU_TITLE: string = APP_TITLE;
 export const MENU_OPTION_SEARCH: string = 'Buscar';
 export const MENU_OPTION_FAVORITES: string = 'Favoritos';
 export const MENU_OPTION_HISTORY: string = 'Histórico';
@@ -12,6 +14,12 @@ export const PAGE_FAVORITES_TITLE: string = 'Favoritos';
 
 // History Page
 export const PAGE_HISTORY_TITLE: string = 'Histórico';
+
+// Search Page
+export const PAGE_SEARCH_INPUT: string = 'Buscar...';
+export const PAGE_SEARCH_RECENTS: string = 'Pesquisas recentes';
+export const PAGE_SEARCH_AVAILABLE: string = 'Linhas disponíveis';
+export const PAGE_SEARCH_SEARCHFOR: string = 'Buscar por';
 
 // About Page
 export const PAGE_ABOUT_TITLE: string = 'Sobre o Rio Bus';
