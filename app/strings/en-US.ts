@@ -7,10 +7,13 @@ export const MENU_OPTION_ABOUT: string = 'About';
 export const MENU_OPTION_RATE: string = 'Rate the app';
 export const MENU_OPTION_LIKE: string = 'Like Facebook page';
 
-// Page Favorites
+// Favorites Page
 export const PAGE_FAVORITES_TITLE: string = 'Favorites';
 
-// Page About
+// History Page
+export const PAGE_HISTORY_TITLE: string = 'History';
+
+// About Page
 export const PAGE_ABOUT_TITLE: string = 'About the Rio Bus';
 export const PAGE_ABOUT_CONTENT: string = `
   <p>O RioBus é um sistema colaborativo de monitoramento de ônibus em tempo real, que utiliza a API de dados abertos de mobilidade urbana fornecida pela parceiria entre a Prefeitura do Rio de Janeiro e a FETRANSPOR. Seu objetivo principal é ajudar o cidadão do Rio de Janeiro, seja ele morador ou visitante, a se deslocar pela cidade.</p>
