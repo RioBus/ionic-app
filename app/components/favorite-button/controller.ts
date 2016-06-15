@@ -37,6 +37,7 @@ export class FavoriteButton {
     }
 
     /**
+     * @private
      * Checks if the given line is favorite or not.
      * @return {void}
      */
@@ -54,6 +55,7 @@ export class FavoriteButton {
     }
 
     /**
+     * @private
      * Event for when the user is trying to star a line
      * @param {boolean} response - response from the operation
      * @return {void}
@@ -64,6 +66,7 @@ export class FavoriteButton {
     }
 
     /**
+     * @private
      * Event for when the user is trying to unstar a line
      * @param {boolean} response - response from the operation
      * @return {void}

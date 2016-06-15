@@ -41,6 +41,7 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * @private
      * Called when the Ionic platform is ready. It initializes the map.
      * @return {void}
      */
@@ -71,6 +72,7 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * @private
      * Called when the map is ready to be presented in the view.
      * @return {void}
      */
@@ -98,6 +100,7 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * @private
      * Called when the trajectory data changed. It updates the trajectory displayed in the map.
      * @param {Object} trajectory - new trajectory object
      * @return {void}
@@ -110,6 +113,7 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * @private
      * Checks if the given value is an Array instance
      * @param {any} value - value to check
      * @return {boolean}
@@ -119,6 +123,7 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * @private
      * Called when there are updates in the inputted data. It handles the markers update
      * process.
      * @param {Object} markers - data updates
@@ -137,6 +142,7 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * @private
      * Updates the markers in the map
      * @param {Bus[]} current - The new buses list
      * @return {void}
@@ -147,6 +153,7 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * @private
      * Remove all the markers in the map.
      * @return {void}
      */
@@ -155,6 +162,7 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     }
 
     /**
+     * @private
      * Filters the given bus list for show only those on the current direction
      * @param {Bus[]} buses - bus list input
      * @return {Bus[]}

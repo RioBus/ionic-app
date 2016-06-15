@@ -1,5 +1,3 @@
-'use strict';
-
 export class Line {
 
     private line: string;

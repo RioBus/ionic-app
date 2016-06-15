@@ -1,7 +1,8 @@
 import { Button } from 'ionic-angular';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { FavoriteButton } from '../favorite-button/controller';
+import { BasePage } from '../../core/page';
 
 /**
  * Represents the <map-snackbar> HTML component.
@@ -13,16 +14,20 @@ import { FavoriteButton } from '../favorite-button/controller';
     inputs: ['line', 'swapDirection', 'swapable'],
     directives: [Button, FavoriteButton],
 })
-export class MapSnackbar {
+export class MapSnackbar extends BasePage implements OnInit {
 
     public line: Line;
     public swapable: boolean;
     public swapDirection: () => boolean;
-    public coming: string = 'SENTIDO';
-    public going: string = 'DESCONHECIDO';
+    public coming: string;
+    public going: string;
+
+    public constructor() {
+        super();
+    }
 
     /**
-     * It's part of Angular2 lifecycle. It runs when the view is initialized.
+     * Part of Ionic lifecycle. Runs when the component is initialized.
      * @return {void}
      */
     public ngOnInit(): void {

@@ -4,3 +4,5 @@ export const UPDATE_TIMEOUT: number = 5000; // millis
 export const URL_PLAY_STORE: string = 'market://details?id=com.tormentaLabs.riobus';
 export const URL_FB_PAGE: string = 'fb://page/1408367169433222';
 export const ENABLE_SWAP_DIRECTION: boolean = false;
+export const LANG_AVAILABLE: string[] = ['pt-BR', 'en-US'];
+export const LANG_DEFAULT: string = 'en-US';

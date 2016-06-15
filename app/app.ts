@@ -1,6 +1,3 @@
-'use strict';
-declare var navigator: any;
-
 import { URL_PLAY_STORE, URL_FB_PAGE }   from './const';
 import { SearchService }                 from './services/search';
 import { AboutPage }                     from './pages/about/page';
@@ -12,7 +9,8 @@ import { LineManager }                   from './managers/line';
 import { ItineraryManager }              from './managers/itinerary';
 import { Component, Type, ViewChild }    from '@angular/core';
 import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
-import { StatusBar }                     from 'ionic-native';
+import { StatusBar, Splashscreen }       from 'ionic-native';
+import { BasePage }                      from './core/page';
 
 // Application providers
 const providers: any[] = [ItineraryService, SearchService, LineManager, ItineraryManager];
@@ -40,7 +38,7 @@ interface MenuItem {
 @Component({
   templateUrl: 'build/app.html',
 })
-export class Application {
+export class Application extends BasePage {
 
   @ViewChild(Nav) private nav: Nav;
 
@@ -48,6 +46,7 @@ export class Application {
   private pages: MenuItem[];
 
   public constructor(platform: Platform) {
+    super();
     this.rootPage = SearchPage;
     platform.ready().then(() => this.onReady());
 
@@ -72,22 +71,21 @@ export class Application {
   private configureMenu(): void {
     // set our app's pages
     this.pages = [
-      { title: 'Buscar', icon: 'search', component: SearchPage, home: true },
-      { title: 'Favoritos', icon: 'star', component: FavoritesPage },
-      { title: 'Histórico', icon: 'time', component: HistoryPage },
-      { title: 'Sobre', icon: 'help-circle', component: AboutPage },
-      { title: 'Avalie o app', icon: 'appstore', link: URL_PLAY_STORE },
-      { title: 'Curta no Facebook', icon: 'thumbs-up', link: URL_FB_PAGE },
+      { title: this.Text.MENU_OPTION_SEARCH, icon: 'search', component: SearchPage, home: true },
+      { title: this.Text.MENU_OPTION_FAVORITES, icon: 'star', component: FavoritesPage },
+      { title: this.Text.MENU_OPTION_HISTORY, icon: 'time', component: HistoryPage },
+      { title: this.Text.MENU_OPTION_ABOUT, icon: 'help-circle', component: AboutPage },
+      { title: this.Text.MENU_OPTION_RATE, icon: 'appstore', link: URL_PLAY_STORE },
+      { title: this.Text.MENU_OPTION_LIKE, icon: 'thumbs-up', link: URL_FB_PAGE },
     ];
   }
+
   /**
    * Hides the splashscreen right when the app is ready.
    * @return {void}
    */
   private hideSplashScreen(): void {
-      if (navigator && navigator.splashscreen) {
-          setTimeout(() => navigator.splashscreen.hide(), 100);
-      }
+      setTimeout(() => Splashscreen.hide(), 100);
   }
 
   /**

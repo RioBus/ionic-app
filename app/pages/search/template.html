@@ -7,11 +7,11 @@
         <ion-input
             id="searchbox"
             type="search"
-            (input)="filter($event)"
-            placeholder="Buscar...">
+            (input)="onInput($event)"
+            placeholder="{{ Text.PAGE_SEARCH_INPUT }}">
         </ion-input>
     </ion-title>
-    <ion-title class="{{ showSearchBox? 'hidden':'' }}">Rio Bus</ion-title>
+    <ion-title class="{{ showSearchBox? 'hidden':'' }}">{{ Text.APP_TITLE }}</ion-title>
     
     <ion-buttons end (click)="showSearchBar()" class="{{ showSearchBox? 'hidden':'' }}">
         <button>
@@ -29,7 +29,7 @@
 <ion-content class="search" id="search-view">
     <ion-list class="no-margin">
         <ion-item-group *ngIf="histories.length>0 && !showSearchBox">
-            <ion-item-divider light>Pesquisas recentes</ion-item-divider>
+            <ion-item-divider light>{{ Text.PAGE_SEARCH_RECENTS }}</ion-item-divider>
             <ion-item *ngFor="let history of histories">
                 <line-item [line]="history.Line"></line-item>
                 <ion-icon clear item-right name="time"></ion-icon>
@@ -39,13 +39,13 @@
     
     <ion-list [virtualScroll]="items" class="no-margin" bufferRatio="3">    
         <ion-item-group *ngIf="!(items.length===0 && searchbox && searchbox.value.length>0)">
-            <ion-item-divider light>Linhas disponíveis</ion-item-divider>
+            <ion-item-divider light>{{ Text.PAGE_SEARCH_AVAILABLE }}</ion-item-divider>
             <ion-item *virtualItem="let item">
                 <line-item [line]="item"></line-item>
                 <favorite-button item-right [line]="item"></favorite-button>
             </ion-item>
         </ion-item-group>
         
-        <button ion-item *ngIf="items.length===0 && searchbox && searchbox.value.length>0" (click)="findText()">Buscar por <b>{{ searchbox.value }}</b> ...</button>
+        <button ion-item *ngIf="items.length===0 && searchbox && searchbox.value.length>0" (click)="onClickFind()">{{ text.PAGE_SEARCH_SEARCHFOR }} <b>{{ searchbox.value }}</b> ...</button>
     </ion-list>
 </ion-content>

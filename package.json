@@ -71,6 +71,7 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
+    "cordova-plugin-globalization",
     "ionic-plugin-keyboard",
     {
       "variables": {
@@ -80,5 +81,7 @@
       "id": "plugin.google.maps"
     }
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "android"
+  ]
 }

@@ -1,10 +1,13 @@
-'use strict';
-
 import { API_ENDPOINT } from '../const';
 import { Itinerary, Line, Spot } from '../models/itinerary';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
+/**
+ * ItineraryService class is responsible for doing the Http requests and retrieve
+ * Itinerary data from external providers.
+ * @class {ItineraryService} 
+ */
 @Injectable()
 export class ItineraryService {
 
@@ -14,6 +17,12 @@ export class ItineraryService {
         this.http = http;
     }
 
+    /**
+     * @private
+     * Preprocesses the received itinerary data to turn into an Itinerary instance.
+     * @param {any} obj - received data
+     * @return {Itinerary}
+     */
     private processItinerary(obj: any): Itinerary {
         let spots: Spot[] = [];
         obj.spots.forEach((spot) => {
@@ -22,6 +31,12 @@ export class ItineraryService {
         return new Itinerary(obj.line, obj.description, obj.agency, spots);
     }
 
+    /**
+     * @private
+     * Preprocesses the received line array to turn into an array of Line instances.
+     * @param {any[]} obj - received data list
+     * @return {Line[]}
+     */
     private processLines(obj: any[]): Line[] {
         let result: Line[] = [];
         obj.forEach((data) => {
@@ -30,6 +45,11 @@ export class ItineraryService {
         return this.sort(result);
     }
 
+    /**
+     * Retrieves a single Itinerary from the external API
+     * @param {string} line - Itinerary line identifier
+     * @return {Promise<Itinerary>}
+     */
     public getItinerary(line: string): Promise<Itinerary> {
         return new Promise<Itinerary>((resolve, reject) => {
             let url: string = `${API_ENDPOINT}/v3/itinerary/${line}`;
@@ -40,6 +60,10 @@ export class ItineraryService {
         });
     }
 
+    /**
+     * Retrieves the list of Line instances from external API
+     * @return {Promise<Line[]>}
+     */
     public getItineraries(): Promise<Line[]> {
         return new Promise<Line[]>((resolve, reject) => {
             let url: string = `${API_ENDPOINT}/v3/itinerary`;
@@ -50,6 +74,12 @@ export class ItineraryService {
         });
     }
 
+    /**
+     * @private
+     * Sorts the Line array based on line identifier
+     * @param {Line[]} items - Array of Line
+     * @return {Line[]}
+     */
     private sort(items: Line[]): Line[] {
         return items.sort((a: Line, b: Line) => {
             if (!isNaN(parseInt(a.Line)) && !isNaN(parseInt(b.Line))) return (parseInt(a.Line) - parseInt(b.Line));
