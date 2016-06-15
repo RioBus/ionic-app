@@ -9,6 +9,10 @@ export const MENU_OPTION_ABOUT: string = 'Sobre';
 export const MENU_OPTION_RATE: string = 'Avalie o app';
 export const MENU_OPTION_LIKE: string = 'Curta no Facebook';
 
+// MapSnackbar component
+export const COMPONENT_SNACKBAR_COMING: string = 'SENTIDO';
+export const COMPONENT_SNACKBAR_GOING: string = 'DESCONHECIDO';
+
 // Favorites Page
 export const PAGE_FAVORITES_TITLE: string = 'Favoritos';
 

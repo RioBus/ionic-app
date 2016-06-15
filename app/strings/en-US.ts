@@ -10,6 +10,10 @@ export const MENU_OPTION_ABOUT: string = 'About';
 export const MENU_OPTION_RATE: string = 'Rate the app';
 export const MENU_OPTION_LIKE: string = 'Like Facebook page';
 
+// MapSnackbar component
+export const COMPONENT_SNACKBAR_COMING: string = 'UNKNOWN';
+export const COMPONENT_SNACKBAR_GOING: string = 'DIRECTION';
+
 // Favorites Page
 export const PAGE_FAVORITES_TITLE: string = 'Favorites';
 
