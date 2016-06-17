@@ -75,7 +75,7 @@
     "ionic-plugin-keyboard",
     {
       "variables": {
-        "API_KEY_FOR_ANDROID": "AIzaSyBezQ7CBJgsee0jlrwCc-zDT_TQSo7VZWs"
+        "API_KEY_FOR_ANDROID": "AIzaSyBlYUNBZ13zrhK_tC16ZXuiMDDJapSBTdA"
       },
       "locator": "https://github.com/fmsouza/cordova-plugin-googlemaps.git",
       "id": "plugin.google.maps"
