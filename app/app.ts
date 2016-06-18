@@ -1,4 +1,4 @@
-import { URL_PLAY_STORE, URL_FB_PAGE }   from './const';
+import { URL_PLAY_STORE, URL_FB_PAGE, FEEDBACK_MAIL, FEEDBACK_SUBJECT }   from './const';
 import { SearchService }                 from './services/search';
 import { AboutPage }                     from './pages/about/page';
 import { SearchPage }                    from './pages/search/page';
@@ -74,6 +74,7 @@ export class Application extends BasePage {
       { title: this.Text.MENU_OPTION_SEARCH, icon: 'search', component: SearchPage, home: true },
       { title: this.Text.MENU_OPTION_FAVORITES, icon: 'star', component: FavoritesPage },
       { title: this.Text.MENU_OPTION_HISTORY, icon: 'time', component: HistoryPage },
+      { title: this.Text.MENU_OPTION_FEEDBACK, icon: 'chatboxes', link: `mailto:${FEEDBACK_MAIL}?subject=${FEEDBACK_SUBJECT}` },
       { title: this.Text.MENU_OPTION_ABOUT, icon: 'help-circle', component: AboutPage },
       { title: this.Text.MENU_OPTION_RATE, icon: 'appstore', link: URL_PLAY_STORE },
       { title: this.Text.MENU_OPTION_LIKE, icon: 'thumbs-up', link: URL_FB_PAGE },
