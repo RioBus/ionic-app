@@ -13,6 +13,10 @@ export const MENU_OPTION_LIKE: string = 'Curta no Facebook';
 export const COMPONENT_SNACKBAR_COMING: string = 'SENTIDO';
 export const COMPONENT_SNACKBAR_GOING: string = 'DESCONHECIDO';
 
+// MapPage
+export const PAGE_MAP_ERROR_NO_BUSES: string = 'Nenhum ônibus foi encontrado.';
+export const PAGE_MAP_ERROR_UNKNOWN: string = 'Ocorreu um erro na busca. Por favor, entre em contato com o suporte.';
+
 // Favorites Page
 export const PAGE_FAVORITES_TITLE: string = 'Favoritos';
 

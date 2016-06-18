@@ -79,7 +79,8 @@
       },
       "locator": "https://github.com/fmsouza/cordova-plugin-googlemaps.git",
       "id": "plugin.google.maps"
-    }
+    },
+    "cordova-plugin-x-toast"
   ],
   "cordovaPlatforms": [
     "android"

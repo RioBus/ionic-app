@@ -14,6 +14,10 @@ export const MENU_OPTION_LIKE: string = 'Like Facebook page';
 export const COMPONENT_SNACKBAR_COMING: string = 'UNKNOWN';
 export const COMPONENT_SNACKBAR_GOING: string = 'DIRECTION';
 
+// MapPage
+export const PAGE_MAP_ERROR_NO_BUSES: string = 'No buses were found.';
+export const PAGE_MAP_ERROR_UNKNOWN: string = 'An error ocurred. Please, contact the support team.';
+
 // Favorites Page
 export const PAGE_FAVORITES_TITLE: string = 'Favorites';
 
