@@ -66,15 +66,18 @@ export class MarkerController {
             }
             positions.push(new GoogleMapsLatLng(spot.Latitude.toString(), spot.Longitude.toString()));
         });
+        // Random color to set in the start/end markers and the trajectory
+        let color: string = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+
         if (spotFrom !== null && spotTo !== null) {
             // Marking the start/end of trajectory on the map
-            this.map.addMarker(this.getMarkerSpotData(spotFrom, false))
+            this.map.addMarker(this.getMarkerSpotData(spotFrom, false, color))
             .then(markerFrom => {
                 this.markers['from'] = markerFrom;
-                return this.map.addMarker(this.getMarkerSpotData(spotTo, true));
+                return this.map.addMarker(this.getMarkerSpotData(spotTo, true, color));
             }).then(markerTo => this.markers['to'] = markerTo);
         }
-        this.map.addPolyline(this.getTrajectoryConfiguration(positions))
+        this.map.addPolyline(this.getTrajectoryConfiguration(positions, color))
             .then( (polyline: GoogleMapsPolyline) => this.trajectory = polyline);
     }
 
@@ -124,8 +127,8 @@ export class MarkerController {
      * @param {GoogleMapsLatLng[]} points - trajectory points in the map
      * @return {GoogleMapsPolylineOptions}
      */
-    private getTrajectoryConfiguration(points: GoogleMapsLatLng[]): GoogleMapsPolylineOptions {
-        return { points: points, color : '#0000FF', width: 5, zIndex: 4 };
+    private getTrajectoryConfiguration(points: GoogleMapsLatLng[], color: string): GoogleMapsPolylineOptions {
+        return { points: points, color : color, width: 6, zIndex: 4 };
     }
 
     /**
@@ -149,9 +152,10 @@ export class MarkerController {
      * @param {boolean} returning - Is this position part of returning trajectory or not?
      * @return {GoogleMapsMarkerOptions}
      */
-    private getMarkerSpotData(spot: Spot, returning: boolean): GoogleMapsMarkerOptions {
+    private getMarkerSpotData(spot: Spot, returning: boolean, color: string): GoogleMapsMarkerOptions {
         let obj: any = { position: new GoogleMapsLatLng(spot.Latitude.toString(), spot.Longitude.toString()) };
         obj.title = (!returning) ? 'PONTO INICIAL' : 'PONTO FINAL';
+        obj.icon = color;
         return obj;
     }
 
