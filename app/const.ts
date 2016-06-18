@@ -6,3 +6,5 @@ export const URL_FB_PAGE: string = 'fb://page/1408367169433222';
 export const ENABLE_SWAP_DIRECTION: boolean = false;
 export const LANG_AVAILABLE: string[] = ['pt-BR', 'en-US'];
 export const LANG_DEFAULT: string = 'en-US';
+export const FEEDBACK_MAIL: string = 'fred+androidfeedback@riob.us';
+export const FEEDBACK_SUBJECT: string = 'Tenho uma ideia legal para o app!';

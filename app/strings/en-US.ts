@@ -6,6 +6,7 @@ export const MENU_TITLE: string = APP_TITLE;
 export const MENU_OPTION_SEARCH: string = 'Search';
 export const MENU_OPTION_FAVORITES: string = 'Favorites';
 export const MENU_OPTION_HISTORY: string = 'History';
+export const MENU_OPTION_FEEDBACK: string = 'Send feedback';
 export const MENU_OPTION_ABOUT: string = 'About';
 export const MENU_OPTION_RATE: string = 'Rate the app';
 export const MENU_OPTION_LIKE: string = 'Like Facebook page';
