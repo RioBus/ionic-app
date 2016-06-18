@@ -2,13 +2,14 @@
 
 import { GoogleMap, GoogleMapsMarkerOptions, GoogleMapsMarker, GoogleMapsLatLng, GoogleMapsPolylineOptions, GoogleMapsPolyline } from 'ionic-native';
 import { Bus } from '../../models/bus';
-import { Itinerary } from '../../models/itinerary';
+import { Itinerary, Spot } from '../../models/itinerary';
 
-class Icon {
+/** */
+class BusIcon {
     private static BASE: string = 'www/img';
-    public static GOOD: string = `${Icon.BASE}/bus_green.png`;
-    public static AVG: string = `${Icon.BASE}/bus_yellow.png`;
-    public static BAD: string = `${Icon.BASE}/bus_red.png`;
+    public static GOOD: string = `${BusIcon.BASE}/bus_green.png`;
+    public static AVG: string = `${BusIcon.BASE}/bus_yellow.png`;
+    public static BAD: string = `${BusIcon.BASE}/bus_red.png`;
 }
 
 export class MarkerController {
@@ -34,8 +35,25 @@ export class MarkerController {
 
     public showTrajectory(trajectory: Itinerary): void {
         let positions: GoogleMapsLatLng[] = [];
-        trajectory.Spots.forEach(spot => positions.push(new GoogleMapsLatLng(spot.Latitude.toString(), spot.Longitude.toString())));
-        this.map.addPolyline(this.getTrajectoryConfiguration(positions)).then( (polyline: GoogleMapsPolyline) => this.trajectory = polyline);
+        let spotFrom: Spot = null, spotTo: Spot = null;
+        trajectory.Spots.forEach(spot => {
+            if (!spot.isReturning) {
+                // Identifying the beginning and the end of the trajectory
+                if (!spotFrom) spotFrom = spot;
+                else spotTo = spot;
+            }
+            positions.push(new GoogleMapsLatLng(spot.Latitude.toString(), spot.Longitude.toString()));
+        });
+        if (spotFrom !== null && spotTo !== null) {
+            // Marking the start/end of trajectory on the map
+            this.map.addMarker(this.getMarkerSpotData(spotFrom, false))
+            .then(markerFrom => {
+                this.markers['from'] = markerFrom;
+                return this.map.addMarker(this.getMarkerSpotData(spotTo, true));
+            }).then(markerTo => this.markers['to'] = markerTo);
+        }
+        this.map.addPolyline(this.getTrajectoryConfiguration(positions))
+            .then( (polyline: GoogleMapsPolyline) => this.trajectory = polyline);
     }
 
     public hideTrajectory(): void {
@@ -68,6 +86,12 @@ export class MarkerController {
         };
     }
 
+    private getMarkerSpotData(spot: Spot, returning: boolean): GoogleMapsMarkerOptions {
+        let obj: any = { position: new GoogleMapsLatLng(spot.Latitude.toString(), spot.Longitude.toString()) };
+        obj.title = (!returning) ? 'PONTO INICIAL' : 'PONTO FINAL';
+        return obj;
+    }
+
     private fitBounds(location: GoogleMapsLatLng): void {
         this.locations.push(location);
         this.map.animateCamera({ 'target': this.locations });
@@ -75,9 +99,9 @@ export class MarkerController {
 
     private getIconPath(datetime: Date): string {
         let minutes: number = ((new Date()).getTime() - datetime.getTime()) / 1000 / 60;
-        if (minutes > 10) return Icon.BAD;
-        else if (minutes >= 5 && minutes < 10) return Icon.AVG;
-        else return Icon.GOOD;
+        if (minutes > 10) return BusIcon.BAD;
+        else if (minutes >= 5 && minutes < 10) return BusIcon.AVG;
+        else return BusIcon.GOOD;
     }
 
     private prepareTimestamp(datetime: Date): string {
