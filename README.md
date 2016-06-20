@@ -33,6 +33,7 @@ npm run e2e
 * [Unit testing walkthrough](http://lathonez.com/2016/ionic-2-unit-testing/)
 * [E2E testing walkthrough](http://lathonez.com/2016/ionic-2-e2e-testing/)
 * [Removing assets from the APK](http://lathonez.com/2016/cordova-remove-assets/)
+* [Unifying DI Boilerplate](http://lathonez.com/2016/unify-di-boilerplate/)
 
 ## Contribute
 Issues and PRs are welcome, see the [issues list](https://github.com/riobus/ionic/issues)
@@ -47,8 +48,8 @@ See the changelog [here](https://github.com/riobus/ionic/blob/master/CHANGELOG.m
 
 ## Main dependencies
 
-* **angular:** 2.0.0-rc.1
-* **ionic:** 2.0.0-beta.8
+* **@Angular:** 2.0.0-rc.1
+* **Ionic:** 2.0.0-beta.9
 
 External dependencies are listed here to justify their inclusion and to allow for their removal if your project isn't using the related functionality.
 
