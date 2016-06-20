@@ -1,5 +1,3 @@
-'use strict';
-
 import { Component, Type, ViewChild }    from '@angular/core';
 import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
 import { StatusBar, Splashscreen }       from 'ionic-native';
