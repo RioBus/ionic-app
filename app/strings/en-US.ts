@@ -3,7 +3,6 @@ export const APP_TITLE: string = 'Rio Bus';
 
 // Sidemenu
 export const MENU_TITLE: string = APP_TITLE;
-export const MENU_OPTION_SEARCH: string = 'Search';
 export const MENU_OPTION_FAVORITES: string = 'Favorites';
 export const MENU_OPTION_HISTORY: string = 'History';
 export const MENU_OPTION_FEEDBACK: string = 'Send feedback';

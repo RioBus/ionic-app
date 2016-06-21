@@ -71,7 +71,6 @@ export class Application extends BasePage {
   private configureMenu(): void {
     // set our app's pages
     this.pages = [
-      { title: this.Text.MENU_OPTION_SEARCH, icon: 'search', component: SearchPage, home: true },
       { title: this.Text.MENU_OPTION_FAVORITES, icon: 'star', component: FavoritesPage },
       { title: this.Text.MENU_OPTION_HISTORY, icon: 'time', component: HistoryPage },
       { title: this.Text.MENU_OPTION_FEEDBACK, icon: 'chatboxes', link: `mailto:${FEEDBACK_MAIL}?subject=${FEEDBACK_SUBJECT}` },
