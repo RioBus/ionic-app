@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Line } from '../../models/itinerary';
 import { History } from '../../models/history';
-import { MapPage } from '../map/page';
 import { FavoritesDAO } from '../../dao/favorites';
 import { HistoryDAO } from '../../dao/history';
 import { LineManager } from '../../managers/line';
@@ -10,6 +9,7 @@ import { FavoriteButton } from '../../components/favorite-button/controller';
 import { LineItem } from '../../components/line-item/controller';
 import { BasePage } from '../../core/page';
 import { Keyboard } from 'ionic-native';
+import { FEED_SLICE_LIMIT } from '../../const';
 /**
  * SearchPage represents the search view in the app.
  * @class {SearchPage}
@@ -26,6 +26,7 @@ export class SearchPage extends BasePage {
     private hdao: HistoryDAO;
     private manager: LineManager;
 
+    private skip: number = 0;
     private itemsBkp: Line[] = [];
     private favorites: Line[] = [];
     public items: Line[] = [];
@@ -84,20 +85,6 @@ export class SearchPage extends BasePage {
      */
     public ionViewWillLeave(): void {
         document.getElementById('search-view').style.display = 'none';
-    }
-
-    /**
-     * Handles the click event triggered when the 'search for ...' item is pressed.
-     * @return {void}
-     */
-    public onClickFind(): void {
-        let query: string = this.searchBox.value.replace('  ', ' ').replace(' , ', ',').replace(', ', ',').replace(' ,', ',');
-        let line: Line = new Line(query, '');
-        let history: History = new History(line, new Date());
-        this.hdao.save(history).then(saved => {
-            if (saved) console.log(`Saved ${line.Line} to history.`);
-            this.nav.push(MapPage, { query: query });
-        });
     }
 
     /**
@@ -170,9 +157,15 @@ export class SearchPage extends BasePage {
      * Loads all lines
      * @return {void}
      */
-    private loadLines(): void {
-        this.manager.getAll().then(lines => {
-            this.items = lines;
+    public loadLines(infiniteScroll?: any): void {
+        if (this.showSearchBox) {
+            if (infiniteScroll) infiniteScroll.complete();
+            return;
+        }
+        this.manager.getSlice(FEED_SLICE_LIMIT, this.skip).then(lines => {
+            this.items = this.items.concat(lines);
+            this.skip += FEED_SLICE_LIMIT;
+            if (infiniteScroll) infiniteScroll.complete();
         });
     }
 }

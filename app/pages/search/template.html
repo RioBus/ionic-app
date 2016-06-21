@@ -28,19 +28,23 @@
 
 <ion-content class="search" id="search-view">
     <ion-list>
-        <ion-item-group [virtualScroll]="histories" *ngIf="histories.length>0 && !showSearchBox">
+        <ion-item-group *ngIf="histories.length>0 && !showSearchBox">
             <ion-item-divider light>{{ Text.PAGE_SEARCH_RECENTS }}</ion-item-divider>
-            <ion-item *virtualItem="let history">
+            <ion-item *ngFor="let history of histories">
                 <line-item [line]="history.Line"></line-item>
                 <ion-icon clear item-right name="time"></ion-icon>
             </ion-item>
         </ion-item-group>
-        <ion-item-group [virtualScroll]="items" bufferRatio="3" *ngIf="!(items.length===0 && searchbox && searchbox.value.length>0)">
+        <ion-item-group *ngIf="!(items.length===0 && searchbox && searchbox.value.length>0)">
             <ion-item-divider light>{{ Text.PAGE_SEARCH_AVAILABLE }}</ion-item-divider>
-            <ion-item *virtualItem="let item">
+            <ion-item *ngFor="let item of items">
                 <line-item [line]="item"></line-item>
                 <favorite-button item-right [line]="item"></favorite-button>
             </ion-item>
         </ion-item-group>
     </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="loadLines($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

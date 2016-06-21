@@ -49,4 +49,19 @@ export class LineManager {
             });
         });
     }
+
+    /**
+     * Retrieves a limited slice of data from the repository
+     * @param {number} limit - number of Line instances to retrieve
+     * @param {number} skip - number of Line instances to skip in the beginning of the search
+     * @return {Promise<Line[]>}
+     */
+    public getSlice(limit: number, skip: number): Promise<Line[]> {
+        return new Promise<Line[]>(resolve => {
+            this.dao.getLimited(limit, skip).then( lines => {
+                if (lines.length > 0) resolve(lines);
+                else this.downloadLines().then( downloadedLines => resolve(downloadedLines.splice(skip, limit)) );
+            });
+        });
+    }
 }
