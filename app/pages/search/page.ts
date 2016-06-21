@@ -115,6 +115,7 @@ export class SearchPage extends BasePage {
                         value.Line.toLowerCase().indexOf(query.toLowerCase()) > -1 ||
                         value.Description.toLowerCase().indexOf(query.toLowerCase()) > -1
                 );
+                this.items.push(new Line(query, this.Text.PAGE_SEARCH_SEARCHFOR));
             });
         } else {
             this.items = this.itemsBkp;
