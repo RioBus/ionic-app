@@ -28,7 +28,7 @@ export const PAGE_HISTORY_TITLE: string = 'Histórico';
 export const PAGE_SEARCH_INPUT: string = 'Buscar...';
 export const PAGE_SEARCH_RECENTS: string = 'Pesquisas recentes';
 export const PAGE_SEARCH_AVAILABLE: string = 'Linhas disponíveis';
-export const PAGE_SEARCH_SEARCHFOR: string = 'Buscar por';
+export const PAGE_SEARCH_SEARCHFOR: string = 'Linha não encontrada. Clique para pesquisar...';
 
 // About Page
 export const PAGE_ABOUT_TITLE: string = 'Sobre o Rio Bus';

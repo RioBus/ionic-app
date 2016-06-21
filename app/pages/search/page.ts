@@ -9,7 +9,7 @@ import { LineManager } from '../../managers/line';
 import { FavoriteButton } from '../../components/favorite-button/controller';
 import { LineItem } from '../../components/line-item/controller';
 import { BasePage } from '../../core/page';
-
+import { Keyboard } from 'ionic-native';
 /**
  * SearchPage represents the search view in the app.
  * @class {SearchPage}
@@ -115,6 +115,7 @@ export class SearchPage extends BasePage {
                         value.Line.toLowerCase().indexOf(query.toLowerCase()) > -1 ||
                         value.Description.toLowerCase().indexOf(query.toLowerCase()) > -1
                 );
+                this.items.push(new Line(query, this.Text.PAGE_SEARCH_SEARCHFOR));
             });
         } else {
             this.items = this.itemsBkp;
@@ -128,7 +129,10 @@ export class SearchPage extends BasePage {
      */
     public showSearchBar(): void {
         this.showSearchBox = true;
-        setTimeout(() => this.searchBox.focus(), 1);
+        setTimeout(() => {
+            this.searchBox.focus();
+            Keyboard.show();
+        }, 1);
     }
 
     /**

@@ -29,7 +29,7 @@ export const PAGE_HISTORY_TITLE: string = 'History';
 export const PAGE_SEARCH_INPUT: string = 'Search...';
 export const PAGE_SEARCH_RECENTS: string = 'Recent searches';
 export const PAGE_SEARCH_AVAILABLE: string = 'Available lines';
-export const PAGE_SEARCH_SEARCHFOR: string = 'Search for';
+export const PAGE_SEARCH_SEARCHFOR: string = 'Line not found. Click to search...';
 
 // About Page
 export const PAGE_ABOUT_TITLE: string = 'About the Rio Bus';

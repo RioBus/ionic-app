@@ -45,7 +45,5 @@
                 <favorite-button item-right [line]="item"></favorite-button>
             </ion-item>
         </ion-item-group>
-        
-        <button ion-item *ngIf="items.length===0 && searchbox && searchbox.value.length>0" (click)="onClickFind()">{{ text.PAGE_SEARCH_SEARCHFOR }} <b>{{ searchbox.value }}</b> ...</button>
     </ion-list>
 </ion-content>
