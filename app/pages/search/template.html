@@ -4,12 +4,13 @@
     </button>
 
     <ion-title class="{{ showSearchBox? '':'hidden' }}">
-        <ion-input
-            id="searchbox"
-            type="search"
-            (input)="onInput($event)"
-            placeholder="{{ Text.PAGE_SEARCH_INPUT }}">
-        </ion-input>
+        <form (submit)="onSubmit($event)">
+            <ion-input
+                id="searchbox"
+                type="search"
+                placeholder="{{ Text.PAGE_SEARCH_INPUT }}">
+            </ion-input>
+        </form>
     </ion-title>
     <ion-title class="{{ showSearchBox? 'hidden':'' }}">{{ Text.APP_TITLE }}</ion-title>
     
