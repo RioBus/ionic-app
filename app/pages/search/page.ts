@@ -92,7 +92,7 @@ export class SearchPage extends BasePage {
      * @param {Event} event - triggered event
      * @return {void}
      */
-    public onInput(event: Event): void {
+    public onSubmit(event: Event): void {
         let query: string = this.searchBox.value;
         if (query.length > 0) {
             if (this.itemsBkp.length === 0) this.itemsBkp = this.items;
@@ -102,7 +102,8 @@ export class SearchPage extends BasePage {
                         value.Line.toLowerCase().indexOf(query.toLowerCase()) > -1 ||
                         value.Description.toLowerCase().indexOf(query.toLowerCase()) > -1
                 );
-                this.items.push(new Line(query, this.Text.PAGE_SEARCH_SEARCHFOR));
+                if (this.items.length === 0)
+                    this.items.push(new Line(query, this.Text.PAGE_SEARCH_SEARCHFOR));
             });
         } else {
             this.items = this.itemsBkp;
@@ -129,7 +130,7 @@ export class SearchPage extends BasePage {
     public hideSearchBar(): void {
         if (this.searchBox.value.length > 0) {
             this.searchBox.value = '';
-            this.onInput(null);
+            this.onSubmit(null);
         }
         this.showSearchBox = false;
     }
