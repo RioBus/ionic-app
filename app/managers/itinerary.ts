@@ -48,4 +48,22 @@ export class ItineraryManager {
             });
         });
     }
+
+    /**
+     * Tells wether the itinerary trajectory should be displayed or not.
+     * @returns {Promise<boolean>}
+     */
+    public isEnabled(): Promise<boolean> {
+        return this.dao.isEnabled();
+    }
+
+    /**
+     * Toggles the Itinerary displayability state on/off.
+     * 
+     * @param {boolean} value - Itinerary should be displayed or not
+     * @returns {Promise<void>}
+     */
+    public toggleItinerary(value: boolean): Promise<void> {
+        return this.dao.toggle(value);
+    }
 }

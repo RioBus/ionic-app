@@ -6,6 +6,7 @@ import { Bus } from '../../models/bus';
 import { Line, Itinerary } from '../../models/itinerary';
 import { MarkerController } from './marker';
 import { ENABLE_SWAP_DIRECTION } from '../../const';
+import { ItineraryManager } from '../../managers/itinerary';
 
 // Configuration for the map available resources and presentation
 const mapConfig: any =  {
@@ -34,8 +35,10 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     private static instance: GoogleMapsComponent;
     public line: Line;
     public swapable: boolean = ENABLE_SWAP_DIRECTION;
+    public iman: ItineraryManager;
 
-    public constructor(platform: Platform) {
+    public constructor(platform: Platform, iman: ItineraryManager) {
+        this.iman = iman;
         GoogleMapsComponent.instance = this;
         platform.ready().then(() => this.onPlatformReady());
     }
@@ -108,7 +111,9 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     private onTrajectoryChanges(trajectory: any): void {
         if (this.trajectory) {
             this.mcontrol.hideTrajectory();
-            this.mcontrol.showTrajectory(this.trajectory);
+            this.iman.isEnabled().then( enabled => {
+                if (enabled) this.mcontrol.showTrajectory(this.trajectory);
+            });
         }
     }
 

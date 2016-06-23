@@ -10,6 +10,7 @@ import { SqlStorage } from 'ionic-angular';
 export class ItineraryDAO {
 
     private collectionName: string = 'itineraries';
+    private stateCollectionName: string = 'itinerary_display_state';
     private storage: SqlStorage;
 
     public constructor() {
@@ -36,6 +37,27 @@ export class ItineraryDAO {
                         map.save(new Itinerary(it.line, it.description, it.agency, spots));
                     });
                     resolve(map);
+                }
+            });
+        });
+    }
+
+    /**
+     * @private
+     * Retrieves the Itinerary hideability state stored in the memory.
+     * @return {Promise<boolean>}
+     */
+    private get DisplayState(): Promise<boolean> {
+        return new Promise<boolean>((resolve) => {
+            this.storage.get(this.stateCollectionName)
+            .then((content: string) => {
+                let tmp: boolean;
+                try {
+                    tmp = JSON.parse(content);
+                } catch (e) {
+                    tmp = true;
+                } finally {
+                    resolve(tmp);
                 }
             });
         });
@@ -86,5 +108,24 @@ export class ItineraryDAO {
                 this.set(map).then(() => resolve(true));
             });
         });
+    }
+
+    /**
+     * Checks wether the Itinerary trajectory is set in the memory to be displayed or not. 
+     * 
+     * @returns {Promise<boolean>}
+     */
+    public isEnabled(): Promise<boolean> {
+        return this.DisplayState;
+    }
+
+    /**
+     * Toggles Itinerary trajectory displayability state on/off.
+     * 
+     * @param {boolean} value
+     * @returns {Promise<void>}
+     */
+    public toggle(value: boolean): Promise<void> {
+        return this.storage.set(this.stateCollectionName, JSON.stringify(value));
     }
 }
