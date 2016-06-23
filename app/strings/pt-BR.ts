@@ -14,6 +14,12 @@ export const MENU_OPTION_LIKE: string = 'Curta no Facebook';
 export const COMPONENT_SNACKBAR_COMING: string = 'SENTIDO';
 export const COMPONENT_SNACKBAR_GOING: string = 'DESCONHECIDO';
 
+// ClearHistory component
+export const COMPONENT_CLEAR_HISTORY_ALERT_TITLE: string = 'Limpar Histórico';
+export const COMPONENT_CLEAR_HISTORY_ALERT_MESSAGE: string = 'Esta ação não poderá ser desfeita.';
+export const COMPONENT_CLEAR_HISTORY_ALERT_BUTTON_YES: string = 'Sim';
+export const COMPONENT_CLEAR_HISTORY_ALERT_BUTTON_NO: string = 'Não';
+
 // MapPage
 export const PAGE_MAP_ERROR_NO_BUSES: string = 'Nenhum ônibus foi encontrado.';
 export const PAGE_MAP_ERROR_UNKNOWN: string = 'Ocorreu um erro na busca. Por favor, entre em contato com o suporte.';

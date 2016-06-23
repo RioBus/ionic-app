@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AppVersion } from 'ionic-native';
 import { BasePage } from '../../core/page';
+import { ClearHistory } from '../../components/clear-history/controller';
 
 /**
  * SettingsPage represents the view with app's configurations.
@@ -8,7 +9,7 @@ import { BasePage } from '../../core/page';
  */
 @Component({
     templateUrl: 'build/pages/settings/template.html',
-    directives: [],
+    directives: [ClearHistory],
 })
 export class SettingsPage extends BasePage {
 
