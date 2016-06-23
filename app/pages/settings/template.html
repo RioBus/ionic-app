@@ -5,8 +5,9 @@
   <ion-title>{{ Text.PAGE_SETTINGS_TITLE }}</ion-title>
 </ion-navbar>
 
-<ion-content class="settings" padding>
+<ion-content class="settings">
   <ion-list>
+    <ion-list-header>{{ Text.PAGE_SETTINGS_HEADER_GENERAL }}</ion-list-header>
     <ion-item>
       <ion-label>{{ Text.PAGE_SETTINGS_TRAJECTORY }}</ion-label>
       <ion-toggle checked="{{hideTrajectory}}" item-right></ion-toggle>
@@ -16,6 +17,11 @@
       <ion-toggle checked="{{hideOldBuses}}" item-right></ion-toggle>
     </ion-item>
     <ion-item>{{ Text.PAGE_SETTINGS_HISTORY }}</ion-item>
-    <ion-item>{{ Text.PAGE_SETTINGS_VERSION }} {{ version }}</ion-item>
+
+    <ion-list-header>{{ Text.PAGE_SETTINGS_HEADER_INFO }}</ion-list-header>
+    <ion-item>
+      <h2>{{ Text.PAGE_SETTINGS_VERSION }}</h2>
+      <h3>{{ version }}</h3>
+    </ion-item>
   </ion-list>
 </ion-content>

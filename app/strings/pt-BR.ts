@@ -27,6 +27,8 @@ export const PAGE_SETTINGS_TRAJECTORY: string = 'Ocultar trajetórias';
 export const PAGE_SETTINGS_BUSES: string = 'Ocultar ônibus desatualizados';
 export const PAGE_SETTINGS_HISTORY: string = 'Limpar Histórico';
 export const PAGE_SETTINGS_VERSION: string = 'Versão';
+export const PAGE_SETTINGS_HEADER_GENERAL: string = 'Geral';
+export const PAGE_SETTINGS_HEADER_INFO: string = 'Informações';
 
 // History Page
 export const PAGE_HISTORY_TITLE: string = 'Histórico';

@@ -28,6 +28,8 @@ export const PAGE_SETTINGS_TRAJECTORY: string = 'Hide trajectories';
 export const PAGE_SETTINGS_BUSES: string = 'Hide outdated buses';
 export const PAGE_SETTINGS_HISTORY: string = 'Clean history';
 export const PAGE_SETTINGS_VERSION: string = 'Version';
+export const PAGE_SETTINGS_HEADER_GENERAL: string = 'General';
+export const PAGE_SETTINGS_HEADER_INFO: string = 'Informations';
 
 // History Page
 export const PAGE_HISTORY_TITLE: string = 'History';
