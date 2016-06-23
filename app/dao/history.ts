@@ -91,6 +91,14 @@ export class HistoryDAO {
     }
 
     /**
+     * Removes all History instances from the memory
+     * @return {Promise<void>}
+     */
+    public clear(): Promise<void> {
+        return this.set([]);
+    }
+
+    /**
      * Retrieves all the history data stored in the memory.
      * @return {Promise<History[]>}
      */
