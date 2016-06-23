@@ -10,7 +10,7 @@
     <ion-list-header>{{ Text.PAGE_SETTINGS_HEADER_GENERAL }}</ion-list-header>
     <ion-item>
       <ion-label>{{ Text.PAGE_SETTINGS_TRAJECTORY }}</ion-label>
-      <ion-toggle checked="{{hideTrajectory}}" item-right></ion-toggle>
+      <ion-toggle [(ngModel)]="hideTrajectory" (ionChange)="onHideTrajectoryChange()" item-right></ion-toggle>
     </ion-item>
     <ion-item>
       <ion-label>{{ Text.PAGE_SETTINGS_BUSES }}</ion-label>
