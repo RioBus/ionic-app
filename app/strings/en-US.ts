@@ -7,6 +7,7 @@ export const MENU_OPTION_FAVORITES: string = 'Favorites';
 export const MENU_OPTION_HISTORY: string = 'History';
 export const MENU_OPTION_FEEDBACK: string = 'Send feedback';
 export const MENU_OPTION_ABOUT: string = 'About';
+export const MENU_OPTION_SETTINGS: string = 'Settings';
 export const MENU_OPTION_RATE: string = 'Rate the app';
 export const MENU_OPTION_LIKE: string = 'Like Facebook page';
 
@@ -20,6 +21,9 @@ export const PAGE_MAP_ERROR_UNKNOWN: string = 'An error ocurred. Please, contact
 
 // Favorites Page
 export const PAGE_FAVORITES_TITLE: string = 'Favorites';
+
+// Settings Page
+export const PAGE_SETTINGS_TITLE: string = 'Settings';
 
 // History Page
 export const PAGE_HISTORY_TITLE: string = 'History';

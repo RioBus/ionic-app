@@ -6,6 +6,7 @@ export const MENU_OPTION_FAVORITES: string = 'Favoritos';
 export const MENU_OPTION_HISTORY: string = 'Histórico';
 export const MENU_OPTION_FEEDBACK: string = 'Enviar comentários';
 export const MENU_OPTION_ABOUT: string = 'Sobre';
+export const MENU_OPTION_SETTINGS: string = 'Configurações';
 export const MENU_OPTION_RATE: string = 'Avalie o app';
 export const MENU_OPTION_LIKE: string = 'Curta no Facebook';
 
@@ -19,6 +20,9 @@ export const PAGE_MAP_ERROR_UNKNOWN: string = 'Ocorreu um erro na busca. Por fav
 
 // Favorites Page
 export const PAGE_FAVORITES_TITLE: string = 'Favoritos';
+
+// Settings Page
+export const PAGE_SETTINGS_TITLE: string = 'Configurações';
 
 // History Page
 export const PAGE_HISTORY_TITLE: string = 'Histórico';
