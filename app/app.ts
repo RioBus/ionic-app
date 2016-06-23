@@ -1,6 +1,7 @@
-import { URL_PLAY_STORE, URL_FB_PAGE, FEEDBACK_MAIL, FEEDBACK_SUBJECT }   from './const';
+import { URL_PLAY_STORE, URL_FB_PAGE, FEEDBACK_MAIL, FEEDBACK_SUBJECT } from './const';
 import { SearchService }                 from './services/search';
 import { AboutPage }                     from './pages/about/page';
+import { SettingsPage }                  from './pages/settings/page';
 import { SearchPage }                    from './pages/search/page';
 import { HistoryPage }                   from './pages/history/page';
 import { ItineraryService }              from './services/itinerary';
@@ -77,6 +78,7 @@ export class Application extends BasePage {
       { title: this.Text.MENU_OPTION_ABOUT, icon: 'help-circle', component: AboutPage },
       { title: this.Text.MENU_OPTION_RATE, icon: 'appstore', link: URL_PLAY_STORE },
       { title: this.Text.MENU_OPTION_LIKE, icon: 'thumbs-up', link: URL_FB_PAGE },
+      { title: this.Text.MENU_OPTION_SETTINGS, icon: 'settings', component: SettingsPage },
     ];
   }
 
