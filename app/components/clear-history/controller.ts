@@ -40,7 +40,7 @@ export class ClearHistory extends BasePage {
                     handler: (): void => console.log('Clear canceled'),
                 },
                 {
-                    text: this.Text.COMPONENT_CLEAR_HISTORY_ALERT_BUTTON_NO,
+                    text: this.Text.COMPONENT_CLEAR_HISTORY_ALERT_BUTTON_YES,
                     handler: (): void => this.clearHistory(),
                 },
             ],
