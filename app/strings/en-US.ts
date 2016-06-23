@@ -24,6 +24,10 @@ export const PAGE_FAVORITES_TITLE: string = 'Favorites';
 
 // Settings Page
 export const PAGE_SETTINGS_TITLE: string = 'Settings';
+export const PAGE_SETTINGS_TRAJECTORY: string = 'Hide trajectories';
+export const PAGE_SETTINGS_BUSES: string = 'Hide outdated buses';
+export const PAGE_SETTINGS_HISTORY: string = 'Clean history';
+export const PAGE_SETTINGS_VERSION: string = 'Version';
 
 // History Page
 export const PAGE_HISTORY_TITLE: string = 'History';
