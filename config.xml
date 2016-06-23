@@ -1,54 +1,58 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.tormentaLabs.riobus.dev" version="3.0.2" android-versionCode="3000111" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Rio Bus dev</name>
-  <description>Find your bus in realtime.</description>
-  <author email="fred@riob.us" href="http://riob.us/">RioBus Team</author>
-  <content src="index.html"/>
-  <access origin="*"/>
-  <allow-intent href="http://*/*"/>
-  <allow-intent href="https://*/*"/>
-  <allow-intent href="tel:*"/>
-  <allow-intent href="sms:*"/>
-  <allow-intent href="mailto:*"/>
-  <allow-intent href="geo:*"/>
-  <platform name="android">
-    <allow-intent href="market:*"/>
-    <allow-intent href="fb:*"/>
-    <icon density="mdpi" src="resources/android/icon/ic_launcher-mdpi.png"/>
-    <icon density="hdpi" src="resources/android/icon/ic_launcher-hdpi.png"/>
-    <icon density="xhdpi" src="resources/android/icon/ic_launcher-xhdpi.png"/>
-    <icon density="xxhdpi" src="resources/android/icon/ic_launcher-xxhdpi.png"/>
-    <icon density="xxxhdpi" src="resources/android/icon/ic_launcher-xxxhdpi.png"/>
-    <splash src="resources/android/splash/drawable-port-ldpi-screen.png" density="port-ldpi"/>
-    <splash src="resources/android/splash/drawable-port-mdpi-screen.png" density="port-mdpi"/>
-    <splash src="resources/android/splash/drawable-port-hdpi-screen.png" density="port-hdpi"/>
-    <splash src="resources/android/splash/drawable-port-xhdpi-screen.png" density="port-xhdpi"/>
-    <splash src="resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
-    <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
-  </platform>
-  <platform name="ios">
-    <allow-intent href="itms:*"/>
-    <allow-intent href="itms-apps:*"/>
-  </platform>
-  <preference name="StatusBarBackgroundColor" value="#2b7ed8"/>
-  <preference name="StatusBarOverlaysWebView" value="true"/>
-  <preference name="webviewbounce" value="false"/>
-  <preference name="UIWebViewBounce" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="android-minSdkVersion" value="16"/>
-  <preference name="BackupWebStorage" value="none"/>
-  <preference name="orientation" value="portrait"/>
-  <preference name="ShowSplashScreen" value="true"/>
-  <preference name="ShowSplashScreenSpinner" value="false"/>
-  <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="30000"/>
-  <preference name="AutoHideSplashScreen" value="false"/>
-  <preference name="SplashShowOnlyFirstTime" value="false"/>
-  <preference name="FadeSplashScreen" value="false"/>
-  <feature name="SplashScreen">
-    <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen"/>
-  </feature>
-  <feature name="StatusBar">
-    <param name="ios-package" onload="true" value="CDVStatusBar"/>
-  </feature>
+<?xml version='1.0' encoding='utf-8'?>
+<widget android-versionCode="3000111" id="com.tormentaLabs.riobus.dev" version="3.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Rio Bus dev</name>
+    <description>Find your bus in realtime.</description>
+    <author email="fred@riob.us" href="http://riob.us/">RioBus Team</author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+        <allow-intent href="fb:*" />
+        <icon density="mdpi" src="resources/android/icon/ic_launcher-mdpi.png" />
+        <icon density="hdpi" src="resources/android/icon/ic_launcher-hdpi.png" />
+        <icon density="xhdpi" src="resources/android/icon/ic_launcher-xhdpi.png" />
+        <icon density="xxhdpi" src="resources/android/icon/ic_launcher-xxhdpi.png" />
+        <icon density="xxxhdpi" src="resources/android/icon/ic_launcher-xxxhdpi.png" />
+        <splash density="port-ldpi" src="resources/android/splash/drawable-port-ldpi-screen.png" />
+        <splash density="port-mdpi" src="resources/android/splash/drawable-port-mdpi-screen.png" />
+        <splash density="port-hdpi" src="resources/android/splash/drawable-port-hdpi-screen.png" />
+        <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
+        <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
+        <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <preference name="StatusBarBackgroundColor" value="#2b7ed8" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="16" />
+    <preference name="BackupWebStorage" value="none" />
+    <preference name="orientation" value="portrait" />
+    <preference name="ShowSplashScreen" value="true" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="30000" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="SplashShowOnlyFirstTime" value="false" />
+    <preference name="FadeSplashScreen" value="false" />
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
+    <preference name="xwalkVersion" value="18+" />
+    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
+    <preference name="xwalkMode" value="embedded" />
+    <preference name="xwalkMultipleApk" value="true" />
 </widget>
