@@ -1,6 +1,6 @@
 {
   "name": "riobus-ionic",
-  "version": "3.0.0",
+  "version": "3.0.3",
   "description": "Find your bus in realtime.",
   "scripts": {
     "build": "gulp --gulpfile test/gulpfile.ts --cwd ./ build-app",
