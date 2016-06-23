@@ -1,6 +1,7 @@
 import { Directive, HostListener } from '@angular/core';
 import { Alert, NavController } from 'ionic-angular';
 import { HistoryDAO } from '../../dao/history';
+import { BasePage } from '../../core/page';
 
 /**
  * @export
@@ -12,12 +13,13 @@ import { HistoryDAO } from '../../dao/history';
 @Directive({
     selector: '[clear-history]',
 })
-export class ClearHistory {
+export class ClearHistory extends BasePage {
 
     private dao: HistoryDAO;
     private nav: NavController;
 
     public constructor(nav: NavController) {
+        super();
         this.nav = nav;
         this.dao = new HistoryDAO();
     }
@@ -28,17 +30,17 @@ export class ClearHistory {
      * @return {void}
      */
     @HostListener('click', ['$event.target'])
-    public shouldClearHistory(): void {
+    public onClick(): void {
         let confirm: Alert = Alert.create({
-            title: 'Limpar Histórico',
-            message: 'Tem certeza que deseja apagar todo o histórico? Esta ação não pode ser desfeita.',
+            title: this.Text.COMPONENT_CLEAR_HISTORY_ALERT_TITLE,
+            message: this.Text.COMPONENT_CLEAR_HISTORY_ALERT_MESSAGE,
             buttons: [
                 {
-                    text: 'Não',
+                    text: this.Text.COMPONENT_CLEAR_HISTORY_ALERT_BUTTON_NO,
                     handler: (): void => console.log('Clear canceled'),
                 },
                 {
-                    text: 'Sim',
+                    text: this.Text.COMPONENT_CLEAR_HISTORY_ALERT_BUTTON_NO,
                     handler: (): void => this.clearHistory(),
                 },
             ],
@@ -53,7 +55,7 @@ export class ClearHistory {
     private clearHistory(): void {
         this.dao.clear()
         .then(
-            () => console.log("Histórico apagado."),
+            () => console.log('History cleared.'),
             error => console.log('Failed to clear history.')
         );
     }

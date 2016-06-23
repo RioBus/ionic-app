@@ -15,6 +15,12 @@ export const MENU_OPTION_LIKE: string = 'Like Facebook page';
 export const COMPONENT_SNACKBAR_COMING: string = 'UNKNOWN';
 export const COMPONENT_SNACKBAR_GOING: string = 'DIRECTION';
 
+// ClearHistory component
+export const COMPONENT_CLEAR_HISTORY_ALERT_TITLE: string = 'Clear History';
+export const COMPONENT_CLEAR_HISTORY_ALERT_MESSAGE: string = 'This action cannot be undone.';
+export const COMPONENT_CLEAR_HISTORY_ALERT_BUTTON_YES: string = 'Yes';
+export const COMPONENT_CLEAR_HISTORY_ALERT_BUTTON_NO: string = 'No';
+
 // MapPage
 export const PAGE_MAP_ERROR_NO_BUSES: string = 'No buses were found.';
 export const PAGE_MAP_ERROR_UNKNOWN: string = 'An error ocurred. Please, contact the support team.';
