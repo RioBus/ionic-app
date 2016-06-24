@@ -1,7 +1,8 @@
-import { API_ENDPOINT } from '../const';
-import { Bus } from '../models/bus';
+import { API_ENDPOINT, HIDE_OLD_BUSES_KEY, OLD_BUS_LIMIT } from '../const';
+import { PreferencesManager } from '../managers/preferences';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Bus } from '../models/bus';
 
 /**
  * SearchService class handles the requests to retrieve buses information from the
@@ -12,21 +13,30 @@ import { Http } from '@angular/http';
 export class SearchService {
 
     private http: Http;
+    private preferences: PreferencesManager;
 
-    public constructor(http: Http) {
+    public constructor(http: Http, prefs: PreferencesManager) {
         this.http = http;
+        this.preferences = prefs;
     }
 
     /**
      * @private
      * Preprocesses the received bus data to turn into an Bus instance array.
      * @param {any[]} obj - received data
+     * @param {boolean} hideOldies - Toggle hide old buses on/off
      * @return {Bus[]}
      */
-    private processBuses(obj: any[]): Bus[] {
+    private processBuses(obj: any[], hideOldies: boolean): Bus[] {
         let result: Bus[] = [];
-        obj.forEach((data) => {
-            result.push(new Bus(data.line, data.order, data.speed, data.direction, data.latitude, data.longitude, data.sense, data.timeStamp));
+        obj.forEach(data => {
+            let tmp: Bus = new Bus(data.line, data.order, data.speed, data.direction, data.latitude, data.longitude, data.sense, data.timeStamp);
+
+            if (hideOldies) {
+                let timeSinceUpdate: number = ((new Date()).getTime() - tmp.Timestamp.getTime()) / 60000; // to minutes
+                if (timeSinceUpdate < OLD_BUS_LIMIT) result.push(tmp);
+            } else
+                result.push(tmp);
         });
         return result;
     }
@@ -37,12 +47,9 @@ export class SearchService {
      * @return {Promise<Bus[]>}
      */
     public getBuses(query: string): Promise<Bus[]> {
-        return new Promise<Bus[]>((resolve, reject) => {
-            let url: string = `${API_ENDPOINT}/v3/search/${query}`;
-            this.http.get(url).subscribe(
-                data => resolve(this.processBuses(data.json())),
-                error => reject(error)
-            );
-        });
+        return this.preferences.getKey<boolean>(HIDE_OLD_BUSES_KEY)
+                .then(hideOldies =>
+                    this.http.get(`${API_ENDPOINT}/v3/search/${query}`).toPromise()
+                    .then(data => this.processBuses(data.json(), !!hideOldies)));
     }
 }

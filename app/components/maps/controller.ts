@@ -1,3 +1,4 @@
+import { HIDE_TRAJECTORY_KEY, ENABLE_SWAP_DIRECTION } from '../../const';
 import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 import { Platform } from 'ionic-angular';
 import { MapSnackbar } from '../map-snackbar/controller';
@@ -5,7 +6,7 @@ import { Component, OnChanges, OnDestroy } from '@angular/core';
 import { Bus } from '../../models/bus';
 import { Line, Itinerary } from '../../models/itinerary';
 import { MarkerController } from './marker';
-import { ENABLE_SWAP_DIRECTION } from '../../const';
+import { PreferencesManager } from '../../managers/preferences';
 
 // Configuration for the map available resources and presentation
 const mapConfig: any =  {
@@ -34,8 +35,10 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     private static instance: GoogleMapsComponent;
     public line: Line;
     public swapable: boolean = ENABLE_SWAP_DIRECTION;
+    public preferences: PreferencesManager;
 
-    public constructor(platform: Platform) {
+    public constructor(platform: Platform, prefs: PreferencesManager) {
+        this.preferences = prefs;
         GoogleMapsComponent.instance = this;
         platform.ready().then(() => this.onPlatformReady());
     }
@@ -108,7 +111,9 @@ export class GoogleMapsComponent implements OnChanges, OnDestroy {
     private onTrajectoryChanges(trajectory: any): void {
         if (this.trajectory) {
             this.mcontrol.hideTrajectory();
-            this.mcontrol.showTrajectory(this.trajectory);
+            this.preferences.getKey<boolean>(HIDE_TRAJECTORY_KEY).then( enabled => {
+                if (!enabled) this.mcontrol.showTrajectory(this.trajectory);
+            });
         }
     }
 
