@@ -8,13 +8,14 @@ import { ItineraryService }              from './services/itinerary';
 import { FavoritesPage }                 from './pages/favorites/page';
 import { LineManager }                   from './managers/line';
 import { ItineraryManager }              from './managers/itinerary';
+import { PreferencesManager }            from './managers/preferences';
 import { Component, Type, ViewChild }    from '@angular/core';
 import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
 import { StatusBar, Splashscreen }       from 'ionic-native';
 import { BasePage }                      from './core/page';
 
 // Application providers
-const providers: any[] = [ItineraryService, SearchService, LineManager, ItineraryManager];
+const providers: any[] = [ItineraryService, SearchService, LineManager, ItineraryManager, PreferencesManager];
 
 // Application config
 // http://ionicframework.com/docs/v2/api/config/Config/
