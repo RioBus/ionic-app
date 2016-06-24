@@ -1,10 +1,9 @@
 import { HIDE_OLD_BUSES_KEY, HIDE_TRAJECTORY_KEY } from '../../const';
-import { Component } from '@angular/core';
-import { AppVersion } from 'ionic-native';
-import { BasePage } from '../../core/page';
-import { ClearHistory } from '../../components/clear-history/controller';
-import { ItineraryManager } from '../../managers/itinerary';
 import { PreferencesManager } from '../../managers/preferences';
+import { ClearHistory } from '../../components/clear-history/controller';
+import { AppVersion } from 'ionic-native';
+import { Component } from '@angular/core';
+import { BasePage } from '../../core/page';
 
 /**
  * SettingsPage represents the view with app's configurations.
@@ -17,15 +16,13 @@ import { PreferencesManager } from '../../managers/preferences';
 export class SettingsPage extends BasePage {
 
     private preferences: PreferencesManager;
-    private iman: ItineraryManager;
 
     public version: string = '';
     public hideTrajectory: boolean;
     public hideOldBuses: boolean;
 
-    public constructor(iman: ItineraryManager, prefs: PreferencesManager) {
+    public constructor(prefs: PreferencesManager) {
         super();
-        this.iman = iman;
         this.preferences = prefs;
     }
 
@@ -36,7 +33,6 @@ export class SettingsPage extends BasePage {
      */
     public ionViewLoaded(): void {
         AppVersion.getVersionNumber().then(version => this.version = version);
-        this.iman.isEnabled().then(value => this.hideTrajectory = !value);
         this.preferences.getKey<boolean>(HIDE_TRAJECTORY_KEY).then(value => this.hideTrajectory = !!value);
         this.preferences.getKey<boolean>(HIDE_OLD_BUSES_KEY).then(value => this.hideOldBuses = !!value);
     }

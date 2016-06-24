@@ -11,3 +11,4 @@ export const FEEDBACK_SUBJECT: string = 'Tenho uma ideia legal para o app!';
 export const FEED_SLICE_LIMIT: number = 10;
 export const HIDE_TRAJECTORY_KEY: string = 'hideTrajectory';
 export const HIDE_OLD_BUSES_KEY: string = 'hideOldBuses';
+export const OLD_BUS_LIMIT: number = 20; // minutes
