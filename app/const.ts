@@ -9,3 +9,5 @@ export const LANG_DEFAULT: string = 'en-US';
 export const FEEDBACK_MAIL: string = 'fred+androidfeedback@riob.us';
 export const FEEDBACK_SUBJECT: string = 'Tenho uma ideia legal para o app!';
 export const FEED_SLICE_LIMIT: number = 10;
+export const HIDE_TRAJECTORY_KEY: string = 'hideTrajectory';
+export const HIDE_OLD_BUSES_KEY: string = 'hideOldBuses';

@@ -1,11 +1,10 @@
+import { HIDE_OLD_BUSES_KEY, HIDE_TRAJECTORY_KEY } from '../../const';
 import { Component } from '@angular/core';
 import { AppVersion } from 'ionic-native';
 import { BasePage } from '../../core/page';
 import { ClearHistory } from '../../components/clear-history/controller';
 import { ItineraryManager } from '../../managers/itinerary';
 import { PreferencesManager } from '../../managers/preferences';
-
-const HIDE_OLD_BUSES_KEY: string = 'hideOldBuses';
 
 /**
  * SettingsPage represents the view with app's configurations.
@@ -38,7 +37,8 @@ export class SettingsPage extends BasePage {
     public ionViewLoaded(): void {
         AppVersion.getVersionNumber().then(version => this.version = version);
         this.iman.isEnabled().then(value => this.hideTrajectory = !value);
-        this.preferences.getKey<boolean>('hideOldBuses').then(value => this.hideOldBuses = !!value);
+        this.preferences.getKey<boolean>(HIDE_TRAJECTORY_KEY).then(value => this.hideTrajectory = !!value);
+        this.preferences.getKey<boolean>(HIDE_OLD_BUSES_KEY).then(value => this.hideOldBuses = !!value);
     }
 
     /**
@@ -46,7 +46,7 @@ export class SettingsPage extends BasePage {
      * @return {void}
      */
     public onHideTrajectoryChange(): void {
-        this.iman.toggleItinerary(!this.hideTrajectory)
+        this.preferences.setKey(HIDE_TRAJECTORY_KEY, this.hideTrajectory)
             .then(() => console.log('Toggled trajectory state.'));
     }
 
