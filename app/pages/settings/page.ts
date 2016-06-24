@@ -3,6 +3,9 @@ import { AppVersion } from 'ionic-native';
 import { BasePage } from '../../core/page';
 import { ClearHistory } from '../../components/clear-history/controller';
 import { ItineraryManager } from '../../managers/itinerary';
+import { PreferencesManager } from '../../managers/preferences';
+
+const HIDE_OLD_BUSES_KEY: string = 'hideOldBuses';
 
 /**
  * SettingsPage represents the view with app's configurations.
@@ -14,23 +17,45 @@ import { ItineraryManager } from '../../managers/itinerary';
 })
 export class SettingsPage extends BasePage {
 
-    public version: string = '';
-    public hideTrajectory: boolean;
-    public hideOldBuses: boolean = false;
+    private preferences: PreferencesManager;
     private iman: ItineraryManager;
 
-    public constructor(iman: ItineraryManager) {
+    public version: string = '';
+    public hideTrajectory: boolean;
+    public hideOldBuses: boolean;
+
+    public constructor(iman: ItineraryManager, prefs: PreferencesManager) {
         super();
         this.iman = iman;
+        this.preferences = prefs;
     }
 
+    /**
+     * It's part of Ionic lifecylce. Method called when the view is about
+     * to be presented.
+     * @return {void}
+     */
     public ionViewLoaded(): void {
         AppVersion.getVersionNumber().then(version => this.version = version);
         this.iman.isEnabled().then(value => this.hideTrajectory = !value);
+        this.preferences.getKey<boolean>('hideOldBuses').then(value => this.hideOldBuses = !!value);
     }
 
+    /**
+     * Called when the trajectory display state toggle changes it's state.
+     * @return {void}
+     */
     public onHideTrajectoryChange(): void {
         this.iman.toggleItinerary(!this.hideTrajectory)
             .then(() => console.log('Toggled trajectory state.'));
+    }
+
+    /**
+     * Called when the old buses display state toggle changes it's state.
+     * @return {void}
+     */
+    public onHideOldBusesChange(): void {
+        this.preferences.setKey(HIDE_OLD_BUSES_KEY, this.hideOldBuses)
+            .then(() => console.log('Toggled old buses display state.'));
     }
 }
