@@ -14,7 +14,7 @@
     </ion-item>
     <ion-item>
       <ion-label>{{ Text.PAGE_SETTINGS_BUSES }}</ion-label>
-      <ion-toggle checked="{{hideOldBuses}}" item-right></ion-toggle>
+      <ion-toggle [(ngModel)]="hideOldBuses" (ionChange)="onHideOldBusesChange()" item-right></ion-toggle>
     </ion-item>
     <ion-item clear-history>{{ Text.PAGE_SETTINGS_HISTORY }}</ion-item>
 
