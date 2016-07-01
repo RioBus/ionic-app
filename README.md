@@ -16,7 +16,7 @@ npm test          # run unit tests
 
 ## Debug Unit tests
 ```bash
-npm run karma    # start karma in debug mode: mutli run Chrome, hit `debug` to get going.
+npm run karma    # start karma in debug mode: multi run Chrome, hit `debug` to get going.
 ```
 
 ## Run E2E
@@ -52,8 +52,8 @@ See the changelog [here](https://github.com/lathonez/clicker/blob/master/CHANGEL
 
 ## Dependencies
 
-* **@Angular:** 2.0.0-rc.1
-* **Ionic:** 2.0.0-beta.9
+* **@Angular:** 2.0.0-rc.3
+* **Ionic:** 2.0.0-beta.10
 
 External dependencies are listed here to justify their inclusion and to allow for their removal if your project isn't using the related functionality.
 
