@@ -48,7 +48,7 @@ Issues and PRs are welcome, see the [issues list](https://github.com/fmsouza/ion
 
 ## Changelog
 
-See the changelog [here](https://github.com/lathonez/clicker/blob/master/CHANGELOG.md)
+See the changelog [here](https://github.com/fmsouza/ionic2-blank/blob/master/CHANGELOG.md)
 
 ## Dependencies
 
