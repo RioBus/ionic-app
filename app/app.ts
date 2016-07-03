@@ -1,19 +1,21 @@
-import { URL_PLAY_STORE, URL_FB_PAGE, FEEDBACK_MAIL, FEEDBACK_SUBJECT }   from './const';
+import { URL_PLAY_STORE, URL_FB_PAGE, FEEDBACK_MAIL, FEEDBACK_SUBJECT } from './const';
 import { SearchService }                 from './services/search';
 import { AboutPage }                     from './pages/about/page';
+import { SettingsPage }                  from './pages/settings/page';
 import { SearchPage }                    from './pages/search/page';
 import { HistoryPage }                   from './pages/history/page';
 import { ItineraryService }              from './services/itinerary';
 import { FavoritesPage }                 from './pages/favorites/page';
 import { LineManager }                   from './managers/line';
 import { ItineraryManager }              from './managers/itinerary';
+import { PreferencesManager }            from './managers/preferences';
 import { Component, Type, ViewChild }    from '@angular/core';
 import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
 import { StatusBar, Splashscreen }       from 'ionic-native';
 import { BasePage }                      from './core/page';
 
 // Application providers
-const providers: any[] = [ItineraryService, SearchService, LineManager, ItineraryManager];
+const providers: any[] = [ItineraryService, SearchService, LineManager, ItineraryManager, PreferencesManager];
 
 // Application config
 // http://ionicframework.com/docs/v2/api/config/Config/
@@ -77,6 +79,7 @@ export class Application extends BasePage {
       { title: this.Text.MENU_OPTION_ABOUT, icon: 'help-circle', component: AboutPage },
       { title: this.Text.MENU_OPTION_RATE, icon: 'appstore', link: URL_PLAY_STORE },
       { title: this.Text.MENU_OPTION_LIKE, icon: 'thumbs-up', link: URL_FB_PAGE },
+      { title: this.Text.MENU_OPTION_SETTINGS, icon: 'settings', component: SettingsPage },
     ];
   }
 
