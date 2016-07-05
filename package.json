@@ -68,6 +68,7 @@
     "cordova-plugin-app-version",
     "cordova-plugin-device",
     "cordova-plugin-console",
+    "cordova-plugin-crosswalk-webview",
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
