@@ -1,4 +1,5 @@
 import { GoogleMap, GoogleMapsMarkerOptions, GoogleMapsMarker, GoogleMapsLatLng, GoogleMapsPolylineOptions, GoogleMapsPolyline } from 'ionic-native';
+import { ColorUtils } from '../../core/utils';
 import { Bus } from '../../models/bus';
 import { Itinerary, Spot } from '../../models/itinerary';
 
@@ -66,8 +67,9 @@ export class MarkerController {
             }
             positions.push(new GoogleMapsLatLng(spot.Latitude.toString(), spot.Longitude.toString()));
         });
+
         // Random color to set in the start/end markers and the trajectory
-        let color: string = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+        let color: string = `#${ColorUtils.randomColor((r, g, b) => r <= (g + b) && g <= (r + b))}`;
 
         if (spotFrom !== null && spotTo !== null) {
             // Marking the start/end of trajectory on the map
