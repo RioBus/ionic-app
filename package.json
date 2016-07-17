@@ -1,6 +1,6 @@
 {
   "name": "riobus-ionic",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Find your bus in realtime.",
   "scripts": {
     "build": "gulp --gulpfile test/gulpfile.ts --cwd ./ build-app",
@@ -9,7 +9,7 @@
     "postinstall": "ionic state restore && typings install && webdriver-manager update && cp test/karma-static/*.html node_modules/karma/static && chmod +x signing/run.sh && ./signing/run.sh",
     "start": "ionic serve",
     "test": "gulp --gulpfile test/gulpfile.ts --cwd ./ unit-test",
-    "android": "adb logcat -c && ionic run android && adb logcat | grep CONSOLE"
+    "android": "ionic run android --livereload --consolelogs"
   },
   "repository": {
     "type": "git",
