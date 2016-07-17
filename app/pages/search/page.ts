@@ -68,7 +68,7 @@ export class SearchPage extends BasePage {
      */
     public ionViewLoaded(): void {
         this.loadRecents();
-        this.loadFavorites();
+        this.loadLines();
     }
 
     /**
@@ -141,17 +141,6 @@ export class SearchPage extends BasePage {
      */
     private loadRecents(): void {
         this.hdao.getLimited(2).then(histories => this.histories = histories);
-    }
-
-    /**
-     * Loads the favorite lines
-     * @return {void}
-     */
-    private loadFavorites(): void {
-        this.fdao.getAll().then((lines: Line[]) => {
-            this.favorites = lines;
-            this.loadLines();
-        });
     }
 
     /**
