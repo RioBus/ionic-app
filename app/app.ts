@@ -1,11 +1,15 @@
-import { Component, Type, ViewChild }    from '@angular/core';
-import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
-import { StatusBar, Splashscreen }       from 'ionic-native';
-import { HomePage }                      from './pages/home/page';
-import { BasePage }                      from './core/page';
+import { Component, provide, Type, ViewChild }           from '@angular/core';
+import { disableDeprecatedForms, provideForms }          from '@angular/forms';
+import { ionicBootstrap, MenuController, Nav, Platform } from 'ionic-angular';
+import { StatusBar, Splashscreen }                       from 'ionic-native';
+import { HomePage }                                      from './pages/home/page';
+import { BasePage }                                      from './core/page';
 
-// Application providers
-const providers: any[] = [];
+const providers: any[] = [
+  disableDeprecatedForms(),
+  provideForms(),
+  provide('Storage', {useClass: Storage})
+];
 
 // Application config
 // http://ionicframework.com/docs/v2/api/config/Config/
