@@ -9,7 +9,8 @@
     "postinstall": "ionic state restore && typings install && webdriver-manager update && cp test/karma-static/*.html node_modules/karma/static && chmod +x signing/run.sh && ./signing/run.sh",
     "start": "ionic serve",
     "test": "gulp --gulpfile test/gulpfile.ts --cwd ./ unit-test",
-    "android": "ionic run android --livereload --consolelogs"
+    "android": "adb logcat -c && ionic run android && adb logcat | grep 'CONSOLE'",
+    "android-live": "ionic run android --livereload --consolelogs"
   },
   "repository": {
     "type": "git",
@@ -71,7 +72,6 @@
     "cordova-plugin-app-version",
     "cordova-plugin-device",
     "cordova-plugin-console",
-    "cordova-plugin-crosswalk-webview",
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
