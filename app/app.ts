@@ -1,21 +1,27 @@
 import { URL_PLAY_STORE, URL_FB_PAGE, FEEDBACK_MAIL, FEEDBACK_SUBJECT } from './const';
-import { SearchService }                 from './services/search';
-import { AboutPage }                     from './pages/about/page';
-import { SettingsPage }                  from './pages/settings/page';
-import { SearchPage }                    from './pages/search/page';
-import { HistoryPage }                   from './pages/history/page';
-import { ItineraryService }              from './services/itinerary';
-import { FavoritesPage }                 from './pages/favorites/page';
-import { LineManager }                   from './managers/line';
-import { ItineraryManager }              from './managers/itinerary';
-import { PreferencesManager }            from './managers/preferences';
-import { Component, Type, ViewChild }    from '@angular/core';
-import { Platform, ionicBootstrap, Nav } from 'ionic-angular';
-import { StatusBar, Splashscreen }       from 'ionic-native';
-import { BasePage }                      from './core/page';
+import { SearchService }                                 from './services/search';
+import { AboutPage }                                     from './pages/about/page';
+import { SettingsPage }                                  from './pages/settings/page';
+import { SearchPage }                                    from './pages/search/page';
+import { HistoryPage }                                   from './pages/history/page';
+import { ItineraryService }                              from './services/itinerary';
+import { FavoritesPage }                                 from './pages/favorites/page';
+import { LineManager }                                   from './managers/line';
+import { ItineraryManager }                              from './managers/itinerary';
+import { PreferencesManager }                            from './managers/preferences';
+import { Component, provide, Type, ViewChild }           from '@angular/core';
+import { disableDeprecatedForms, provideForms }          from '@angular/forms';
+import { ionicBootstrap, MenuController, Nav, Platform } from 'ionic-angular';
+import { StatusBar, Splashscreen }                       from 'ionic-native';
+import { BasePage }                                      from './core/page';
 
 // Application providers
-const providers: any[] = [ItineraryService, SearchService, LineManager, ItineraryManager, PreferencesManager];
+const providers: any[] = [
+  disableDeprecatedForms(),
+  provideForms(),
+  provide('Storage', {useClass: Storage}),
+  ItineraryService, SearchService, LineManager, ItineraryManager, PreferencesManager
+];
 
 // Application config
 // http://ionicframework.com/docs/v2/api/config/Config/
