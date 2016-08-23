@@ -76,5 +76,7 @@
     "cordova-plugin-globalization",
     "ionic-plugin-keyboard"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "android"
+  ]
 }
