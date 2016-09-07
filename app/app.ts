@@ -11,9 +11,10 @@ import { ItineraryManager }                              from './managers/itiner
 import { PreferencesManager }                            from './managers/preferences';
 import { Component, provide, Type, ViewChild }           from '@angular/core';
 import { disableDeprecatedForms, provideForms }          from '@angular/forms';
-import { ionicBootstrap, MenuController, Nav, Platform } from 'ionic-angular';
+import { ionicBootstrap, Nav, Platform }                 from 'ionic-angular';
 import { StatusBar, Splashscreen }                       from 'ionic-native';
 import { BasePage }                                      from './core/page';
+import { Analytics }                                     from './core/analytics';
 
 // Application providers
 const providers: any[] = [
@@ -69,7 +70,7 @@ export class Application extends BasePage {
       // Here you can do any higher level native things you might need.
       this.hideSplashScreen();
       StatusBar.styleDefault();
-      setTimeout(() => this.configureMenu(), 1);
+      Analytics.configure().then(() => setTimeout(() => this.configureMenu(), 1));
   }
 
   /**

@@ -2,6 +2,7 @@ import { Button, Icon, Events } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { FavoritesDAO } from '../../dao/favorites';
+import { Analytics } from '../../core/analytics';
 
 /**
  * Represents the <favorite-button> HTML component.
@@ -64,6 +65,7 @@ export class FavoriteButton {
      */
     private onStar(response: boolean): void {
         console.log('Starring...');
+        Analytics.trackEvent('Favorite button', 'star', 'add to favorites');
         if (response) this.events.publish('update:favorites'); // Triggers 'update:favorites' event
         else console.log(`Failed to star the line '${this.line.Line}'`);
         FavoriteButton.isBusy = false;
@@ -77,6 +79,7 @@ export class FavoriteButton {
      */
     private onUnstar(response: boolean): void {
         console.log('Unstarring...');
+        Analytics.trackEvent('Favorite button', 'unstar', 'remove from favorites');
         if (response) this.events.publish('update:favorites'); // Triggers 'update:favorites' event
         else console.log(`Failed to unstar the line '${this.line.Line}'`);
         FavoriteButton.isBusy = false;

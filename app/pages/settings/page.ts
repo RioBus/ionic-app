@@ -4,6 +4,7 @@ import { ClearHistory } from '../../components/clear-history/controller';
 import { AppVersion } from 'ionic-native';
 import { Component } from '@angular/core';
 import { BasePage } from '../../core/page';
+import { Analytics } from '../../core/analytics';
 
 /**
  * SettingsPage represents the view with app's configurations.
@@ -24,6 +25,7 @@ export class SettingsPage extends BasePage {
     public constructor(prefs: PreferencesManager) {
         super();
         this.preferences = prefs;
+        Analytics.trackView('SettingsPage');
     }
 
     /**
@@ -42,6 +44,7 @@ export class SettingsPage extends BasePage {
      * @return {void}
      */
     public onHideTrajectoryChange(): void {
+        Analytics.trackEvent('trajectory switch', 'toggle', `${this.hideTrajectory}`);
         this.preferences.setKey(HIDE_TRAJECTORY_KEY, this.hideTrajectory)
             .then(() => console.log('Toggled trajectory state.'));
     }
@@ -51,6 +54,7 @@ export class SettingsPage extends BasePage {
      * @return {void}
      */
     public onHideOldBusesChange(): void {
+        Analytics.trackEvent('old buses switch', 'toggle', `${this.hideOldBuses}`);
         this.preferences.setKey(HIDE_OLD_BUSES_KEY, this.hideOldBuses)
             .then(() => console.log('Toggled old buses display state.'));
     }

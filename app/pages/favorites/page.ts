@@ -4,6 +4,7 @@ import { FavoritesDAO } from '../../dao/favorites';
 import { FavoriteButton } from '../../components/favorite-button/controller';
 import { LineItem } from '../../components/line-item/controller';
 import { BasePage } from '../../core/page';
+import { Analytics } from '../../core/analytics';
 
 /**
  * FavoritesPage class represents the view which displays information
@@ -22,6 +23,7 @@ export class FavoritesPage extends BasePage {
     public constructor() {
         super();
         this.dao = new FavoritesDAO();
+        Analytics.trackView('FavoritesPage');
     }
 
     /**

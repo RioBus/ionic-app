@@ -1,6 +1,8 @@
+export const DEBUG_MODE: boolean = true;
 export const SERVER_ADDR: string = 'http://rest.riob.us';
 export const API_ENDPOINT: string = `${SERVER_ADDR}`;
 export const UPDATE_TIMEOUT: number = 5000; // millis
+export const ANALYTICS_UA: string = 'UA-49628280-2';
 export const URL_PLAY_STORE: string = 'market://details?id=com.tormentaLabs.riobus';
 export const URL_FB_PAGE: string = 'fb://page/1408367169433222';
 export const ENABLE_SWAP_DIRECTION: boolean = false;
