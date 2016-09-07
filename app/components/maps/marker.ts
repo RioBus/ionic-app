@@ -11,6 +11,8 @@ class BusIcon {
     public static GOOD: string = `${BusIcon.BASE}/bus_green.png`;
     public static AVG: string = `${BusIcon.BASE}/bus_yellow.png`;
     public static BAD: string = `${BusIcon.BASE}/bus_red.png`;
+    public static WIDTH: number = 36;
+    public static HEIGHT: number = 42;
 }
 
 /**
@@ -143,7 +145,7 @@ export class MarkerController {
     private getMarkerData(bus: Bus): GoogleMapsMarkerOptions {
         return {
             position: new GoogleMapsLatLng(bus.Latitude, bus.Longitude),
-            icon: { url: this.getIconPath(bus.Timestamp), size: { width: 40, height: 47 } },
+            icon: { url: this.getIconPath(bus.Timestamp), size: { width: BusIcon.WIDTH, height: BusIcon.HEIGHT } },
             title: this.formatInfoWindow(bus),
         };
     }
