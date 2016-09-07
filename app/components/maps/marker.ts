@@ -24,7 +24,7 @@ export class MarkerController {
 
     private map: GoogleMap;
     private markers: any = {};
-    private locations: GoogleMapsLatLng[] = [];
+    private locations: GoogleMapsMarker[] = [];
     private trajectory: GoogleMapsPolyline;
 
     public constructor(map: GoogleMap) {
@@ -109,7 +109,8 @@ export class MarkerController {
      */
     private addMarker(bus: Bus, marker: GoogleMapsMarker): void {
         this.markers[bus.Order] = marker;
-        marker.getPosition().then((latLng: GoogleMapsLatLng) => this.fitBounds(latLng));
+        this.fitBounds(marker);
+        // marker.getPosition().then((latLng: GoogleMapsLatLng) => this.fitBounds(latLng));
     }
 
     /**
@@ -164,14 +165,12 @@ export class MarkerController {
     /**
      * @private
      * Fits the current position to the view and recentralize the camera
-     * @param {GoogleMapsLatLng} location - New location
+     * @param {GoogleMapsMarker} location - New marker
      * @return {void}
      */
-    private fitBounds(location: GoogleMapsLatLng): void {
+    private fitBounds(location: GoogleMapsMarker): void {
         this.locations.push(location);
-        let bounds: GoogleMapsLatLngBounds = new GoogleMapsLatLngBounds(this.locations);
-        this.map.animateCamera(bounds);
-        // this.map.animateCamera({ 'target': this.locations });
+        this.map.animateCamera({ target: this.locations });
     }
 
     /**
