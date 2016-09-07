@@ -8,6 +8,7 @@ import { Line, Itinerary } from '../../models/itinerary';
 import { ItineraryManager } from '../../managers/itinerary';
 import { Toast } from '../../core/toast';
 import { BasePage } from '../../core/page';
+import { Analytics } from '../../core/analytics';
 
 /**
  * MapPage represents the view with the map presented right after the search view.
@@ -44,6 +45,7 @@ export class MapPage extends BasePage {
         else if (this.params.data.query) {
             this.title = this.params.data.query;
         }
+        Analytics.trackView('MapPage');
     }
 
     /**
