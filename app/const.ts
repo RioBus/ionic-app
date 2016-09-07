@@ -1,3 +1,4 @@
+export const DEBUG_MODE: boolean = true;
 export const SERVER_ADDR: string = 'http://rest.riob.us';
 export const API_ENDPOINT: string = `${SERVER_ADDR}`;
 export const UPDATE_TIMEOUT: number = 5000; // millis

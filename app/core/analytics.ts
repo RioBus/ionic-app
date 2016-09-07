@@ -1,5 +1,5 @@
 import { GoogleAnalytics } from 'ionic-native';
-import { ANALYTICS_UA } from '../const';
+import { ANALYTICS_UA, DEBUG_MODE } from '../const';
 
 /**
  * Analytics driver API abstraction. 
@@ -17,7 +17,7 @@ export class Analytics {
     public static configure(): Promise<void> {
         return GoogleAnalytics.startTrackerWithId(ANALYTICS_UA)
             .then(() => GoogleAnalytics.enableUncaughtExceptionReporting(true), console.error)
-            .then(() => GoogleAnalytics.debugMode(), console.error);
+            .then(() => { if (DEBUG_MODE) GoogleAnalytics.debugMode(); }, console.error);
     }
 
     /**
