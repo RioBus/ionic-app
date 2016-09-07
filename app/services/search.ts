@@ -51,7 +51,7 @@ export class SearchService {
             this.preferences.getKey<boolean>(HIDE_OLD_BUSES_KEY)
                     .then(hideOldies =>
                         this.http.get(`${API_ENDPOINT}/v3/search/${query}`).subscribe(
-                            data => this.processBuses(data.json(), !!hideOldies)),
+                            data => resolve(this.processBuses(data.json(), !!hideOldies))),
                             error => reject(error)
                         );
         });
