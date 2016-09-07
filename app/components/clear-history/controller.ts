@@ -2,6 +2,7 @@ import { Directive, HostListener } from '@angular/core';
 import { Alert, AlertController } from 'ionic-angular';
 import { HistoryDAO } from '../../dao/history';
 import { BasePage } from '../../core/page';
+import { Analytics } from '../../core/analytics';
 
 /**
  * @export
@@ -31,6 +32,7 @@ export class ClearHistory extends BasePage {
      */
     @HostListener('click', ['$event.target'])
     public onClick(): void {
+        Analytics.trackEvent('Clear History', 'click', 'button');
         let confirm: Alert = this.ctrl.create({
             title: this.Text.COMPONENT_CLEAR_HISTORY_ALERT_TITLE,
             message: this.Text.COMPONENT_CLEAR_HISTORY_ALERT_MESSAGE,
