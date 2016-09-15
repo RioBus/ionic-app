@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.tormentaLabs.riobus.dev" version="3.3.0" android-versionCode="3000300" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Rio Bus dev</name>
+<widget id="com.tormentaLabs.riobus" version="3.3.0" android-versionCode="30003000" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Rio Bus</name>
   <description>Find your bus in realtime.</description>
   <author email="fred@riob.us" href="http://riob.us/">RioBus Team</author>
   <content src="index.html"/>
@@ -35,7 +35,7 @@
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
-  <preference name="android-minSdkVersion" value="16"/>
+  <preference name="android-minSdkVersion" value="19"/>
   <preference name="BackupWebStorage" value="none"/>
   <preference name="orientation" value="portrait"/>
   <preference name="ShowSplashScreen" value="true"/>
