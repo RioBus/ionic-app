@@ -12,7 +12,7 @@ import { PreferencesManager } from '../../managers/preferences';
 const mapConfig: any =  {
     mapType: 'MAP_TYPE_NORMAL',
     controls: { compass: true, myLocationButton: true, indoorPicker: false, zoom: false },
-    camera: { latLng: new GoogleMapsLatLng('-22.9083', '-43.1964'), zoom: 12 },
+    camera: { latLng: new GoogleMapsLatLng(-22.9083, -43.1964), zoom: 12 },
 };
 
 /**

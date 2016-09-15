@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { FavoriteButton } from '../favorite-button/controller';
 import { BasePage } from '../../core/page';
+import { Analytics } from '../../core/analytics';
 
 /**
  * Represents the <map-snackbar> HTML component.
@@ -43,6 +44,7 @@ export class MapSnackbar extends BasePage implements OnInit {
      * @return {void}
      */
     public onToggleDirection(): void {
+        Analytics.trackEvent('Toggle direction button', 'click');
         let toggle: boolean = this.swapDirection(); // Method from MapPage
         if (toggle) {
             let tmp: string = this.coming;

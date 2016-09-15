@@ -3,6 +3,7 @@ import { History } from '../../models/history';
 import { HistoryDAO } from '../../dao/history';
 import { HistoryDropdownList } from '../../components/history-dropdown-list/controller';
 import { BasePage } from '../../core/page';
+import { Analytics } from '../../core/analytics';
 
 /**
  * HistoryPage represents the view with information about the History os searches.
@@ -20,6 +21,7 @@ export class HistoryPage extends BasePage {
     public constructor() {
         super();
         this.dao = new HistoryDAO();
+        Analytics.trackView('HistoryPage');
     }
 
     /**

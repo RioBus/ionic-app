@@ -1,7 +1,8 @@
 import { Directive, HostListener } from '@angular/core';
-import { Alert, NavController } from 'ionic-angular';
+import { Alert, AlertController } from 'ionic-angular';
 import { HistoryDAO } from '../../dao/history';
 import { BasePage } from '../../core/page';
+import { Analytics } from '../../core/analytics';
 
 /**
  * @export
@@ -16,11 +17,11 @@ import { BasePage } from '../../core/page';
 export class ClearHistory extends BasePage {
 
     private dao: HistoryDAO;
-    private nav: NavController;
+    private ctrl: AlertController;
 
-    public constructor(nav: NavController) {
+    public constructor(ctrl: AlertController) {
         super();
-        this.nav = nav;
+        this.ctrl = ctrl;
         this.dao = new HistoryDAO();
     }
 
@@ -31,7 +32,8 @@ export class ClearHistory extends BasePage {
      */
     @HostListener('click', ['$event.target'])
     public onClick(): void {
-        let confirm: Alert = Alert.create({
+        Analytics.trackEvent('Clear History', 'click', 'button');
+        let confirm: Alert = this.ctrl.create({
             title: this.Text.COMPONENT_CLEAR_HISTORY_ALERT_TITLE,
             message: this.Text.COMPONENT_CLEAR_HISTORY_ALERT_MESSAGE,
             buttons: [
@@ -45,7 +47,7 @@ export class ClearHistory extends BasePage {
                 },
             ],
         });
-        this.nav.present(confirm);
+        confirm.present(confirm);
     }
 
     /**

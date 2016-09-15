@@ -8,6 +8,7 @@ import { LineManager } from '../../managers/line';
 import { FavoriteButton } from '../../components/favorite-button/controller';
 import { LineItem } from '../../components/line-item/controller';
 import { BasePage } from '../../core/page';
+import { Analytics } from '../../core/analytics';
 import { Keyboard } from 'ionic-native';
 import { FEED_SLICE_LIMIT } from '../../const';
 /**
@@ -40,6 +41,7 @@ export class SearchPage extends BasePage {
         this.manager = manager;
         this.fdao = new FavoritesDAO();
         this.hdao = new HistoryDAO();
+        Analytics.trackView('SearchPage');
     }
 
     /**
@@ -68,7 +70,7 @@ export class SearchPage extends BasePage {
      */
     public ionViewLoaded(): void {
         this.loadRecents();
-        this.loadFavorites();
+        this.loadLines();
     }
 
     /**
@@ -93,6 +95,7 @@ export class SearchPage extends BasePage {
      * @return {void}
      */
     public onSubmit(event: Event): void {
+        Analytics.trackEvent('searchbox', 'submit');
         let query: string = this.searchBox.value;
         if (query.length > 0) {
             if (this.itemsBkp.length === 0) this.itemsBkp = this.items;
@@ -116,6 +119,7 @@ export class SearchPage extends BasePage {
      * @return {void}
      */
     public showSearchBar(): void {
+        Analytics.trackEvent('searchbox', 'show');
         this.showSearchBox = true;
         setTimeout(() => {
             this.searchBox.focus();
@@ -128,6 +132,7 @@ export class SearchPage extends BasePage {
      * @return {void}
      */
     public hideSearchBar(): void {
+        Analytics.trackEvent('searchbox', 'hide');
         if (this.searchBox.value.length > 0) {
             this.searchBox.value = '';
             this.onSubmit(null);
@@ -141,17 +146,6 @@ export class SearchPage extends BasePage {
      */
     private loadRecents(): void {
         this.hdao.getLimited(2).then(histories => this.histories = histories);
-    }
-
-    /**
-     * Loads the favorite lines
-     * @return {void}
-     */
-    private loadFavorites(): void {
-        this.fdao.getAll().then((lines: Line[]) => {
-            this.favorites = lines;
-            this.loadLines();
-        });
     }
 
     /**

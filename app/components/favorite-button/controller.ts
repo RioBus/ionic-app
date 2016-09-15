@@ -1,7 +1,8 @@
-import { Button, Icon } from 'ionic-angular';
+import { Button, Icon, Events } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { FavoritesDAO } from '../../dao/favorites';
+import { Analytics } from '../../core/analytics';
 
 /**
  * Represents the <favorite-button> HTML component.
@@ -17,32 +18,31 @@ export class FavoriteButton {
 
     private line: Line;
     public size: string;
-    private favorite: boolean = false;
+    private favorites: Line[];
     private dao: FavoritesDAO;
+    private events: Events;
 
-    public constructor() {
+    private static isBusy: boolean = false;
+
+    public constructor(events: Events) {
+        this.events = events;
         this.dao = new FavoritesDAO();
+        this.favorites = [];
+        this.updateState();
+        this.events.subscribe('update:favorites', () => this.updateState());
     }
 
-    public get IsFavorite(): boolean {
-        return this.favorite;
-    }
-
-    /**
-     * It's part of Angular2 lifecycle. It runs when the view is initialized.
-     * @return {void}
-     */
-    public ngOnInit(): void {
-        this.favoriteCheck();
+    public isFavorite(): boolean {
+        return this.favorites.some(favorite => favorite.Line === this.line.Line) || false;
     }
 
     /**
      * @private
-     * Checks if the given line is favorite or not.
+     * Updates the favorite list state.
      * @return {void}
      */
-    private favoriteCheck(): void {
-        this.dao.getByLine(this.line.Line).then((line: Line) => this.favorite = !!line );
+    private updateState(): void {
+        this.dao.getAll().then(favorites => this.favorites = favorites);
     }
 
     /**
@@ -50,8 +50,11 @@ export class FavoriteButton {
      * @return {void}
      */
     public onClick(): void {
-        if (this.favorite) this.dao.remove(this.line).then((response: boolean) => this.onUnstar(response));
-        else this.dao.save(this.line).then((response: boolean) => this.onStar(response));
+        if (!FavoriteButton.isBusy) {
+            FavoriteButton.isBusy = true;
+            if (this.isFavorite()) this.dao.remove(this.line).then((response: boolean) => this.onUnstar(response));
+            else this.dao.save(this.line).then((response: boolean) => this.onStar(response));
+        }
     }
 
     /**
@@ -61,8 +64,11 @@ export class FavoriteButton {
      * @return {void}
      */
     private onStar(response: boolean): void {
-        if (response) this.favorite = true;
+        console.log('Starring...');
+        Analytics.trackEvent('Favorite button', 'star', 'add to favorites');
+        if (response) this.events.publish('update:favorites'); // Triggers 'update:favorites' event
         else console.log(`Failed to star the line '${this.line.Line}'`);
+        FavoriteButton.isBusy = false;
     }
 
     /**
@@ -72,7 +78,10 @@ export class FavoriteButton {
      * @return {void}
      */
     private onUnstar(response: boolean): void {
-        if (response) this.favorite = false;
+        console.log('Unstarring...');
+        Analytics.trackEvent('Favorite button', 'unstar', 'remove from favorites');
+        if (response) this.events.publish('update:favorites'); // Triggers 'update:favorites' event
         else console.log(`Failed to unstar the line '${this.line.Line}'`);
+        FavoriteButton.isBusy = false;
     }
 }

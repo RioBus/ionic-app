@@ -4,6 +4,7 @@ import { Line } from '../../models/itinerary';
 import { History } from '../../models/history';
 import { MapPage } from '../../pages/map/page';
 import { HistoryDAO } from '../../dao/history';
+import { Analytics } from '../../core/analytics';
 
 /**
  * Represents the <line-item> HTML component.
@@ -30,6 +31,7 @@ export class LineItem {
      * @return {void}
      */
     public onClick(): void {
+        Analytics.trackEvent('LineItem', 'click', this.line.Line);
         let history: History = new History(this.line, new Date());
         this.dao.save(history).then(saved => {
             if (saved) console.log(`Saved ${this.line.Line} to history.`);

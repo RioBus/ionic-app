@@ -1,4 +1,4 @@
-import { GoogleMap, GoogleMapsMarkerOptions, GoogleMapsMarker, GoogleMapsLatLng, GoogleMapsPolylineOptions, GoogleMapsPolyline } from 'ionic-native';
+import { GoogleMap, GoogleMapsMarkerOptions, GoogleMapsMarker, GoogleMapsLatLng, GoogleMapsPolylineOptions, GoogleMapsPolyline, GoogleMapsLatLngBounds } from 'ionic-native';
 import { ColorUtils } from '../../core/utils';
 import { Bus } from '../../models/bus';
 import { Itinerary, Spot } from '../../models/itinerary';
@@ -11,6 +11,8 @@ class BusIcon {
     public static GOOD: string = `${BusIcon.BASE}/bus_green.png`;
     public static AVG: string = `${BusIcon.BASE}/bus_yellow.png`;
     public static BAD: string = `${BusIcon.BASE}/bus_red.png`;
+    public static WIDTH: number = 36;
+    public static HEIGHT: number = 42;
 }
 
 /**
@@ -24,7 +26,7 @@ export class MarkerController {
 
     private map: GoogleMap;
     private markers: any = {};
-    private locations: GoogleMapsLatLng[] = [];
+    private locations: GoogleMapsMarker[] = [];
     private trajectory: GoogleMapsPolyline;
 
     public constructor(map: GoogleMap) {
@@ -65,7 +67,7 @@ export class MarkerController {
                 if (!spotFrom) spotFrom = spot;
                 else spotTo = spot;
             }
-            positions.push(new GoogleMapsLatLng(spot.Latitude.toString(), spot.Longitude.toString()));
+            positions.push(new GoogleMapsLatLng(spot.Latitude, spot.Longitude));
         });
 
         // Random color to set in the start/end markers and the trajectory
@@ -98,7 +100,7 @@ export class MarkerController {
      * @return {void}
      */
     private updatePosition(bus: Bus): void {
-        this.markers[bus.Order].setPosition(new GoogleMapsLatLng(bus.Latitude.toString(), bus.Longitude.toString()));
+        this.markers[bus.Order].setPosition(new GoogleMapsLatLng(bus.Latitude, bus.Longitude));
     }
 
     /**
@@ -109,7 +111,8 @@ export class MarkerController {
      */
     private addMarker(bus: Bus, marker: GoogleMapsMarker): void {
         this.markers[bus.Order] = marker;
-        marker.getPosition().then((latLng: GoogleMapsLatLng) => this.fitBounds(latLng));
+        this.fitBounds(marker);
+        // marker.getPosition().then((latLng: GoogleMapsLatLng) => this.fitBounds(latLng));
     }
 
     /**
@@ -141,8 +144,8 @@ export class MarkerController {
      */
     private getMarkerData(bus: Bus): GoogleMapsMarkerOptions {
         return {
-            position: new GoogleMapsLatLng(bus.Latitude.toString(), bus.Longitude.toString()),
-            icon: { url: this.getIconPath(bus.Timestamp), size: { width: 40, height: 47 } },
+            position: new GoogleMapsLatLng(bus.Latitude, bus.Longitude),
+            icon: { url: this.getIconPath(bus.Timestamp), size: { width: BusIcon.WIDTH, height: BusIcon.HEIGHT } },
             title: this.formatInfoWindow(bus),
         };
     }
@@ -155,7 +158,7 @@ export class MarkerController {
      * @return {GoogleMapsMarkerOptions}
      */
     private getMarkerSpotData(spot: Spot, returning: boolean, color: string): GoogleMapsMarkerOptions {
-        let obj: any = { position: new GoogleMapsLatLng(spot.Latitude.toString(), spot.Longitude.toString()) };
+        let obj: any = { position: new GoogleMapsLatLng(spot.Latitude, spot.Longitude) };
         obj.title = (!returning) ? 'PONTO INICIAL' : 'PONTO FINAL';
         obj.icon = color;
         return obj;
@@ -164,12 +167,12 @@ export class MarkerController {
     /**
      * @private
      * Fits the current position to the view and recentralize the camera
-     * @param {GoogleMapsLatLng} location - New location
+     * @param {GoogleMapsMarker} location - New marker
      * @return {void}
      */
-    private fitBounds(location: GoogleMapsLatLng): void {
+    private fitBounds(location: GoogleMapsMarker): void {
         this.locations.push(location);
-        this.map.animateCamera({ 'target': this.locations });
+        this.map.animateCamera({ target: this.locations });
     }
 
     /**
