@@ -1,5 +1,5 @@
 import { Events } from 'ionic-angular';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { FavoritesDAO } from '../../dao/favorites';
 import { Analytics } from '../../core/analytics';
@@ -11,21 +11,16 @@ import { Analytics } from '../../core/analytics';
 @Component({
     selector: 'favorite-button',
     templateUrl: 'template.html',
-    inputs: ['line', 'size'],
 })
 export class FavoriteButton {
 
-    private line: Line;
-    public size: string;
+    @Input() public line: Line;
+    @Input() public size: string;
     private favorites: Line[];
-    private dao: FavoritesDAO;
-    private events: Events;
 
     private static isBusy: boolean = false;
 
-    public constructor(events: Events) {
-        this.events = events;
-        this.dao = new FavoritesDAO();
+    public constructor(private events: Events, private dao: FavoritesDAO) {
         this.favorites = [];
         this.updateState();
         this.events.subscribe('update:favorites', () => this.updateState());

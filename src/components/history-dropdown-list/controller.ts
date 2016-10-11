@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { History } from '../../models/history';
 
 /**
@@ -8,12 +8,11 @@ import { History } from '../../models/history';
 @Component({
     selector: 'history-dropdown-list',
     templateUrl: 'template.html',
-    inputs: ['items', 'title'],
 })
 export class HistoryDropdownList {
 
-    public title: string;
-    public items: History[];
+    @Input() public title: string;
+    @Input() public items: History[];
     private show: boolean = false;
 
     /**

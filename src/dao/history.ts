@@ -1,6 +1,7 @@
 import { Line } from '../models/itinerary';
 import { History } from '../models/history';
-import { SqlStorage } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { Injectable } from '@angular/core';
 
 /**
  * HistoryDAO class is responsible for saving and retrieving
@@ -8,14 +9,12 @@ import { SqlStorage } from 'ionic-angular';
  * 
  * @class {HistoryDAO}
  */
+@Injectable()
 export class HistoryDAO {
 
     private collectionName: string = 'history';
-    private storage: SqlStorage;
 
-    public constructor() {
-        this.storage = new SqlStorage();
-    }
+    public constructor(private storage: Storage) {}
 
     /**
      * @private

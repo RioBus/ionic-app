@@ -1,9 +1,14 @@
+import {PreferencesDAO} from './dao/preferences';
+import {LinesDAO} from './dao/lines';
+import {HistoryDAO} from './dao/history';
+import {FavoritesDAO} from './dao/favorites';
 import {Toast} from './core/toast';
-import {PreferencesManager} from './managers/preferences';
-import {LineManager} from './managers/line';
+import {ItineraryDAO} from './dao/itinerary';
 import {ItineraryManager} from './managers/itinerary';
-import {SearchService} from './services/search';
+import {LineManager} from './managers/line';
+import {PreferencesManager} from './managers/preferences';
 import {ItineraryService} from './services/itinerary';
+import {SearchService} from './services/search';
 
 export const Providers: any = [
     ItineraryService,
@@ -11,5 +16,10 @@ export const Providers: any = [
     ItineraryManager,
     LineManager,
     PreferencesManager,
-    Toast
+    Toast,
+    ItineraryDAO,
+    FavoritesDAO,
+    HistoryDAO,
+    LinesDAO,
+    PreferencesDAO,
 ];

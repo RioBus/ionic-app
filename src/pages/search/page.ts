@@ -18,12 +18,6 @@ import strings from '../../strings';
 })
 export class SearchPage {
 
-    private nav: NavController;
-
-    private fdao: FavoritesDAO;
-    private hdao: HistoryDAO;
-    private manager: LineManager;
-
     private skip: number = 0;
     private itemsBkp: Line[] = [];
     private favorites: Line[] = [];
@@ -36,11 +30,7 @@ export class SearchPage {
         return strings;
     }
 
-    public constructor(nav: NavController, manager: LineManager) {
-        this.nav = nav;
-        this.manager = manager;
-        this.fdao = new FavoritesDAO();
-        this.hdao = new HistoryDAO();
+    public constructor(private nav: NavController, private manager: LineManager, private hdao: HistoryDAO, private fdao: FavoritesDAO) {
         Analytics.trackView('SearchPage');
     }
 

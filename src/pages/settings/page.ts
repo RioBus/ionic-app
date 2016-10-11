@@ -14,8 +14,6 @@ import strings from '../../strings';
 })
 export class SettingsPage {
 
-    private preferences: PreferencesManager;
-
     public version: string = '';
     public hideTrajectory: boolean;
     public hideOldBuses: boolean;
@@ -24,8 +22,7 @@ export class SettingsPage {
         return strings;
     }
 
-    public constructor(prefs: PreferencesManager) {
-        this.preferences = prefs;
+    public constructor(private preferences: PreferencesManager) {
         Analytics.trackView('SettingsPage');
     }
 

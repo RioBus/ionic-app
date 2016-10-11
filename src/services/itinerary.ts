@@ -11,11 +11,7 @@ import { Http } from '@angular/http';
 @Injectable()
 export class ItineraryService {
 
-    private http: Http;
-
-    public constructor(http: Http) {
-        this.http = http;
-    }
+    public constructor(private http: Http) {}
 
     /**
      * @private

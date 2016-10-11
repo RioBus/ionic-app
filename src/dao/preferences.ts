@@ -1,4 +1,5 @@
 import { Storage } from '@ionic/storage';
+import { Injectable } from '@angular/core';
 
 /**
  * PreferencesDAO class is responsible for accessing the memory reserved
@@ -7,14 +8,12 @@ import { Storage } from '@ionic/storage';
  * @export
  * @class {PreferencesDAO}
  */
+@Injectable()
 export class PreferencesDAO {
 
     private baseCollectionName: string = 'prefs';
-    private storage: Storage;
 
-    public constructor() {
-        this.storage = new Storage();
-    }
+    public constructor(private storage: Storage) {}
 
     /**
      * Retrieves the preference stored in the given key.

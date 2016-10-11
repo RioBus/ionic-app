@@ -12,13 +12,7 @@ import { Bus } from '../models/bus';
 @Injectable()
 export class SearchService {
 
-    private http: Http;
-    private preferences: PreferencesManager;
-
-    public constructor(http: Http, prefs: PreferencesManager) {
-        this.http = http;
-        this.preferences = prefs;
-    }
+    public constructor(private http: Http, private preferences: PreferencesManager) {}
 
     /**
      * @private

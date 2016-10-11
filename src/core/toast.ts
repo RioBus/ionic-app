@@ -11,14 +11,10 @@ declare var window: any;
 @Injectable()
 export class Toast {
 
-    private platform: Platform;
-
     public static SHORT: string = 'short';
     public static LONG: string = 'long';
 
-    public constructor(platform: Platform) {
-        this.platform = platform;
-    }
+    public constructor(private platform: Platform) {}
 
     /**
      * Shows the message over the screen

@@ -16,17 +16,11 @@ import strings from '../../strings';
 })
 export class ClearHistory {
 
-    private dao: HistoryDAO;
-    private ctrl: AlertController;
-
     public get Text(): any {
         return strings;
     }
 
-    public constructor(ctrl: AlertController) {
-        this.ctrl = ctrl;
-        this.dao = new HistoryDAO();
-    }
+    public constructor(private ctrl: AlertController, private dao: HistoryDAO) {}
 
     /**
      * Called when a HTML element with 'clear-history' directive is clicked. <br/>

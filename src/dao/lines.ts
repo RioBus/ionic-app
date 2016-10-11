@@ -1,5 +1,6 @@
 import { Line } from '../models/itinerary';
-import { SqlStorage } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { Injectable } from '@angular/core';
 
 /**
  * LinesDAO class is responsible for saving and retrieving
@@ -7,14 +8,12 @@ import { SqlStorage } from 'ionic-angular';
  * 
  * @class {LinesDAO}
  */
+@Injectable()
 export class LinesDAO {
 
     private collectionName: string = 'lines';
-    private storage: SqlStorage;
 
-    public constructor() {
-        this.storage = new SqlStorage();
-    }
+    public constructor(private storage: Storage) {}
 
     /**
      * @private

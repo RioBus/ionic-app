@@ -1,5 +1,5 @@
 import { NavController } from 'ionic-angular';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { History } from '../../models/history';
 import { MapPage } from '../../pages/map/page';
@@ -12,19 +12,18 @@ import { Analytics } from '../../core/analytics';
  */
 @Component({
     selector: 'line-item',
-    templateUrl: 'template.html',
-    inputs: ['line'],
+    template: `
+        <div (click)="onClick(line)">
+            <h2>{{ line.Line }}</h2>
+            <p>{{ line.Description }}</p>
+        </div>
+    `,
 })
 export class LineItem {
 
-    public line: Line;
-    private nav: NavController;
-    private dao: HistoryDAO;
+    @Input() public line: Line;
 
-    public constructor(nav: NavController) {
-        this.nav = nav;
-        this.dao = new HistoryDAO();
-    }
+    public constructor(private nav: NavController, private dao: HistoryDAO) {}
 
     /**
      * Handles the click event over the history content row

@@ -13,13 +13,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LineManager {
 
-    private service: ItineraryService;
-    private dao: LinesDAO;
-
-    public constructor(service: ItineraryService) {
-        this.service = service;
-        this.dao = new LinesDAO();
-    }
+    public constructor(private service: ItineraryService, private dao: LinesDAO) {}
 
     /**
      * @private

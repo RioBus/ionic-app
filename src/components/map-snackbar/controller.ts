@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { Analytics } from '../../core/analytics';
 import strings from '../../strings';
@@ -10,13 +10,12 @@ import strings from '../../strings';
 @Component({
     selector: 'map-snackbar',
     templateUrl: 'template.html',
-    inputs: ['line', 'swapDirection', 'swapable'],
 })
 export class MapSnackbar implements OnInit {
 
-    public line: Line;
-    public swapable: boolean;
-    public swapDirection: () => boolean;
+    @Input() public line: Line;
+    @Input() public swapable: boolean;
+    @Input() public swapDirection: () => boolean;
     public coming: string;
     public going: string;
     

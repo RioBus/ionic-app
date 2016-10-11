@@ -15,14 +15,12 @@ import strings from '../../strings';
 export class FavoritesPage {
 
     public items: Line[] = [];
-    private dao: FavoritesDAO;
 
     public Text(): any {
         return strings;
     }
 
-    public constructor() {
-        this.dao = new FavoritesDAO();
+    public constructor(private dao: FavoritesDAO) {
         Analytics.trackView('FavoritesPage');
     }
 

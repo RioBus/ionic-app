@@ -14,14 +14,12 @@ import strings from '../../strings';
 export class HistoryPage {
 
     private items: any = {};
-    private dao: HistoryDAO;
 
     public get Text(): any {
         return strings;
     }
 
-    public constructor() {
-        this.dao = new HistoryDAO();
+    public constructor(private dao: HistoryDAO) {
         Analytics.trackView('HistoryPage');
     }
 

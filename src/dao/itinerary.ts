@@ -1,5 +1,6 @@
 import { Itinerary, Spot, ItineraryMap } from '../models/itinerary';
-import { SqlStorage } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { Injectable } from '@angular/core';
 
 /**
  * ItineraryDAO class is responsible for saving and retrieving
@@ -7,14 +8,12 @@ import { SqlStorage } from 'ionic-angular';
  * 
  * @class {ItineraryDAO}
  */
+@Injectable()
 export class ItineraryDAO {
 
     private collectionName: string = 'itineraries';
-    private storage: SqlStorage;
 
-    public constructor() {
-        this.storage = new SqlStorage();
-    }
+    public constructor(private storage: Storage) {}
 
     /**
      * @private

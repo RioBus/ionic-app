@@ -10,11 +10,7 @@ import { PreferencesDAO } from '../dao/preferences';
 @Injectable()
 export class PreferencesManager {
 
-    private dao: PreferencesDAO;
-
-    public constructor() {
-        this.dao = new PreferencesDAO();
-    }
+    public constructor(private dao: PreferencesDAO) {}
 
     /**
      * Gets the stored preference key value 
