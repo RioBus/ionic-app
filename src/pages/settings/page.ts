@@ -31,7 +31,7 @@ export class SettingsPage {
      * to be presented.
      * @return {void}
      */
-    public ionViewLoaded(): void {
+    public ionViewDidLoad(): void {
         AppVersion.getVersionNumber().then(version => this.version = version);
         this.preferences.getKey<boolean>(HIDE_TRAJECTORY_KEY).then(value => this.hideTrajectory = !!value);
         this.preferences.getKey<boolean>(HIDE_OLD_BUSES_KEY).then(value => this.hideOldBuses = !!value);

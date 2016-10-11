@@ -53,7 +53,7 @@ export class MapPage {
      * Part of Ionic lifecycle. Runs when the view was just presented.
      * @return {void}
      */
-    public ionViewLoaded(): void {
+    public ionViewDidLoad(): void {
         this.showTrajectory();
         this.updateMarkers();
         this.timer = setInterval(() => this.updateMarkers(), UPDATE_TIMEOUT);

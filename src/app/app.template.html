@@ -3,14 +3,14 @@
   <ion-content class="outer-content">
     <div class="menu-banner">
       <div class="user-title">
-        <img src="img/riobus-white.svg">
+        <img src="assets/img/riobus-white.svg">
         <h2>{{ Text.MENU_TITLE }}</h2>
       </div>
     </div>
     <ion-list no-lines>
       <button ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon [name]="p.icon" item-left></ion-icon>
-        <span>{{ p.title }}</span>
+        <span color="gray">{{ p.title }}</span>
       </button>
     </ion-list>
   </ion-content>

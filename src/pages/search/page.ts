@@ -58,7 +58,7 @@ export class SearchPage {
      * Part of Ionic lifecycle. Runs when the view was just presented.
      * @return {void}
      */
-    public ionViewLoaded(): void {
+    public ionViewDidLoad(): void {
         this.loadRecents();
         this.loadLines();
     }

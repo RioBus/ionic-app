@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-navbar primary>
-    <button menuToggle>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
     </button>
 
@@ -16,13 +16,13 @@
     <ion-title class="{{ showSearchBox? 'hidden':'' }}">{{ Text.APP_TITLE }}</ion-title>
     
     <ion-buttons end (click)="showSearchBar()" class="{{ showSearchBox? 'hidden':'' }}">
-        <button>
+        <button ion-button>
             <ion-icon name="search"></ion-icon>
         </button>
     </ion-buttons>
     
     <ion-buttons end (click)="hideSearchBar()" class="{{ showSearchBox? '':'hidden' }}">
-        <button>
+        <button ion-button>
             <ion-icon name="close"></ion-icon>
         </button>
     </ion-buttons>
