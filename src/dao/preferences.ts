@@ -1,4 +1,4 @@
-import { SqlStorage } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 /**
  * PreferencesDAO class is responsible for accessing the memory reserved
@@ -10,10 +10,10 @@ import { SqlStorage } from 'ionic-angular';
 export class PreferencesDAO {
 
     private baseCollectionName: string = 'prefs';
-    private storage: SqlStorage;
+    private storage: Storage;
 
     public constructor() {
-        this.storage = new SqlStorage();
+        this.storage = new Storage();
     }
 
     /**

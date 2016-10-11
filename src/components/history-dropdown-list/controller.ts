@@ -1,7 +1,5 @@
-import { Button, Icon, List, Item } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { History } from '../../models/history';
-import { LineItem } from '../line-item/controller';
 
 /**
  * Represents the <history-dropdown-list> HTML component.
@@ -9,9 +7,8 @@ import { LineItem } from '../line-item/controller';
  */
 @Component({
     selector: 'history-dropdown-list',
-    templateUrl: 'build/components/history-dropdown-list/template.html',
+    templateUrl: 'template.html',
     inputs: ['items', 'title'],
-    directives: [Button, Icon, Item, List, LineItem],
 })
 export class HistoryDropdownList {
 

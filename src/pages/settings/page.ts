@@ -10,7 +10,7 @@ import strings from '../../strings';
  * @class {SettingsPage}
  */
 @Component({
-    templateUrl: 'build/pages/settings/template.html',
+    templateUrl: 'template.html',
 })
 export class SettingsPage {
 

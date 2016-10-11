@@ -14,7 +14,7 @@ import strings from '../../strings';
  * @class {SearchPage}
  */
 @Component({
-    templateUrl: 'build/pages/search/template.html',
+    templateUrl: 'template.html',
 })
 export class SearchPage {
 

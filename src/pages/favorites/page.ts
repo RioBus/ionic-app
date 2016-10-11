@@ -10,7 +10,7 @@ import strings from '../../strings';
  * @class {FavoritesPage}
  */
 @Component({
-    templateUrl: 'build/pages/favorites/template.html',
+    templateUrl: 'template.html',
 })
 export class FavoritesPage {
 

@@ -9,7 +9,7 @@ import strings from '../../strings';
  * @class {HistoryPage}
  */
 @Component({
-    templateUrl: 'build/pages/history/template.html',
+    templateUrl: 'template.html',
 })
 export class HistoryPage {
 

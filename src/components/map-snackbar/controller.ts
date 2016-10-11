@@ -1,9 +1,7 @@
-import { Button } from 'ionic-angular';
 import { Component, OnInit } from '@angular/core';
 import { Line } from '../../models/itinerary';
-import { FavoriteButton } from '../favorite-button/controller';
-import { BasePage } from '../../core/page';
 import { Analytics } from '../../core/analytics';
+import strings from '../../strings';
 
 /**
  * Represents the <map-snackbar> HTML component.
@@ -11,20 +9,19 @@ import { Analytics } from '../../core/analytics';
  */
 @Component({
     selector: 'map-snackbar',
-    templateUrl: 'build/components/map-snackbar/template.html',
+    templateUrl: 'template.html',
     inputs: ['line', 'swapDirection', 'swapable'],
-    directives: [Button, FavoriteButton],
 })
-export class MapSnackbar extends BasePage implements OnInit {
+export class MapSnackbar implements OnInit {
 
     public line: Line;
     public swapable: boolean;
     public swapDirection: () => boolean;
     public coming: string;
     public going: string;
-
-    public constructor() {
-        super();
+    
+    public get Text(): any {
+        return strings;
     }
 
     /**

@@ -1,4 +1,4 @@
-import { Button, Icon, Events } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { FavoritesDAO } from '../../dao/favorites';
@@ -10,9 +10,8 @@ import { Analytics } from '../../core/analytics';
  */
 @Component({
     selector: 'favorite-button',
-    templateUrl: 'build/components/favorite-button/template.html',
+    templateUrl: 'template.html',
     inputs: ['line', 'size'],
-    directives: [Button, Icon],
 })
 export class FavoriteButton {
 

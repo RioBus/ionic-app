@@ -1,4 +1,4 @@
-import { GoogleMap, GoogleMapsMarkerOptions, GoogleMapsMarker, GoogleMapsLatLng, GoogleMapsPolylineOptions, GoogleMapsPolyline, GoogleMapsLatLngBounds } from 'ionic-native';
+import { GoogleMap, GoogleMapsMarkerOptions, GoogleMapsMarker, GoogleMapsLatLng, GoogleMapsPolylineOptions, GoogleMapsPolyline } from 'ionic-native';
 import { ColorUtils } from '../../core/utils';
 import { Bus } from '../../models/bus';
 import { Itinerary, Spot } from '../../models/itinerary';

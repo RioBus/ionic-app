@@ -14,7 +14,7 @@ import strings from '../../strings';
  * @class {MapPage}
  */
 @Component({
-    templateUrl: 'build/pages/map/template.html',
+    templateUrl: 'template.html',
     providers: [Toast],
 })
 export class MapPage {

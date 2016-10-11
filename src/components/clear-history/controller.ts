@@ -1,8 +1,8 @@
 import { Directive, HostListener } from '@angular/core';
 import { Alert, AlertController } from 'ionic-angular';
 import { HistoryDAO } from '../../dao/history';
-import { BasePage } from '../../core/page';
 import { Analytics } from '../../core/analytics';
+import strings from '../../strings';
 
 /**
  * @export
@@ -14,13 +14,16 @@ import { Analytics } from '../../core/analytics';
 @Directive({
     selector: '[clear-history]',
 })
-export class ClearHistory extends BasePage {
+export class ClearHistory {
 
     private dao: HistoryDAO;
     private ctrl: AlertController;
 
+    public get Text(): any {
+        return strings;
+    }
+
     public constructor(ctrl: AlertController) {
-        super();
         this.ctrl = ctrl;
         this.dao = new HistoryDAO();
     }

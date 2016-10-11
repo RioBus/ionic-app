@@ -7,7 +7,7 @@ import strings from '../../strings';
  * @class {AboutPage}
  */
 @Component({
-    templateUrl: 'build/pages/about/template.html',
+    templateUrl: 'template.html',
 })
 export class AboutPage {
 

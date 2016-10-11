@@ -1,7 +1,6 @@
 import { HIDE_TRAJECTORY_KEY, ENABLE_SWAP_DIRECTION } from '../../const';
 import { GoogleMap, GoogleMapsEvent, GoogleMapsLatLng } from 'ionic-native';
 import { Platform } from 'ionic-angular';
-import { MapSnackbar } from '../map-snackbar/controller';
 import { Component, OnChanges, OnDestroy } from '@angular/core';
 import { Bus } from '../../models/bus';
 import { Line, Itinerary } from '../../models/itinerary';
@@ -21,9 +20,8 @@ const mapConfig: any =  {
  */
 @Component({
     selector: 'google-maps',
-    templateUrl: 'build/components/maps/template.html',
+    templateUrl: 'template.html',
     inputs: ['markers', 'line', 'trajectory'],
-    directives: [MapSnackbar],
 })
 export class GoogleMapsComponent implements OnChanges, OnDestroy {
 

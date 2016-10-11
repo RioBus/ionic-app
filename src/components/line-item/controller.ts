@@ -12,7 +12,7 @@ import { Analytics } from '../../core/analytics';
  */
 @Component({
     selector: 'line-item',
-    templateUrl: 'build/components/line-item/template.html',
+    templateUrl: 'template.html',
     inputs: ['line'],
 })
 export class LineItem {
