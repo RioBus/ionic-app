@@ -57,3 +57,11 @@ ion-menu ion-list {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+
+ion-buttons button {
+  background: none !important;
+}
+
+ion-buttons button ion-icon {
+  color: #FFF !important;
+}
