@@ -4,25 +4,22 @@
         <ion-icon name="menu"></ion-icon>
     </button>
 
-    <ion-title class="{{ showSearchBox? '':'hidden' }}">
-        <form (submit)="onSubmit($event)">
+    <ion-title>
+        <form (submit)="onSubmit($event)" class="{{ showSearchBox? '':'hidden' }}">
             <ion-input
                 id="searchbox"
                 type="search"
                 placeholder="{{ Text.PAGE_SEARCH_INPUT }}">
             </ion-input>
         </form>
+        <span class="{{ showSearchBox? 'hidden':'' }}">{{ Text.APP_TITLE }}</span>
     </ion-title>
-    <ion-title class="{{ showSearchBox? 'hidden':'' }}">{{ Text.APP_TITLE }}</ion-title>
     
-    <ion-buttons end (click)="showSearchBar()" class="{{ showSearchBox? 'hidden':'' }}">
-        <button ion-button icon-only>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="showSearchBar()" class="{{ showSearchBox? 'hidden':'' }}">
             <ion-icon name="search"></ion-icon>
         </button>
-    </ion-buttons>
-    
-    <ion-buttons end (click)="hideSearchBar()" class="{{ showSearchBox? '':'hidden' }}">
-        <button ion-button icon-only>
+        <button ion-button icon-only (click)="hideSearchBar()" class="{{ showSearchBox? '':'hidden' }}">
             <ion-icon name="close"></ion-icon>
         </button>
     </ion-buttons>
