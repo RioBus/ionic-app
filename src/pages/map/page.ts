@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 import { UPDATE_TIMEOUT } from '../../const';
-import { GoogleMapsComponent } from '../../components/maps/controller';
 import { SearchService } from '../../services/search';
 import { Bus } from '../../models/bus';
 import { Line, Itinerary } from '../../models/itinerary';
 import { ItineraryManager } from '../../managers/itinerary';
 import { Toast } from '../../core/toast';
-import { BasePage } from '../../core/page';
 import { Analytics } from '../../core/analytics';
+import strings from '../../strings';
 
 /**
  * MapPage represents the view with the map presented right after the search view.
@@ -16,10 +15,9 @@ import { Analytics } from '../../core/analytics';
  */
 @Component({
     templateUrl: 'build/pages/map/template.html',
-    directives: [GoogleMapsComponent],
     providers: [Toast],
 })
-export class MapPage extends BasePage {
+export class MapPage {
 
     private params: NavParams;
     private service: SearchService;
@@ -31,8 +29,11 @@ export class MapPage extends BasePage {
     public trajectory: Itinerary;
     public title: string = '';
 
+    public get Text(): any {
+        return strings;
+    }
+
     public constructor(params: NavParams, service: SearchService, manager: ItineraryManager, toast: Toast) {
-        super();
         this.params = params;
         this.service = service;
         this.manager = manager;

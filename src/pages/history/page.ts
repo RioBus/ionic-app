@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { History } from '../../models/history';
 import { HistoryDAO } from '../../dao/history';
-import { HistoryDropdownList } from '../../components/history-dropdown-list/controller';
-import { BasePage } from '../../core/page';
 import { Analytics } from '../../core/analytics';
+import strings from '../../strings';
 
 /**
  * HistoryPage represents the view with information about the History os searches.
@@ -11,15 +10,17 @@ import { Analytics } from '../../core/analytics';
  */
 @Component({
     templateUrl: 'build/pages/history/template.html',
-    directives: [HistoryDropdownList],
 })
-export class HistoryPage extends BasePage {
+export class HistoryPage {
 
     private items: any = {};
     private dao: HistoryDAO;
 
+    public get Text(): any {
+        return strings;
+    }
+
     public constructor() {
-        super();
         this.dao = new HistoryDAO();
         Analytics.trackView('HistoryPage');
     }

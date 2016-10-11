@@ -5,21 +5,18 @@ import { History } from '../../models/history';
 import { FavoritesDAO } from '../../dao/favorites';
 import { HistoryDAO } from '../../dao/history';
 import { LineManager } from '../../managers/line';
-import { FavoriteButton } from '../../components/favorite-button/controller';
-import { LineItem } from '../../components/line-item/controller';
-import { BasePage } from '../../core/page';
 import { Analytics } from '../../core/analytics';
 import { Keyboard } from 'ionic-native';
 import { FEED_SLICE_LIMIT } from '../../const';
+import strings from '../../strings';
 /**
  * SearchPage represents the search view in the app.
  * @class {SearchPage}
  */
 @Component({
     templateUrl: 'build/pages/search/template.html',
-    directives: [FavoriteButton, LineItem],
 })
-export class SearchPage extends BasePage {
+export class SearchPage {
 
     private nav: NavController;
 
@@ -35,8 +32,11 @@ export class SearchPage extends BasePage {
 
     public showSearchBox: boolean = false;
 
+    public get Text(): any {
+        return strings;
+    }
+
     public constructor(nav: NavController, manager: LineManager) {
-        super();
         this.nav = nav;
         this.manager = manager;
         this.fdao = new FavoritesDAO();

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BasePage } from '../../core/page';
 import { Analytics } from '../../core/analytics';
+import strings from '../../strings';
 
 /**
  * AboutPage represents the view with information about the app.
@@ -8,16 +8,14 @@ import { Analytics } from '../../core/analytics';
  */
 @Component({
     templateUrl: 'build/pages/about/template.html',
-    directives: [],
 })
-export class AboutPage extends BasePage {
+export class AboutPage {
 
-    public constructor() {
-        super();
-        Analytics.trackView('AboutPage');
+    public get Text(): any {
+        return strings;
     }
 
-    public get PageContent(): string {
-        return this.Text.PAGE_ABOUT_CONTENT || '';
+    public constructor() {
+        Analytics.trackView('AboutPage');
     }
 }

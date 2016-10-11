@@ -1,10 +1,9 @@
 import { HIDE_OLD_BUSES_KEY, HIDE_TRAJECTORY_KEY } from '../../const';
 import { PreferencesManager } from '../../managers/preferences';
-import { ClearHistory } from '../../components/clear-history/controller';
 import { AppVersion } from 'ionic-native';
 import { Component } from '@angular/core';
-import { BasePage } from '../../core/page';
 import { Analytics } from '../../core/analytics';
+import strings from '../../strings';
 
 /**
  * SettingsPage represents the view with app's configurations.
@@ -12,9 +11,8 @@ import { Analytics } from '../../core/analytics';
  */
 @Component({
     templateUrl: 'build/pages/settings/template.html',
-    directives: [ClearHistory],
 })
-export class SettingsPage extends BasePage {
+export class SettingsPage {
 
     private preferences: PreferencesManager;
 
@@ -22,8 +20,11 @@ export class SettingsPage extends BasePage {
     public hideTrajectory: boolean;
     public hideOldBuses: boolean;
 
+    public get Text(): any {
+        return strings;
+    }
+
     public constructor(prefs: PreferencesManager) {
-        super();
         this.preferences = prefs;
         Analytics.trackView('SettingsPage');
     }

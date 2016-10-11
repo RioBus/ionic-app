@@ -5,7 +5,6 @@ import {ItineraryManager} from './managers/itinerary';
 import {SearchService} from './services/search';
 import {ItineraryService} from './services/itinerary';
 
-
 export const Providers: any = [
     ItineraryService,
     SearchService,

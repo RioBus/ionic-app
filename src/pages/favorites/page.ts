@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { Line } from '../../models/itinerary';
 import { FavoritesDAO } from '../../dao/favorites';
-import { FavoriteButton } from '../../components/favorite-button/controller';
-import { LineItem } from '../../components/line-item/controller';
-import { BasePage } from '../../core/page';
 import { Analytics } from '../../core/analytics';
+import strings from '../../strings';
 
 /**
  * FavoritesPage class represents the view which displays information
@@ -13,15 +11,17 @@ import { Analytics } from '../../core/analytics';
  */
 @Component({
     templateUrl: 'build/pages/favorites/template.html',
-    directives: [FavoriteButton, LineItem],
 })
-export class FavoritesPage extends BasePage {
+export class FavoritesPage {
 
     public items: Line[] = [];
     private dao: FavoritesDAO;
 
+    public Text(): any {
+        return strings;
+    }
+
     public constructor() {
-        super();
         this.dao = new FavoritesDAO();
         Analytics.trackView('FavoritesPage');
     }

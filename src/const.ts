@@ -6,7 +6,6 @@ export const ANALYTICS_UA: string = 'UA-49628280-2';
 export const URL_PLAY_STORE: string = 'market://details?id=com.tormentaLabs.riobus';
 export const URL_FB_PAGE: string = 'fb://page/1408367169433222';
 export const ENABLE_SWAP_DIRECTION: boolean = false;
-export const LANG_AVAILABLE: string[] = ['pt-BR', 'en-US'];
 export const LANG_DEFAULT: string = 'en-US';
 export const FEEDBACK_MAIL: string = 'fred+androidfeedback@riob.us';
 export const FEEDBACK_SUBJECT: string = 'Vamos falar sobre o app';
