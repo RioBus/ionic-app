@@ -16,7 +16,7 @@ export class FavoritesPage {
 
     public items: Line[] = [];
 
-    public Text(): any {
+    public get Text(): any {
         return strings;
     }
 
