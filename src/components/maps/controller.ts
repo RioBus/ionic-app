@@ -26,11 +26,11 @@ const mapConfig: any =  {
 export class GoogleMapsComponent implements OnChanges, OnDestroy {
 
     private map: GoogleMap;
-    private markers: Bus[];
-    private trajectory: Itinerary;
     private mcontrol: MarkerController;
     private swap: boolean = false;
     private static instance: GoogleMapsComponent;
+    public markers: Bus[];
+    public trajectory: Itinerary;
     public line: Line;
     public swapable: boolean = ENABLE_SWAP_DIRECTION;
     public preferences: PreferencesManager;
