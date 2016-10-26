@@ -35,7 +35,7 @@
                 <ion-icon clear item-right name="time"></ion-icon>
             </ion-item>
         </ion-item-group>
-        <ion-item-group *ngIf="!(items.length===0 && searchbox && searchbox.value.length>0)">
+        <ion-item-group *ngIf="!(items.length===0 && searchBox && searchBox.value.length>0)">
             <ion-item-divider light>{{ Text.PAGE_SEARCH_AVAILABLE }}</ion-item-divider>
             <ion-item *ngFor="let item of items">
                 <line-item [line]="item"></line-item>
