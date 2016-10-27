@@ -13,7 +13,7 @@ import { Analytics } from '../../core/analytics';
 @Component({
     selector: 'line-item',
     template: `
-        <div (click)="onClick(line)">
+        <div (click)="onClick()">
             <h2>{{ line.Line }}</h2>
             <p>{{ line.Description }}</p>
         </div>
