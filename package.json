@@ -65,12 +65,13 @@
   },
   "cordovaPlugins": [
     "cordova-plugin-app-version",
-    "cordova-plugin-device",
     "cordova-plugin-console",
-    "cordova-plugin-whitelist",
+    "cordova-plugin-device",
+    "cordova-plugin-globalization",
+    "cordova-plugin-google-analytics",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
-    "cordova-plugin-globalization",
+    "cordova-plugin-whitelist",
     "cordova-plugin-x-toast",
     "ionic-plugin-keyboard",
     {
