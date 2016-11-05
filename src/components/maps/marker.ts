@@ -7,7 +7,7 @@ import { Itinerary, Spot } from '../../models/itinerary';
  * Bus icon paths
  */
 class BusIcon {
-    private static BASE: string = 'www/img';
+    private static BASE: string = 'www/assets/img';
     public static GOOD: string = `${BusIcon.BASE}/bus_green.png`;
     public static AVG: string = `${BusIcon.BASE}/bus_yellow.png`;
     public static BAD: string = `${BusIcon.BASE}/bus_red.png`;
@@ -221,7 +221,7 @@ export class MarkerController {
     private formatInfoWindow(bus: Bus): string {
         return `
             ${bus.Order} (${bus.Line})
-            Velocidade: ${bus.Speed} Km/h
+            Velocidade: ${bus.Speed.toFixed(0)} Km/h
             Direção: ${bus.Direction}
             Atualizado há ${this.prepareTimestamp(bus.Timestamp)}
         `;
