@@ -1,0 +1,11 @@
+<button ion-button clear small (click)="onClick()" *ngIf="size==='small'">
+    <ion-icon color="golden" name="{{ isFavorite() ? 'star' : 'star-outline' }}"></ion-icon>
+</button>
+
+<button ion-button clear medium (click)="onClick()" *ngIf="size==='medium'">
+    <ion-icon color="golden" name="{{ isFavorite() ? 'star' : 'star-outline' }}"></ion-icon>
+</button>
+
+<button ion-button clear large (click)="onClick()" *ngIf="!size || size==='large'">
+    <ion-icon color="golden" name="{{ isFavorite() ? 'star' : 'star-outline' }}"></ion-icon>
+</button>

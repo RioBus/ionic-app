@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ Text.PAGE_HISTORY_TITLE }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="history" id="history-view">
+    <ion-list>
+        <history-dropdown-list *ngFor="let day of Days" [title]="day" [items]="getByDay(day)"></history-dropdown-list>
+    </ion-list>
+</ion-content>

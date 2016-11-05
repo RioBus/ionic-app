@@ -1,0 +1,41 @@
+{
+  "project": {
+    "version": "1.0.0",
+    "name": "ionic2-seed"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "www",
+      "assets": "assets",
+      "index": "index.html",
+      "main": "app/main.dev.ts",
+      "test": "app/test.ts",
+      "tsconfig": "tsconfig.json",
+      "prefix": "app",
+      "mobile": true,
+      "scripts": [],
+      "environments": {
+        "source": "environments/environment.ts",
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "addons": [],
+  "packages": [],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "prefixInterfaces": false
+  }
+}

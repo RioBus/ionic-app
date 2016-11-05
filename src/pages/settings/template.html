@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ Text.PAGE_SETTINGS_TITLE }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="settings">
+  <ion-list>
+    <ion-list-header>{{ Text.PAGE_SETTINGS_HEADER_GENERAL }}</ion-list-header>
+    <ion-item>
+      <ion-label>{{ Text.PAGE_SETTINGS_TRAJECTORY }}</ion-label>
+      <ion-toggle [(ngModel)]="hideTrajectory" (ionChange)="onHideTrajectoryChange()" item-right></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{ Text.PAGE_SETTINGS_BUSES }}</ion-label>
+      <ion-toggle [(ngModel)]="hideOldBuses" (ionChange)="onHideOldBusesChange()" item-right></ion-toggle>
+    </ion-item>
+    <ion-item clear-history>{{ Text.PAGE_SETTINGS_HISTORY }}</ion-item>
+
+    <ion-list-header>{{ Text.PAGE_SETTINGS_HEADER_INFO }}</ion-list-header>
+    <ion-item>
+      <h2>{{ Text.PAGE_SETTINGS_VERSION }}</h2>
+      <h3>{{ version }}</h3>
+    </ion-item>
+  </ion-list>
+</ion-content>
