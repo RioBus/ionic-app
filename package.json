@@ -36,18 +36,18 @@
     "@angular/platform-browser-dynamic": "2.1.1",
     "@angular/platform-server": "2.1.1",
     "@ionic/storage": "1.1.6",
-    "ionic-angular": "2.0.0-rc.2",
-    "ionic-native": "2.2.3",
+    "ionic-angular": "2.0.0-rc.3",
+    "ionic-native": "2.2.6",
     "ionicons": "3.0.0",
     "rxjs": "5.0.0-beta.12",
-    "zone.js": "0.6.21"
+    "zone.js": "0.6.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "0.0.39",
-    "@types/jasmine": "2.5.37",
-    "@types/node": "6.0.46",
-    "angular-cli": "^1.0.0-beta.19-3",
-    "codelyzer": "1.0.0-beta.3",
+    "@ionic/app-scripts": "0.0.45",
+    "@types/jasmine": "2.5.38",
+    "@types/node": "6.0.48",
+    "angular-cli": "^1.0.0-beta.20-4",
+    "codelyzer": "1.0.0-beta.4",
     "core-js": "2.4.1",
     "jasmine-core": "2.5.2",
     "jasmine-spec-reporter": "2.7.0",
@@ -58,11 +58,11 @@
     "karma-phantomjs-launcher": "1.0.2",
     "karma-remap-istanbul": "0.2.1",
     "protractor": "4.0.10",
-    "systemjs": "0.19.40",
+    "systemjs": "0.19.41",
     "ts-helpers": "1.1.2",
-    "ts-node": "1.6.1",
+    "ts-node": "1.7.0",
     "tslint": "3.15.1",
-    "typescript": "2.0.3"
+    "typescript": "2.0.10"
   },
   "cordovaPlugins": [
     "cordova-plugin-app-version",
