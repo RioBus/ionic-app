@@ -1,7 +1,7 @@
 import {Application} from './app.component';
-import {NgModule} from '@angular/core';
+import {NgModule, ErrorHandler} from '@angular/core';
 import {Storage} from '@ionic/storage';
-import {IonicApp, IonicModule} from 'ionic-angular';
+import {IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import {Components} from '../components';
 import {Providers} from '../providers';
 
@@ -11,6 +11,7 @@ const COMPONENTS: any = [
 ];
 
 const PROVIDERS: any = [
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
     Storage,
     ...Providers
 ];
