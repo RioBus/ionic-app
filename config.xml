@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.tormentaLabs.riobus" version="3.3.0" android-versionCode="30003000" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="30003000" id="com.tormentaLabs.riobus" version="3.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Rio Bus</name>
   <description>Find your bus in realtime.</description>
   <author email="fred@riob.us" href="http://riob.us/">RioBus Team</author>
@@ -19,12 +19,12 @@
     <icon density="xhdpi" src="resources/android/icon/ic_launcher-xhdpi.png"/>
     <icon density="xxhdpi" src="resources/android/icon/ic_launcher-xxhdpi.png"/>
     <icon density="xxxhdpi" src="resources/android/icon/ic_launcher-xxxhdpi.png"/>
-    <splash src="resources/android/splash/drawable-port-ldpi-screen.png" density="port-ldpi"/>
-    <splash src="resources/android/splash/drawable-port-mdpi-screen.png" density="port-mdpi"/>
-    <splash src="resources/android/splash/drawable-port-hdpi-screen.png" density="port-hdpi"/>
-    <splash src="resources/android/splash/drawable-port-xhdpi-screen.png" density="port-xhdpi"/>
-    <splash src="resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
-    <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
+    <splash density="port-ldpi" src="resources/android/splash/drawable-port-ldpi-screen.png"/>
+    <splash density="port-mdpi" src="resources/android/splash/drawable-port-mdpi-screen.png"/>
+    <splash density="port-hdpi" src="resources/android/splash/drawable-port-hdpi-screen.png"/>
+    <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png"/>
+    <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png"/>
+    <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png"/>
   </platform>
   <platform name="ios">
     <allow-intent href="itms:*"/>
@@ -52,10 +52,11 @@
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>
-  <plugin name="cordova-plugin-device" spec="~1.1.2"/>
-  <plugin name="cordova-plugin-console" spec="~1.0.3"/>
-  <plugin name="cordova-plugin-whitelist" spec="~1.2.2"/>
-  <plugin name="cordova-plugin-splashscreen" spec="~3.2.2"/>
   <plugin name="cordova-plugin-statusbar" spec="~2.1.3"/>
   <plugin name="ionic-plugin-keyboard" spec="~2.2.1"/>
+  <plugin name="cordova-plugin-console" spec="~1.0.4"/>
+  <plugin name="cordova-plugin-splashscreen" spec="~3.2.2"/>
+  <plugin name="cordova-plugin-whitelist" spec="~1.2.2"/>
+  <plugin name="cordova-plugin-device" spec="~1.1.3"/>
+  <allow-navigation href="http://192.168.1.2:8100"/>
 </widget>

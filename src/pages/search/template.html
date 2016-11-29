@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+        <form (submit)="onSubmit($event)" class="{{ showSearchBox? '':'hidden' }}">
+            <ion-input
+                id="searchbox"
+                type="search"
+                placeholder="{{ Text.PAGE_SEARCH_INPUT }}">
+            </ion-input>
+        </form>
+        <span class="{{ showSearchBox? 'hidden':'' }}">{{ Text.APP_TITLE }}</span>
+    </ion-title>
+    
+    <ion-buttons end>
+        <button ion-button icon-only (click)="showSearchBar()" class="{{ showSearchBox? 'hidden':'' }}">
+            <ion-icon name="search"></ion-icon>
+        </button>
+        <button ion-button icon-only (click)="hideSearchBar()" class="{{ showSearchBox? '':'hidden' }}">
+            <ion-icon name="close"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="search" id="search-view">
+    <ion-list>
+        <ion-item-group *ngIf="histories.length>0 && !showSearchBox">
+            <ion-item-divider>{{ Text.PAGE_SEARCH_RECENTS }}</ion-item-divider>
+            <ion-item *ngFor="let history of histories">
+                <line-item [line]="history.Line"></line-item>
+                <ion-icon clear item-right name="time"></ion-icon>
+            </ion-item>
+        </ion-item-group>
+        <ion-item-group *ngIf="!(items.length===0 && searchBox && searchBox.value.length>0)">
+            <ion-item-divider>{{ Text.PAGE_SEARCH_AVAILABLE }}</ion-item-divider>
+            <ion-item *ngFor="let item of items">
+                <line-item [line]="item"></line-item>
+                <favorite-button item-right [line]="item"></favorite-button>
+            </ion-item>
+        </ion-item-group>
+    </ion-list>
+
+    <ion-infinite-scroll (ionInfinite)="loadLines($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
