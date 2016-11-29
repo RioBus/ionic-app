@@ -16,9 +16,9 @@
     "pree2e": "webdriver-manager update",
     "e2e": "protractor",
     "start": "ionic serve",
-    "android": "ionic run android --livereload",
-    "ios": "ionic run ios --livereload",
-    "browser": "ionic run browser --livereload"
+    "android": "ionic run android -lc",
+    "ios": "ionic run ios -lc",
+    "browser": "ionic run browser -lc"
   },
   "repository": {
     "type": "git",
@@ -26,24 +26,24 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@angular/common": "2.1.1",
-    "@angular/compiler": "2.1.1",
-    "@angular/compiler-cli": "2.1.1",
-    "@angular/core": "2.1.1",
-    "@angular/forms": "2.1.1",
-    "@angular/http": "2.1.1",
-    "@angular/platform-browser": "2.1.1",
-    "@angular/platform-browser-dynamic": "2.1.1",
-    "@angular/platform-server": "2.1.1",
+    "@angular/common": "2.2.1",
+    "@angular/compiler": "2.2.1",
+    "@angular/compiler-cli": "2.2.1",
+    "@angular/core": "2.2.1",
+    "@angular/forms": "2.2.1",
+    "@angular/http": "2.2.1",
+    "@angular/platform-browser": "2.2.1",
+    "@angular/platform-browser-dynamic": "2.2.1",
+    "@angular/platform-server": "2.2.1",
     "@ionic/storage": "1.1.6",
-    "ionic-angular": "2.0.0-rc.3",
+    "ionic-angular": "2.0.0-rc.3-201611211919",
     "ionic-native": "2.2.6",
     "ionicons": "3.0.0",
     "rxjs": "5.0.0-beta.12",
     "zone.js": "0.6.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "0.0.45",
+    "@ionic/app-scripts": "0.0.46",
     "@types/jasmine": "2.5.38",
     "@types/node": "6.0.48",
     "angular-cli": "^1.0.0-beta.20-4",
@@ -62,7 +62,11 @@
     "ts-helpers": "1.1.2",
     "ts-node": "1.7.0",
     "tslint": "3.15.1",
-    "typescript": "2.0.10"
+    "typescript": "2.0.10",
+    "webpack-bundle-analyzer": "1.5.3"
+  },
+  "config": {
+    "ionic_bundler": "webpack"
   },
   "cordovaPlugins": [
     "cordova-plugin-app-version",
