@@ -67,4 +67,4 @@ Issues and PRs are welcome, see the [issues list](https://github.com/riobus/ioni
 
 ## Acknowledges
 
-* This project started from [@fmosuza's ionic2 seed](https://github.com/fmsouza/ionic2-seed)
+* This project started from [@fmsouza's ionic2 seed](https://github.com/fmsouza/ionic2-seed)
